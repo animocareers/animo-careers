@@ -1,3 +1,4 @@
+import { LogIn, UserPlus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { Button } from "@/components/ui/button";
@@ -42,12 +43,22 @@ export async function Header() {
             variant="ghost"
             nativeButton={false}
             className="rounded-full"
-            render={<Link href="/login">{t("login")}</Link>}
+            render={
+              <Link href="/login">
+                <LogIn />
+                {t("login")}
+              </Link>
+            }
           />
           <Button
             nativeButton={false}
             className="rounded-full bg-gradient-primary shadow-button"
-            render={<Link href="/register">{t("register")}</Link>}
+            render={
+              <Link href="/register">
+                <UserPlus />
+                {t("register")}
+              </Link>
+            }
           />
           <div className="ml-2 flex items-center gap-1">
             <LocaleSwitcher />
