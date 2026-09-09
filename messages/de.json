@@ -2,18 +2,540 @@
   "Metadata": {
     "title": "Animo Careers"
   },
-  "HomePage": {
-    "title": "Animo Careers"
+  "Nav": {
+    "schueler": "Schüler:innen",
+    "unternehmen": "Unternehmen",
+    "schulen": "Schulen",
+    "partner": "Partner",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "menuLabel": "Menü"
   },
-  "LocaleSwitcher": {
-    "label": "Sprache",
-    "en": "Englisch",
-    "de": "Deutsch"
+  "Footer": {
+    "tagline": "Berufsorientierung, die wirklich weiterbringt – für Schüler:innen, Schulen, Unternehmen und Partner.",
+    "forWhomHeading": "Für wen",
+    "ueberUns": "Über uns",
+    "journey": "Beratung mit Helena",
+    "legalHeading": "Rechtliches",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz",
+    "agb": "AGB",
+    "widerrufsbelehrung": "Widerrufsbelehrung",
+    "copyright": "© 2026 animo. Alle Rechte vorbehalten."
   },
   "ThemeToggle": {
     "label": "Design",
     "light": "Hell",
     "dark": "Dunkel",
     "system": "System"
+  },
+  "LocaleSwitcher": {
+    "label": "Sprache",
+    "en": "Englisch",
+    "de": "Deutsch"
+  },
+  "HomePage": {
+    "metaTitle": "animo – Berufsorientierung neu gedacht",
+    "metaDescription": "animo verbindet Schüler:innen, Schulen, Unternehmen und Partner auf einer Plattform – von echten Praxiserfahrungen bis zur digitalen Koordination.",
+    "hero": {
+      "eyebrow": "Berufsorientierung neu gedacht",
+      "titleLine1": "Du suchst einen passenden Beruf?",
+      "titleLine2": "Wir unterstützen dich und deine Wegbegleiter.",
+      "subtitle": "animo verbindet Schüler:innen, Schulen, Unternehmen und Partner auf einer Plattform – von echten Praxiserfahrungen bis zur digitalen Koordination.",
+      "ctaStudent": "Ich bin Schüler:in",
+      "ctaTeacher": "Ich bin Lehrkraft"
+    },
+    "bento": {
+      "schoolBadge": "100 % kostenlos für Schulen",
+      "student": {
+        "title": "Schüler:innen",
+        "description": "Probiere Berufe in der echten Arbeitswelt aus – vom halben Tag bis zur ganzen Woche. Plus persönliche Beratung mit Helena.",
+        "cta": "Loslegen"
+      },
+      "company": {
+        "title": "Unternehmen",
+        "description": "Praktika digitalisieren & Talente von der Messe automatisch nachfassen.",
+        "cta": "Produkte ansehen"
+      },
+      "partner": {
+        "title": "Partner",
+        "description": "IHK, HWK & Agentur für Arbeit: KI-gestützte BO-Beratung, von Expert:innen begleitet.",
+        "cta": "Mehr erfahren"
+      },
+      "school": {
+        "title": "Schulen & BO-Lehrkräfte",
+        "description": "KI-Beratungsagent, Praktikums-Buchung und ein Lehrkräfte-Dashboard, das den Orientierungsstand jeder Schüler:in sichtbar macht – ohne Zettelwirtschaft.",
+        "cta": "Mehr erfahren"
+      }
+    },
+    "features": {
+      "heading": "Eine Plattform – der ganze Orientierungsweg",
+      "subheading": "Vom ersten Schnuppertag bis zur fertigen Ausbildung: animo bringt alle Beteiligten zusammen.",
+      "items": [
+        {
+          "title": "Echte Erfahrungen",
+          "description": "Berufe ausprobieren statt nur darüber lesen – in kleinen, machbaren Portionen."
+        },
+        {
+          "title": "Automatische Koordination",
+          "description": "Agenten übernehmen das Nachfassen und Terminieren – für Schüler:innen und Unternehmen."
+        },
+        {
+          "title": "Voller Überblick",
+          "description": "Lehrkräfte sehen jederzeit, wie orientiert sich ihre Klasse fühlt – digital und übersichtlich."
+        }
+      ]
+    }
+  },
+  "SchuelerPage": {
+    "metaTitle": "Welcher Beruf passt zu mir? – animo",
+    "metaDescription": "Finde es heraus: Über kleinere und größere Erfahrungen in Unternehmen! Angefangen bei einem halben Tag.",
+    "hero": {
+      "title": "Welcher Beruf passt zu mir?",
+      "subtitle": "Finde es heraus: Über kleinere und größere Erfahrungen in Unternehmen! Angefangen bei einem halben Tag.",
+      "step1": "Beruf wählen",
+      "step2": "Dauer wählen",
+      "step3": "Zeitraum nennen",
+      "step4": "Ort eingrenzen",
+      "step5": "Kontakt senden",
+      "cta": "Jetzt Praktikum buchen"
+    },
+    "wizard": {
+      "steps": {
+        "1": "Beruf wählen",
+        "2": "Dauer wählen",
+        "3": "Zeitraum nennen",
+        "4": "Ort eingrenzen",
+        "5": "Kontakt senden"
+      },
+      "stepLabel": "Schritt {current} von {total}",
+      "options": {
+        "1": {
+          "mechatronik": "Mechatronik",
+          "elektronik": "Elektronik",
+          "lagerlogistik": "Lagerlogistik",
+          "industriemechanik": "Industriemechanik",
+          "handwerk": "Handwerk",
+          "buero": "Büro & Verwaltung"
+        },
+        "2": {
+          "halfDay": "Halber Tag",
+          "fullDay": "Ganzer Tag",
+          "multiDay": "Mehrere Tage",
+          "week": "Eine Woche"
+        },
+        "3": {
+          "thisMonth": "Diesen Monat",
+          "nextMonth": "Nächsten Monat",
+          "summerBreak": "In den Sommerferien",
+          "flexible": "Flexibel"
+        },
+        "4": {
+          "nearby": "In der Nähe",
+          "city": "In meiner Stadt",
+          "region": "In der Region",
+          "anywhere": "Überall"
+        }
+      },
+      "namePlaceholder": "Dein Name",
+      "emailPlaceholder": "Deine E-Mail-Adresse",
+      "back": "Zurück",
+      "next": "Weiter",
+      "submit": "Kontakt senden",
+      "successTitle": "Geschafft!",
+      "successDescription": "Wir haben deine Angaben erhalten und melden uns in Kürze bei dir, um dein Praktikum zu organisieren."
+    },
+    "why": {
+      "heading": "Warum Berufe in kleinen Portionen ausprobieren? 🤔",
+      "item1": {
+        "title": "Sammle eigene Eindrücke",
+        "description": "Beobachte, welche Aufgaben man in verschiedenen Berufen tagtäglich macht."
+      },
+      "item2": {
+        "title": "Verstehe dich selbst besser",
+        "description": "Bekomme ein besseres Gefühl dafür, welche Aufgaben du magst und welche Aufgaben du lieber nicht machen willst."
+      },
+      "item3": {
+        "title": "Entscheide dich mit Sicherheit",
+        "description": "Suche - und finde - einen Beruf, in dem du möglichst viele Aufgaben machst, die du magst."
+      }
+    }
+  },
+  "UnternehmenPage": {
+    "metaTitle": "Für Unternehmen – animo",
+    "metaDescription": "animo automatisiert eure Schülerpraktika und fasst Messe-Kontakte zuverlässig nach.",
+    "hero": {
+      "eyebrow": "Für Unternehmen",
+      "title": "Talente gewinnen – ohne den organisatorischen Aufwand.",
+      "subtitle": "animo automatisiert eure Schülerpraktika und fasst Messe-Kontakte zuverlässig nach. Zwei Produkte, ein Ziel: mehr passende Nachwuchskräfte.",
+      "cta": "Demo anfragen"
+    },
+    "product1": {
+      "eyebrow": "Produkt 1 · SaaS",
+      "title": "Praktikums-Plattform",
+      "description": "Digitalisiert den kompletten Schülerpraktikums-Prozess – von der Bewerbung bis zur internen Koordination. Schluss mit E-Mail-Chaos und Excel-Listen.",
+      "features": [
+        {
+          "title": "Digitale Bewerbungen",
+          "description": "Anfragen kommen strukturiert rein – komplett papierlos."
+        },
+        {
+          "title": "Interne Koordination",
+          "description": "Abteilungen, Betreuer:innen und Termine an einem Ort."
+        },
+        {
+          "title": "Überblick für HR",
+          "description": "Alle Praktikant:innen, Status und Feedback im Blick."
+        }
+      ]
+    },
+    "pipeline": {
+      "heading": "Praktikumsanfragen",
+      "openCount": "12 offen",
+      "status": {
+        "new": "Neu",
+        "review": "In Prüfung",
+        "confirmed": "Bestätigt"
+      }
+    },
+    "product2": {
+      "eyebrow": "Produkt 2 · zeitlich begrenzt",
+      "title": "Job-Fair Follow-up Agent",
+      "description": "Nach der Messe gehen die besten Kontakte oft verloren. Unser Agent fasst sie für euch nach: Er ruft interessierte Schüler:innen an und vereinbart das Praktikum – mit ihnen und mit euch.",
+      "features": [
+        {
+          "title": "Persönlicher Anruf",
+          "description": "Ca. eine Woche nach der Messe – wenn das Interesse noch frisch ist."
+        },
+        {
+          "title": "Termin-Koordination",
+          "description": "Stimmt Praktikumstermine zwischen Schüler:in und Betrieb ab."
+        },
+        {
+          "title": "Auf ~1 Monat begrenzt",
+          "description": "Buchbar als kompaktes Paket rund um euer Messe-Event."
+        }
+      ]
+    },
+    "timeline": {
+      "heading": "animo Follow-up Agent",
+      "subheading": "Aktiv bis 30 Tage nach der Messe",
+      "day0": {
+        "label": "Tag 0",
+        "description": "Schüler:in hinterlässt Telefonnummer am Messestand."
+      },
+      "day7": {
+        "label": "Tag 7",
+        "description": "Agent ruft an und klärt das Interesse am Praktikum."
+      },
+      "day8": {
+        "label": "Tag 8",
+        "description": "Termin wird mit Schüler:in & Unternehmen abgestimmt."
+      },
+      "day10": {
+        "label": "Tag 10",
+        "description": "Praktikum bestätigt – alle Beteiligten informiert."
+      }
+    },
+    "cta": {
+      "heading": "Bereit für weniger Aufwand?",
+      "description": "Wir zeigen euch in 20 Minuten, wie animo eure Praktika und Messe-Kontakte automatisiert.",
+      "label": "Demo anfragen"
+    }
+  },
+  "SchulenPage": {
+    "metaTitle": "Für Schulen & BO-Lehrkräfte – animo",
+    "metaDescription": "Drei Werkzeuge, ein Ziel: Schüler:innen besser begleiten – und als Lehrkraft den vollen Überblick behalten.",
+    "hero": {
+      "eyebrow": "Für Schulen & BO-Lehrkräfte · 100 % kostenlos",
+      "title": "Berufsorientierung, die euch Arbeit abnimmt.",
+      "subtitle": "Drei Werkzeuge, ein Ziel: Schüler:innen besser begleiten – und als Lehrkraft den vollen Überblick behalten. Für Schulen dauerhaft kostenfrei.",
+      "cta": "Kostenlosen Zugang anfragen"
+    },
+    "tools": {
+      "items": [
+        {
+          "title": "KI-Beratungsagent",
+          "description": "Ein digitaler Berufsberater, der mit Schüler:innen ihre Interessen erkundet und passende Berufe vorschlägt – jederzeit verfügbar."
+        },
+        {
+          "title": "Praktikums-Buchung",
+          "description": "Schüler:innen finden und buchen Praxiserfahrungen – vom halben Tag über einen ganzen Tag bis zur ganzen Woche."
+        },
+        {
+          "title": "Lehrkräfte-Dashboard",
+          "description": "Seht auf einen Blick, wie orientiert sich eure Klasse fühlt – mit digitalisierten Rückmeldungen statt manueller Abfragen."
+        }
+      ]
+    },
+    "dashboardSection": {
+      "heading": "Wo steht meine Klasse – ohne nachzufragen",
+      "description": "Schüler:innen loggen sich ein und beantworten kurze Check-ins. Ihr seht das Ergebnis automatisch zusammengefasst."
+    },
+    "dashboard": {
+      "className": "Klasse 9b · Berufsorientierung",
+      "overviewHeading": "Orientierungs-Überblick",
+      "status": {
+        "safe": "Sicher",
+        "onTrack": "Auf dem Weg",
+        "needsHelp": "Braucht Hilfe"
+      },
+      "newQueryLabel": "Neue Abfrage an die Klasse senden",
+      "newQueryPlaceholder": "z. B. „Wie sicher fühlst du dich bei deiner Berufswahl?“"
+    },
+    "pricing": {
+      "badge": "Dauerhaft kostenlos für Schulen",
+      "text": "Bringt animo an eure Schule – wir richten alles für euch ein und begleiten den Start, kostenfrei."
+    },
+    "cta": {
+      "heading": "Bringt animo an eure Schule",
+      "description": "Wir richten alles für euch ein und begleiten den Start – kostenfrei.",
+      "label": "Kostenlosen Zugang anfragen"
+    }
+  },
+  "PartnerPage": {
+    "metaTitle": "Für Partner – animo",
+    "metaDescription": "Ein KI-Beratungsagent, der eure Berufsorientierung erweitert – fachlich von Expert:innen begleitet.",
+    "hero": {
+      "eyebrow": "Für Partner",
+      "title": "Mehr Beratung, ohne mehr Personal.",
+      "subtitle": "Für IHK, HWK und die Bundesagentur für Arbeit: Ein KI-Beratungsagent, der eure Berufsorientierung erweitert – fachlich von Expert:innen begleitet.",
+      "cta": "Gespräch vereinbaren"
+    },
+    "partners": {
+      "heading": "Gedacht für Institutionen wie",
+      "items": ["IHK", "HWK", "Bundesagentur für Arbeit", "Bildungsträger", "Kammern"]
+    },
+    "agent": {
+      "eyebrow": "Experten-gestützter Agent",
+      "heading": "KI-Beratung als Ergänzung – nicht als Ersatz",
+      "subheading": "Der Agent übernimmt die skalierbare Erstberatung. Eure Fachkräfte bleiben die Expert:innen – und gewinnen Zeit für die Fälle, die sie wirklich brauchen.",
+      "items": [
+        {
+          "title": "Skalierbare Erstberatung",
+          "description": "Jugendliche bekommen sofort eine fundierte, individuelle Orientierung – rund um die Uhr."
+        },
+        {
+          "title": "Expert:innen im Loop",
+          "description": "Eure Berater:innen prüfen, ergänzen und übernehmen, wenn persönliche Begleitung nötig ist."
+        },
+        {
+          "title": "Mehr Reichweite",
+          "description": "Begleitet mehr Jugendliche mit gleichbleibendem Team – messbar und nachvollziehbar."
+        }
+      ]
+    },
+    "assured": {
+      "title": "Fachlich abgesichert",
+      "description": "Inhalte und Empfehlungen werden gemeinsam mit Berufsorientierungs-Expert:innen entwickelt und laufend qualitätsgesichert."
+    },
+    "integrated": {
+      "title": "Nahtlos integrierbar",
+      "description": "Der Agent ergänzt eure bestehenden Angebote und lässt sich an eure Marke und Prozesse anpassen."
+    },
+    "cta": {
+      "heading": "Lassen Sie uns sprechen",
+      "description": "Wir zeigen Ihnen, wie der Agent Ihre Berufsorientierung sinnvoll erweitert.",
+      "label": "Gespräch vereinbaren"
+    }
+  },
+  "ElternPage": {
+    "metaTitle": "Für Eltern – animo",
+    "metaDescription": "Wir helfen – strukturiert, professionell und in sicheren Händen.",
+    "hero": {
+      "title": "Ihr Kind weiß nicht, was es machen soll?",
+      "subtitle": "Wir helfen – strukturiert, professionell und in sicheren Händen.",
+      "cta": "Kostenlose Beratung vereinbaren"
+    },
+    "assurance": {
+      "items": [
+        {
+          "title": "Sichere Begleitung",
+          "description": "Lokale Unternehmen, persönliche Ansprechpartnerin, volle Transparenz."
+        },
+        {
+          "title": "1:1 Betreuung",
+          "description": "Individuell auf Ihr Kind abgestimmt, keine Massenabfertigung."
+        },
+        {
+          "title": "Kein Zeitdruck",
+          "description": "Der Prozess richtet sich nach Ihrem Kind, nicht nach einem Zeitplan."
+        }
+      ]
+    },
+    "process": {
+      "heading": "So funktioniert die Begleitung",
+      "items": [
+        {
+          "title": "Persönliches Gespräch",
+          "description": "Helena lernt Ihr Kind kennen – Interessen, Stärken und was bisher nicht gepasst hat."
+        },
+        {
+          "title": "Schnuppernachmittage",
+          "description": "Echte Berufe erleben bei lokalen Unternehmen – keine Theorie, sondern Praxis."
+        },
+        {
+          "title": "Reflexion & Iteration",
+          "description": "Nach jeder Erfahrung: Was hat gepasst? Was nicht? Und wie geht es weiter?"
+        }
+      ]
+    },
+    "founder": {
+      "name": "Helena Gebhart",
+      "role": "Gründerin von Animo",
+      "quote": "Ich habe 8 Jahre Orientierungssuche durchlebt. Deshalb weiß ich, was Schüler:innen wirklich brauchen: keine Theorietests, sondern echte Erfahrungen.",
+      "link": "Mehr über Helena erfahren"
+    },
+    "faq": {
+      "heading": "Häufige Fragen von Eltern",
+      "items": [
+        {
+          "question": "Wie funktioniert der Ablauf?",
+          "answer": "Wir starten mit einem kostenlosen Erstgespräch, in dem Helena Ihr Kind kennenlernt. Danach planen wir gemeinsam Schnuppertermine bei passenden Unternehmen und besprechen nach jeder Erfahrung, was gut gepasst hat und wie es weitergeht."
+        },
+        {
+          "question": "Was kostet das?",
+          "answer": "Wir befinden uns aktuell in der Pilotphase – die Beratung ist für Familien deshalb kostenlos. Wir möchten, dass jedes Kind die Chance auf echte Orientierung bekommt."
+        },
+        {
+          "question": "Wie lange dauert der Prozess?",
+          "answer": "Das ist ganz unterschiedlich und hängt von Ihrem Kind ab. Manche finden nach zwei bis drei Erfahrungen Klarheit, andere brauchen mehr Zeit. Es gibt keinen festen Zeitplan – der Prozess richtet sich nach Ihrem Kind."
+        },
+        {
+          "question": "Muss mein Kind schon wissen, was es will?",
+          "answer": "Nein, im Gegenteil. Die meisten Schüler:innen, die zu uns kommen, wissen es noch nicht. Genau dabei helfen wir: durch echte Erfahrungen statt Theorie herauszufinden, welche Aufgaben wirklich passen."
+        },
+        {
+          "question": "Ab welchem Alter ist das sinnvoll?",
+          "answer": "Die meisten Schüler:innen, die wir begleiten, sind zwischen der 8. und 11. Klasse. Grundsätzlich gilt: Sobald sich Ihr Kind erste Gedanken über die Zeit nach der Schule macht, können wir gemeinsam loslegen."
+        }
+      ]
+    },
+    "pricing": {
+      "badge": "Pilotphase · Aktuell kostenlos",
+      "text": "Wir möchten, dass jedes Kind die Chance auf echte Orientierung bekommt."
+    },
+    "cta": {
+      "heading": "Lassen Sie uns gemeinsam herausfinden, was zu Ihrem Kind passt",
+      "description": "In einem kostenlosen Erstgespräch lernen wir Ihre Situation kennen und besprechen, wie wir Ihrem Kind helfen können.",
+      "label": "Kostenlose Beratung vereinbaren",
+      "secondaryLabel": "Mehr über Helena"
+    }
+  },
+  "UeberUnsPage": {
+    "metaTitle": "Über uns – animo",
+    "metaDescription": "Arbeit für Erwachsene ist wie das Spiel für die Kinder - sie gibt dem Tag eine Bedeutung.",
+    "founder": {
+      "name": "Helena Gebhart",
+      "role": "Gründerin von animo",
+      "openingQuote": "Arbeit für Erwachsene ist wie das Spiel für die Kinder - sie gibt dem Tag eine Bedeutung"
+    },
+    "story": {
+      "heading": "Warum ich das tue",
+      "paragraph1": "Manchmal sind es die schwierigsten Wege, die uns zu dem führen, was wir wirklich tun sollen. Mein Weg war geprägt von Unsicherheit. Von Momenten des Verlorenseins. Vom Druck, die \"richtige\" Entscheidung treffen zu müssen – ohne zu wissen, wie. Mit Lücken im Lebenslauf. Mit einem abgebrochenen Studium. Mit der ständigen Frage: Was passt zu mir?",
+      "statValue": "8 Jahre",
+      "statLabel": "bis zur Klarheit",
+      "paragraph2": "8 Jahre hat es gedauert, bis ich Klarheit gefunden habe. 8 Jahre voller Praktika, Jobwechsel, Neuanfänge und Zweifel. Heute weiß ich: Das hätte nicht sein müssen.",
+      "paragraph3": "Deshalb baue ich Animo – neben meinem Vollzeit-Job. Weil ich anderen ersparen will, was ich selbst durchgemacht habe."
+    },
+    "help": {
+      "heading": "Wie wir helfen",
+      "items": [
+        {
+          "title": "Aufgaben statt Stärken",
+          "description": "Ein passender Beruf ist einer mit Aufgaben, die du gerne machst. Wir helfen dir herauszufinden, welche das sind."
+        },
+        {
+          "title": "Echte Erfahrungen",
+          "description": "Nicht nur darüber reden – sondern Berufe erleben. Vor Ort. Im echten Arbeitsalltag."
+        },
+        {
+          "title": "Persönliche Begleitung",
+          "description": "Du bist nicht allein. Wir begleiten dich auf deinem Weg zur Klarheit."
+        }
+      ]
+    },
+    "benefits": {
+      "heading": "Was du davon hast",
+      "items": [
+        {
+          "title": "Berufliche Erfüllung",
+          "description": "Finde einen Job, den du liebst – nicht nur einen, der \"okay\" ist."
+        },
+        {
+          "title": "Fundierte Entscheidungen",
+          "description": "Keine Fehlstarts mehr. Du weißt, worauf du dich einlässt, bevor du dich festlegst."
+        },
+        {
+          "title": "Ganzheitlicher Erfolg",
+          "description": "Zufrieden im Job bedeutet zufrieden im Leben. Beruflicher Erfolg und persönliches Wohlbefinden gehören zusammen."
+        }
+      ]
+    },
+    "closingQuote": "Ich tue das für euch – damit ihr nicht 8 Jahre braucht, um euren Weg zu finden.",
+    "closingAttribution": "— Helena Gebhart, Gründerin",
+    "cta": {
+      "heading": "Bereit, deinen Weg zu finden?",
+      "label": "Zur persönlichen Beratung"
+    }
+  },
+  "JourneyPage": {
+    "metaTitle": "Beratung mit Helena – animo",
+    "metaDescription": "Ich bin Helena. Ich helfe dir, deinen Weg zu finden – durch echte Erfahrungen, nicht nur Theorie.",
+    "hero": {
+      "title": "Was soll ich nach der Schule machen?",
+      "subtitle": "Ich bin Helena. Ich helfe dir, deinen Weg zu finden – durch echte Erfahrungen, nicht nur Theorie.",
+      "cta": "Beratungstermin anfragen"
+    },
+    "process": {
+      "eyebrow": "So funktioniert's",
+      "heading": "In drei einfachen Schritten zu deinem Traumjob",
+      "steps": [
+        {
+          "title": "Persönliches Gespräch",
+          "description": "Wir erarbeiten, welche Aufgaben du gerne machst und besprechen, in welchen Berufen mit welchen Studiengängen du solche Aufgaben findest. Dann planen wir Berufs-Erfahrungen in Betrieben, um deine Erkenntnisse „in Echt“ zu testen. 45–60 Min · Kostenlos"
+        },
+        {
+          "title": "Echte Erfahrungen sammeln",
+          "description": "Du erlebst Berufe vor Ort im Betrieb und bekommst ein Gefühl dafür, welche Aufgaben dir liegen."
+        },
+        {
+          "title": "Deinen Weg finden",
+          "description": "Du reflektierst nach jeder Erfahrung und lernst, was dir liegt. Bis du Sicherheit bei der Berufswahl hast. Dank echten Erfahrungen triffst du eine fundierte Entscheidung für deine Zukunft."
+        }
+      ]
+    },
+    "quote": "8 Jahre hat es gedauert, bis ich meinen Weg gefunden habe. Ich war im Ausland, habe studiert, abgebrochen, viele Praktika gemacht, erneut studiert, Berufsdatenbanken durchforstet. In Neben- und in Vollzeitjobs gearbeitet. Und habe endlich gefunden, was zu mir passt. Heute weiß ich, was mir liegt und wie ich im Beruf zufrieden und erfolgreich sein kann. Aber: Das hätte so viel schneller gehen können – mit der richtigen Unterstützung.",
+    "quoteAttribution": "— Helena, Gründerin von animo",
+    "parentsLink": "Informationen für Eltern",
+    "cta": {
+      "heading": "Bereit, deinen Weg zu finden?",
+      "description": "In einem kostenlosen Gespräch finden wir gemeinsam heraus, welche Berufe zu dir passen.",
+      "label": "Jetzt kostenlose Beratung buchen"
+    }
+  },
+  "AssessmentPage": {
+    "metaTitle": "Persönliches Career Assessment – animo",
+    "metaDescription": "Beantworte 18 Fragen zu deinen Vorlieben, Fähigkeiten und Werten – und erhalte eine personalisierte Berufsempfehlung.",
+    "backLink": "Zurück zur Startseite",
+    "eyebrow": "KI-gestützte Auswertung",
+    "title": "Persönliches Career Assessment",
+    "subtitle": "Beantworte 18 Fragen zu deinen Vorlieben, Fähigkeiten und Werten – und erhalte eine personalisierte Berufsempfehlung mit Entwicklungstipps.",
+    "chips": {
+      "questions": {
+        "title": "18 Fragen",
+        "description": "Zu Arbeitsumfeld, Fähigkeiten, Werten und Erfahrungen"
+      },
+      "analysis": {
+        "title": "KI-Analyse",
+        "description": "Intelligente Auswertung deiner individuellen Antworten"
+      },
+      "email": {
+        "title": "Per E-Mail",
+        "description": "Erhalte deine Ergebnisse direkt in dein Postfach"
+      }
+    },
+    "startCta": "Assessment starten",
+    "duration": "Dauer: ca. 5-10 Minuten"
   }
 }

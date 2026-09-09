@@ -2,18 +2,540 @@
   "Metadata": {
     "title": "Animo Careers"
   },
-  "HomePage": {
-    "title": "Animo Careers"
+  "Nav": {
+    "schueler": "Students",
+    "unternehmen": "Companies",
+    "schulen": "Schools",
+    "partner": "Partners",
+    "login": "Log in",
+    "register": "Sign up",
+    "menuLabel": "Menu"
   },
-  "LocaleSwitcher": {
-    "label": "Language",
-    "en": "English",
-    "de": "German"
+  "Footer": {
+    "tagline": "Career orientation that actually helps – for students, schools, companies, and partners.",
+    "forWhomHeading": "Who it's for",
+    "ueberUns": "About us",
+    "journey": "Talk to Helena",
+    "legalHeading": "Legal",
+    "impressum": "Legal notice",
+    "datenschutz": "Privacy policy",
+    "agb": "Terms",
+    "widerrufsbelehrung": "Right of withdrawal",
+    "copyright": "© 2026 animo. All rights reserved."
   },
   "ThemeToggle": {
     "label": "Theme",
     "light": "Light",
     "dark": "Dark",
     "system": "System"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "de": "German"
+  },
+  "HomePage": {
+    "metaTitle": "animo – Career orientation, reimagined",
+    "metaDescription": "animo connects students, schools, companies, and partners on one platform – from real hands-on experience to digital coordination.",
+    "hero": {
+      "eyebrow": "Career orientation, reimagined",
+      "titleLine1": "Looking for a career that fits?",
+      "titleLine2": "We support you and everyone guiding you along the way.",
+      "subtitle": "animo connects students, schools, companies, and partners on one platform – from real hands-on experience to digital coordination.",
+      "ctaStudent": "I'm a student",
+      "ctaTeacher": "I'm a teacher"
+    },
+    "bento": {
+      "schoolBadge": "100% free for schools",
+      "student": {
+        "title": "Students",
+        "description": "Try out careers in the real working world – from half a day to a full week. Plus personal guidance from Helena.",
+        "cta": "Get started"
+      },
+      "company": {
+        "title": "Companies",
+        "description": "Digitize internships and automatically follow up with talent from career fairs.",
+        "cta": "See products"
+      },
+      "partner": {
+        "title": "Partners",
+        "description": "Chambers of commerce & employment agencies: AI-powered career guidance, backed by experts.",
+        "cta": "Learn more"
+      },
+      "school": {
+        "title": "Schools & career counselors",
+        "description": "An AI advisory agent, internship booking, and a teacher dashboard that makes every student's orientation progress visible – no more paperwork.",
+        "cta": "Learn more"
+      }
+    },
+    "features": {
+      "heading": "One platform – the whole orientation journey",
+      "subheading": "From the first trial day to a finished apprenticeship: animo brings everyone involved together.",
+      "items": [
+        {
+          "title": "Real experience",
+          "description": "Try out careers instead of just reading about them – in small, manageable portions."
+        },
+        {
+          "title": "Automatic coordination",
+          "description": "Agents handle the follow-ups and scheduling – for students and companies alike."
+        },
+        {
+          "title": "Full overview",
+          "description": "Teachers can see at any time how oriented their class feels – digital and easy to grasp."
+        }
+      ]
+    }
+  },
+  "SchuelerPage": {
+    "metaTitle": "Which career fits me? – animo",
+    "metaDescription": "Find out through smaller and bigger experiences at real companies! Starting with as little as half a day.",
+    "hero": {
+      "title": "Which career fits me?",
+      "subtitle": "Find out through smaller and bigger experiences at real companies! Starting with as little as half a day.",
+      "step1": "Choose a career",
+      "step2": "Choose a duration",
+      "step3": "Pick a timeframe",
+      "step4": "Narrow down a location",
+      "step5": "Send your details",
+      "cta": "Book an internship now"
+    },
+    "wizard": {
+      "steps": {
+        "1": "Choose a career",
+        "2": "Choose a duration",
+        "3": "Pick a timeframe",
+        "4": "Narrow down a location",
+        "5": "Send your details"
+      },
+      "stepLabel": "Step {current} of {total}",
+      "options": {
+        "1": {
+          "mechatronik": "Mechatronics",
+          "elektronik": "Electronics",
+          "lagerlogistik": "Warehouse logistics",
+          "industriemechanik": "Industrial mechanics",
+          "handwerk": "Skilled trades",
+          "buero": "Office & admin"
+        },
+        "2": {
+          "halfDay": "Half a day",
+          "fullDay": "A full day",
+          "multiDay": "Several days",
+          "week": "One week"
+        },
+        "3": {
+          "thisMonth": "This month",
+          "nextMonth": "Next month",
+          "summerBreak": "During summer break",
+          "flexible": "Flexible"
+        },
+        "4": {
+          "nearby": "Nearby",
+          "city": "In my city",
+          "region": "In my region",
+          "anywhere": "Anywhere"
+        }
+      },
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "Your email address",
+      "back": "Back",
+      "next": "Next",
+      "submit": "Send details",
+      "successTitle": "All done!",
+      "successDescription": "We've received your details and will be in touch shortly to arrange your internship."
+    },
+    "why": {
+      "heading": "Why try careers in small portions? 🤔",
+      "item1": {
+        "title": "Form your own impressions",
+        "description": "Watch what tasks people actually do day-to-day in different careers."
+      },
+      "item2": {
+        "title": "Understand yourself better",
+        "description": "Get a clearer sense of which tasks you enjoy and which ones you'd rather avoid."
+      },
+      "item3": {
+        "title": "Decide with confidence",
+        "description": "Look for – and find – a career made up of tasks you actually enjoy."
+      }
+    }
+  },
+  "UnternehmenPage": {
+    "metaTitle": "For Companies – animo",
+    "metaDescription": "animo automates your student internships and reliably follows up on career-fair contacts.",
+    "hero": {
+      "eyebrow": "For Companies",
+      "title": "Win talent – without the organizational overhead.",
+      "subtitle": "animo automates your student internships and reliably follows up on career-fair contacts. Two products, one goal: more well-matched young talent.",
+      "cta": "Request a demo"
+    },
+    "product1": {
+      "eyebrow": "Product 1 · SaaS",
+      "title": "Internship platform",
+      "description": "Digitizes the entire student-internship process – from application to internal coordination. No more email chaos and spreadsheets.",
+      "features": [
+        {
+          "title": "Digital applications",
+          "description": "Requests come in structured – completely paperless."
+        },
+        {
+          "title": "Internal coordination",
+          "description": "Departments, supervisors, and appointments all in one place."
+        },
+        {
+          "title": "Overview for HR",
+          "description": "Every intern, status, and piece of feedback at a glance."
+        }
+      ]
+    },
+    "pipeline": {
+      "heading": "Internship requests",
+      "openCount": "12 open",
+      "status": {
+        "new": "New",
+        "review": "Under review",
+        "confirmed": "Confirmed"
+      }
+    },
+    "product2": {
+      "eyebrow": "Product 2 · time-limited",
+      "title": "Job-fair follow-up agent",
+      "description": "The best contacts are often lost after a career fair. Our agent follows up for you: it calls interested students and arranges the internship – with them and with you.",
+      "features": [
+        {
+          "title": "Personal phone call",
+          "description": "About a week after the fair – while interest is still fresh."
+        },
+        {
+          "title": "Appointment coordination",
+          "description": "Aligns internship dates between the student and the company."
+        },
+        {
+          "title": "Limited to ~1 month",
+          "description": "Bookable as a compact package around your career-fair event."
+        }
+      ]
+    },
+    "timeline": {
+      "heading": "animo Follow-up Agent",
+      "subheading": "Active for up to 30 days after the fair",
+      "day0": {
+        "label": "Day 0",
+        "description": "Student leaves their phone number at the career-fair booth."
+      },
+      "day7": {
+        "label": "Day 7",
+        "description": "Agent calls and confirms interest in the internship."
+      },
+      "day8": {
+        "label": "Day 8",
+        "description": "An appointment is arranged with the student and the company."
+      },
+      "day10": {
+        "label": "Day 10",
+        "description": "Internship confirmed – everyone involved is notified."
+      }
+    },
+    "cta": {
+      "heading": "Ready for less overhead?",
+      "description": "We'll show you in 20 minutes how animo automates your internships and career-fair contacts.",
+      "label": "Request a demo"
+    }
+  },
+  "SchulenPage": {
+    "metaTitle": "For Schools & Career Counselors – animo",
+    "metaDescription": "Three tools, one goal: support students better – and give teachers a full overview.",
+    "hero": {
+      "eyebrow": "For schools & career counselors · 100% free",
+      "title": "Career orientation that takes the work off your hands.",
+      "subtitle": "Three tools, one goal: support students better – and give teachers a full overview. Free for schools, permanently.",
+      "cta": "Request free access"
+    },
+    "tools": {
+      "items": [
+        {
+          "title": "AI advisory agent",
+          "description": "A digital career counselor that explores students' interests and suggests suitable careers – available anytime."
+        },
+        {
+          "title": "Internship booking",
+          "description": "Students find and book hands-on experience – from half a day to a full day to a whole week."
+        },
+        {
+          "title": "Teacher dashboard",
+          "description": "See at a glance how oriented your class feels – with digital check-ins instead of manual surveys."
+        }
+      ]
+    },
+    "dashboardSection": {
+      "heading": "Where does my class stand – without having to ask",
+      "description": "Students log in and answer short check-ins. You see the results automatically summarized."
+    },
+    "dashboard": {
+      "className": "Class 9b · Career orientation",
+      "overviewHeading": "Orientation overview",
+      "status": {
+        "safe": "Confident",
+        "onTrack": "On track",
+        "needsHelp": "Needs help"
+      },
+      "newQueryLabel": "Send a new check-in to the class",
+      "newQueryPlaceholder": "e.g. \"How confident do you feel about your career choice?\""
+    },
+    "pricing": {
+      "badge": "Permanently free for schools",
+      "text": "We want every child to have the chance at real orientation."
+    },
+    "cta": {
+      "heading": "Bring animo to your school",
+      "description": "We set everything up for you and support the launch – free of charge.",
+      "label": "Request free access"
+    }
+  },
+  "PartnerPage": {
+    "metaTitle": "For Partners – animo",
+    "metaDescription": "An AI advisory agent that extends your career guidance – professionally backed by experts.",
+    "hero": {
+      "eyebrow": "For Partners",
+      "title": "More guidance, without more staff.",
+      "subtitle": "For chambers of commerce and employment agencies: an AI advisory agent that extends your career guidance – professionally backed by experts.",
+      "cta": "Schedule a call"
+    },
+    "partners": {
+      "heading": "Built for institutions like",
+      "items": ["Chambers of Commerce", "Chambers of Skilled Crafts", "Employment Agencies", "Educational Providers", "Professional Bodies"]
+    },
+    "agent": {
+      "eyebrow": "Expert-backed agent",
+      "heading": "AI guidance as a complement – not a replacement",
+      "subheading": "The agent handles scalable first-line guidance. Your specialists stay the experts – and gain time for the cases that really need them.",
+      "items": [
+        {
+          "title": "Scalable first-line guidance",
+          "description": "Young people get well-founded, individual orientation instantly – around the clock."
+        },
+        {
+          "title": "Experts in the loop",
+          "description": "Your advisors review, add to, and take over whenever personal support is needed."
+        },
+        {
+          "title": "More reach",
+          "description": "Support more young people with the same team – measurably and traceably."
+        }
+      ]
+    },
+    "assured": {
+      "title": "Professionally validated",
+      "description": "Content and recommendations are developed together with career-guidance experts and continuously quality-checked."
+    },
+    "integrated": {
+      "title": "Seamlessly integrated",
+      "description": "The agent complements your existing offerings and can be adapted to your brand and processes."
+    },
+    "cta": {
+      "heading": "Let's talk",
+      "description": "We'll show you how the agent meaningfully extends your career guidance.",
+      "label": "Schedule a call"
+    }
+  },
+  "ElternPage": {
+    "metaTitle": "For Parents – animo",
+    "metaDescription": "We help – in a structured, professional way, and in safe hands.",
+    "hero": {
+      "title": "Your child doesn't know what to do?",
+      "subtitle": "We help – in a structured, professional way, and in safe hands.",
+      "cta": "Schedule a free consultation"
+    },
+    "assurance": {
+      "items": [
+        {
+          "title": "Safe guidance",
+          "description": "Local companies, a personal point of contact, full transparency."
+        },
+        {
+          "title": "1:1 support",
+          "description": "Tailored individually to your child, never a one-size-fits-all process."
+        },
+        {
+          "title": "No time pressure",
+          "description": "The process follows your child's pace, not a fixed schedule."
+        }
+      ]
+    },
+    "process": {
+      "heading": "How the guidance works",
+      "items": [
+        {
+          "title": "A personal conversation",
+          "description": "Helena gets to know your child – their interests, strengths, and what hasn't fit so far."
+        },
+        {
+          "title": "Trial afternoons",
+          "description": "Experience real careers at local companies – no theory, just hands-on practice."
+        },
+        {
+          "title": "Reflection & iteration",
+          "description": "After every experience: what fit? What didn't? And what comes next?"
+        }
+      ]
+    },
+    "founder": {
+      "name": "Helena Gebhart",
+      "role": "Founder of Animo",
+      "quote": "I spent 8 years searching for my own direction. That's why I know what students really need: not theory tests, but real experience.",
+      "link": "Learn more about Helena"
+    },
+    "faq": {
+      "heading": "Frequently asked questions from parents",
+      "items": [
+        {
+          "question": "How does the process work?",
+          "answer": "We start with a free initial conversation where Helena gets to know your child. Then we plan trial days at suitable companies together, and after each experience we discuss what fit well and what happens next."
+        },
+        {
+          "question": "What does it cost?",
+          "answer": "We're currently in our pilot phase, so guidance is free for families. We want every child to have the chance at real orientation."
+        },
+        {
+          "question": "How long does the process take?",
+          "answer": "It varies and depends entirely on your child. Some find clarity after two or three experiences, others need more time. There's no fixed schedule – the process follows your child."
+        },
+        {
+          "question": "Does my child already need to know what they want?",
+          "answer": "No, quite the opposite. Most students who come to us don't know yet. That's exactly what we help with: figuring out which tasks truly fit through real experience rather than theory."
+        },
+        {
+          "question": "From what age does this make sense?",
+          "answer": "Most of the students we support are between grades 8 and 11. As a rule of thumb: as soon as your child starts thinking about life after school, we can get started together."
+        }
+      ]
+    },
+    "pricing": {
+      "badge": "Pilot phase · Currently free",
+      "text": "We want every child to have the chance at real orientation."
+    },
+    "cta": {
+      "heading": "Let's find out together what fits your child",
+      "description": "In a free initial conversation, we get to know your situation and discuss how we can help your child.",
+      "label": "Schedule a free consultation",
+      "secondaryLabel": "More about Helena"
+    }
+  },
+  "UeberUnsPage": {
+    "metaTitle": "About us – animo",
+    "metaDescription": "Work for adults is like play for children - it gives the day meaning.",
+    "founder": {
+      "name": "Helena Gebhart",
+      "role": "Founder of animo",
+      "openingQuote": "Work for adults is like play for children - it gives the day meaning"
+    },
+    "story": {
+      "heading": "Why I do this",
+      "paragraph1": "Sometimes it's the hardest paths that lead us to what we're truly meant to do. My path was shaped by uncertainty. By moments of feeling lost. By the pressure to make the \"right\" decision – without knowing how. With gaps in my résumé. With a degree I never finished. With the constant question: what actually fits me?",
+      "statValue": "8 years",
+      "statLabel": "to find clarity",
+      "paragraph2": "It took 8 years to find clarity. 8 years full of internships, job changes, fresh starts, and doubt. Today I know: it didn't have to be that way.",
+      "paragraph3": "That's why I'm building Animo – alongside my full-time job. Because I want to spare others what I went through myself."
+    },
+    "help": {
+      "heading": "How we help",
+      "items": [
+        {
+          "title": "Tasks, not strengths",
+          "description": "A career that fits is one made up of tasks you enjoy doing. We help you figure out which ones those are."
+        },
+        {
+          "title": "Real experience",
+          "description": "Not just talking about it – actually experiencing careers. On site. In the real working day."
+        },
+        {
+          "title": "Personal guidance",
+          "description": "You're not alone. We accompany you on your path to clarity."
+        }
+      ]
+    },
+    "benefits": {
+      "heading": "What you get out of it",
+      "items": [
+        {
+          "title": "Career fulfillment",
+          "description": "Find a job you love – not just one that's \"okay\"."
+        },
+        {
+          "title": "Well-founded decisions",
+          "description": "No more false starts. You know what you're getting into before you commit."
+        },
+        {
+          "title": "Holistic success",
+          "description": "Being satisfied at work means being satisfied in life. Career success and personal wellbeing belong together."
+        }
+      ]
+    },
+    "closingQuote": "I do this for you – so you don't need 8 years to find your path.",
+    "closingAttribution": "— Helena Gebhart, Founder",
+    "cta": {
+      "heading": "Ready to find your path?",
+      "label": "Get personal guidance"
+    }
+  },
+  "JourneyPage": {
+    "metaTitle": "Talk to Helena – animo",
+    "metaDescription": "I'm Helena. I help you find your path – through real experience, not just theory.",
+    "hero": {
+      "title": "What should I do after school?",
+      "subtitle": "I'm Helena. I help you find your path – through real experience, not just theory.",
+      "cta": "Request a consultation"
+    },
+    "process": {
+      "eyebrow": "How it works",
+      "heading": "Your dream job in three simple steps",
+      "steps": [
+        {
+          "title": "A personal conversation",
+          "description": "We work out which tasks you enjoy and discuss which careers – and which degree programs – involve tasks like those. Then we plan real career experiences at companies to test your insights \"for real\". 45–60 min · Free"
+        },
+        {
+          "title": "Gather real experience",
+          "description": "You experience careers on site at real companies and get a feel for which tasks suit you."
+        },
+        {
+          "title": "Find your path",
+          "description": "You reflect after every experience and learn what fits you – until you feel confident about your career choice. Real experience means you make a well-founded decision for your future."
+        }
+      ]
+    },
+    "quote": "It took 8 years to find my path. I went abroad, studied, dropped out, did many internships, studied again, searched career databases. Worked part-time and full-time jobs. And finally found what fits me. Today I know what suits me and how to be satisfied and successful at work. But: it could have gone so much faster – with the right support.",
+    "quoteAttribution": "— Helena, Founder of animo",
+    "parentsLink": "Information for parents",
+    "cta": {
+      "heading": "Ready to find your path?",
+      "description": "In a free conversation, we'll figure out together which careers fit you.",
+      "label": "Book a free consultation now"
+    }
+  },
+  "AssessmentPage": {
+    "metaTitle": "Personal Career Assessment – animo",
+    "metaDescription": "Answer 18 questions about your preferences, skills, and values – and get a personalized career recommendation.",
+    "backLink": "Back to homepage",
+    "eyebrow": "AI-powered evaluation",
+    "title": "Personal Career Assessment",
+    "subtitle": "Answer 18 questions about your preferences, skills, and values – and get a personalized career recommendation with tips for growth.",
+    "chips": {
+      "questions": {
+        "title": "18 questions",
+        "description": "On work environment, skills, values, and experience"
+      },
+      "analysis": {
+        "title": "AI analysis",
+        "description": "An intelligent evaluation of your individual answers"
+      },
+      "email": {
+        "title": "By email",
+        "description": "Get your results delivered straight to your inbox"
+      }
+    },
+    "startCta": "Start assessment",
+    "duration": "Duration: approx. 5-10 minutes"
   }
 }
