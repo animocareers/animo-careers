@@ -1,0 +1,19 @@
+{
+  "Metadata": {
+    "title": "Animo Careers"
+  },
+  "HomePage": {
+    "title": "Animo Careers"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "de": "German"
+  },
+  "ThemeToggle": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}

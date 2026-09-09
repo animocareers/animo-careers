@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm ping *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://registry.npmjs.org/next-intl --max-time 8)",
+      "Bash(npm view *)",
+      "Bash(curl -s --max-time 8 \"https://ui.shadcn.com/r/styles/base-luma/button.json\" -o /tmp/btn.json -w \"%{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(npx shadcn@4.21.0 --help)",
+      "Bash(npx shadcn@4.21.0 add button dropdown-menu --yes)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(echo \"started with pid $!\")",
+      "Bash(curl -s -o /dev/null -w \"root: %{http_code} -> \" http://localhost:3000/)",
+      "Bash(curl -sI http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"en: %{http_code}\\\\n\" http://localhost:3000/en)",
+      "Bash(curl -s -o /dev/null -w \"de: %{http_code}\\\\n\" http://localhost:3000/de)",
+      "Bash(curl -s http://localhost:3000/en)",
+      "Bash(curl -s http://localhost:3000/de)",
+      "Bash(taskkill //F //IM node.exe //FI \"WINDOWTITLE eq npm*\")",
+      "Bash(kill 1143)",
+      "Bash(curl -s -o /dev/null -w \"status after kill: %{http_code}\\\\n\" --max-time 3 http://localhost:3000/en)",
+      "Bash(echo \"started pid $!\")",
+      "Bash(npx playwright *)",
+      "Bash(node \"C:\\\\Users\\\\AZIZUL~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Azizullah-Samim-Desktop-animo-careers\\\\e37dcadb-2e6f-49f0-8651-c79d7d003f5a\\\\scratchpad\\\\check-locale-switch.js\")",
+      "Bash(node __check-locale-switch.js)"
+    ]
+  }
+}
