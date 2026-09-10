@@ -63,7 +63,7 @@ export function MobileNav({
                 variant="outline"
                 nativeButton={false}
                 className="rounded-full"
-                render={<Link href="/login">{loginLabel}</Link>}
+                render={<Link href="/auth/login">{loginLabel}</Link>}
               />
             }
           />
@@ -73,7 +73,7 @@ export function MobileNav({
               <Button
                 nativeButton={false}
                 className="rounded-full bg-gradient-primary shadow-button"
-                render={<Link href="/register">{registerLabel}</Link>}
+                render={<Link href="/auth/register">{registerLabel}</Link>}
               />
             }
           />
