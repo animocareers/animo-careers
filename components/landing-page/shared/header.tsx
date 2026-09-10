@@ -44,7 +44,7 @@ export async function Header() {
             nativeButton={false}
             className="rounded-full"
             render={
-              <Link href="/login">
+              <Link href="/auth/login">
                 <LogIn />
                 {t("login")}
               </Link>
@@ -54,7 +54,7 @@ export async function Header() {
             nativeButton={false}
             className="rounded-full bg-gradient-primary shadow-button"
             render={
-              <Link href="/register">
+              <Link href="/auth/register">
                 <UserPlus />
                 {t("register")}
               </Link>

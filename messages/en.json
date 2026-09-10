@@ -34,6 +34,33 @@
     "en": "English",
     "de": "German"
   },
+  "SignupPage": {
+    "metaTitle": "Sign up – animo",
+    "metaDescription": "Create your animo account to set up your organization and start managing your internship pipeline.",
+    "heading": "A few clicks away from your internship pipeline",
+    "subheading": "Set up your organization, publish an apply link, and process applications end-to-end – all in one place.",
+    "form": {
+      "title": "Create your account",
+      "description": "Let's get your organization set up on animo.",
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Jane",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Doe",
+      "emailLabel": "Email",
+      "emailPlaceholder": "jane@company.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "submit": "Create account",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Log in",
+      "required": "This field is required.",
+      "invalidEmail": "Please enter a valid email address.",
+      "passwordTooShort": "Password must be at least 8 characters.",
+      "passwordsDontMatch": "Passwords don't match."
+    }
+  },
   "HomePage": {
     "metaTitle": "animo – Career orientation, reimagined",
     "metaDescription": "animo connects students, schools, companies, and partners on one platform – from real hands-on experience to digital coordination.",

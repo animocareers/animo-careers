@@ -64,10 +64,26 @@
       "Bash(rm -f __verify-cards.js __shot-home-features.png __shot-ueberuns-features.png)",
       "Bash(taskkill //F //PID 14512)",
       "Bash(curl -s -o /dev/null -w \"3000: %{http_code}\\\\n\" --max-time 3 http://localhost:3000)",
-      "Bash(curl -s -o /dev/null -w \"3000: %{http_code}\\\\n\" --max-time 8 http://localhost:3000)"
+      "Bash(curl -s -o /dev/null -w \"3000: %{http_code}\\\\n\" --max-time 8 http://localhost:3000)",
+      "PowerShell(npm install react-hook-form zod @hookform/resolvers)",
+      "PowerShell(npx shadcn add input label form --yes)",
+      "PowerShell(npx shadcn add form --yes)",
+      "PowerShell(npx shadcn view form 2>&1)",
+      "Bash(mkdir -p \"c:/Users/Azizullah Samim/Desktop/animo-careers/app/[locale]/auth/register\")",
+      "PowerShell(npm run lint)",
+      "PowerShell(git stash)",
+      "PowerShell(npm run lint 2>&1)",
+      "PowerShell(git stash pop)",
+      "PowerShell(npx tsc --noEmit)",
+      "PowerShell(npm run dev)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/en/auth/register)",
+      "Bash(curl -s http://localhost:3000/en/auth/register)",
+      "Bash(curl -s http://localhost:3000/de/auth/register)",
+      "Bash(curl -s -o /dev/null -w \"home:%{http_code} auth-register:%{http_code}\\\\n\" http://localhost:3000/en http://localhost:3000/en/auth/register)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock"
+      "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock",
+      "c:\\Users\\Azizullah Samim\\Desktop\\animo-careers\\app\\[locale]\\auth"
     ]
   }
 }
