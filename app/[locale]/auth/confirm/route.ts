@@ -4,6 +4,14 @@ import type { NextRequest } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
 
+function isSafeRedirectPath(value: string | null): value is string {
+  if (!value) return false;
+  // Must be a relative path starting with a single "/" — reject
+  // protocol-relative ("//host"), backslash tricks ("/\host"), and
+  // absolute URLs, which would otherwise enable an open redirect.
+  return /^\/(?!\/|\\)/.test(value);
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ locale: string }> }
@@ -12,7 +20,10 @@ export async function GET(
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
-  const next = searchParams.get("next") ?? `/${locale}/dashboard`;
+  const requestedNext = searchParams.get("next");
+  const next = isSafeRedirectPath(requestedNext)
+    ? requestedNext
+    : `/${locale}/dashboard`;
 
   if (token_hash && type) {
     const supabase = await createClient();

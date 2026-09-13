@@ -34,8 +34,11 @@ export async function signUp(locale: string, values: unknown): Promise<SignUpSta
   });
 
   if (error) {
+    // Don't reveal via a field error that this email is already registered —
+    // that would let an attacker enumerate accounts. Report the same outcome
+    // as a genuine new signup; account recovery/resend is a separate flow.
     if (error.code === "email_exists") {
-      return { status: "error", fieldErrors: { email: t("emailAlreadyRegistered") } };
+      return { status: "success" };
     }
     return { status: "error", message: t("signupFailed") };
   }
@@ -43,8 +46,9 @@ export async function signUp(locale: string, values: unknown): Promise<SignUpSta
   // Supabase masks duplicate signups for unconfirmed accounts: it returns no
   // error, but `identities` comes back empty instead of containing the new
   // identity. That's the only signal that this wasn't actually a new signup.
+  // Keep that masking intact rather than exposing it via a field error.
   if (data.user && data.user.identities?.length === 0) {
-    return { status: "error", fieldErrors: { email: t("emailAlreadyRegistered") } };
+    return { status: "success" };
   }
 
   // If the project has email confirmation disabled, signUp already returns an

@@ -100,7 +100,10 @@
       "WebFetch(domain:postmarkapp.com)",
       "Bash(curl -s -D - -o /dev/null \"http://localhost:3000/diag-redirect-cookie-test?mode=throw-redirect\")",
       "Bash(curl -s -D - -o /dev/null \"http://localhost:3000/diag-redirect-cookie-test?mode=response\")",
-      "Bash(git diff *)"
+      "Bash(git diff *)",
+      "Bash(gh --version)",
+      "Bash(gh repo *)",
+      "Bash(xargs grep -l \"middleware\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock",
