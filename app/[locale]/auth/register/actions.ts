@@ -11,6 +11,7 @@ export type SignUpState =
   | { status: "success" }
   | { status: "error"; fieldErrors?: Partial<Record<"email", string>>; message?: string };
 
+/** Validates registration details and creates a Supabase account. */
 export async function signUp(locale: string, values: unknown): Promise<SignUpState> {
   const t = await getTranslations({ locale, namespace: "SignupPage.form" });
   const schema = createSignUpSchema(t);

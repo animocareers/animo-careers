@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
 
+/** Verifies an email confirmation token and redirects to the requested page. */
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ locale: string }> }

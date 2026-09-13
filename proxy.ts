@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 
 import { updateSession } from "@/lib/supabase/middleware";
 
+/** Applies Supabase session handling to requests matched by the proxy config. */
 export async function proxy(request: NextRequest) {
   return updateSession(request);
 }

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { buildPageMetadata } from "@/lib/metadata";
 import { createClient } from "@/lib/supabase/server";
 
+/** Builds localized metadata for the dashboard page. */
 export async function generateMetadata({
   params,
 }: {
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return buildPageMetadata(locale, "DashboardPage");
 }
 
+/** Renders the dashboard for authenticated users and redirects guests. */
 export default async function DashboardPage({
   params,
 }: PageProps<"/[locale]/dashboard">) {
