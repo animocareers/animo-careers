@@ -6,6 +6,7 @@ interface AuthShellProps {
   children: React.ReactNode;
 }
 
+/** Provides the shared responsive layout for authentication pages. */
 export function AuthShell({ heading, subheading, children }: AuthShellProps) {
   return (
     <div className="flex min-h-svh">

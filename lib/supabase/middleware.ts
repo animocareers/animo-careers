@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 const localePattern = routing.locales.join("|");
 const protectedRoutePattern = new RegExp(`^/(${localePattern})/dashboard(?:/|$)`);
 
+/** Refreshes the Supabase session and protects localized dashboard routes. */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,

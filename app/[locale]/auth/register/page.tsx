@@ -5,6 +5,7 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { SignupForm } from "@/components/auth/signup-form";
 import { buildPageMetadata } from "@/lib/metadata";
 
+/** Builds localized metadata for the registration page. */
 export async function generateMetadata({
   params,
 }: {
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return buildPageMetadata(locale, "SignupPage");
 }
 
+/** Renders the localized account registration page. */
 export default async function RegisterPage({
   params,
 }: PageProps<"/[locale]/auth/register">) {

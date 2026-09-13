@@ -17,6 +17,7 @@ interface SignupFormProps {
   locale: string;
 }
 
+/** Renders the localized registration form and confirmation state. */
 export function SignupForm({ locale }: SignupFormProps) {
   const t = useTranslations("SignupPage.form");
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
@@ -28,6 +29,7 @@ export function SignupForm({ locale }: SignupFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormValues>({ resolver: zodResolver(createSignUpSchema(t)) });
 
+  /** Submits valid registration details and displays field or form errors. */
   async function onSubmit(values: SignUpFormValues) {
     setFormError(null);
     const result = await signUp(locale, values);

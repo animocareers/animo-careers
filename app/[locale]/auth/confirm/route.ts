@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
 
+<<<<<<< HEAD
 function isSafeRedirectPath(value: string | null): value is string {
   if (!value) return false;
   // Must be a relative path starting with a single "/" — reject
@@ -12,6 +13,9 @@ function isSafeRedirectPath(value: string | null): value is string {
   return /^\/(?!\/|\\)/.test(value);
 }
 
+=======
+/** Verifies an email confirmation token and redirects to the requested page. */
+>>>>>>> c56f5555925d55e6e6b2bc0f44b64e99657f8827
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ locale: string }> }

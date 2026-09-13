@@ -5,6 +5,7 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { LoginForm } from "@/components/auth/login-form";
 import { buildPageMetadata } from "@/lib/metadata";
 
+/** Builds localized metadata for the login page. */
 export async function generateMetadata({
   params,
 }: {
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return buildPageMetadata(locale, "LoginPage");
 }
 
+/** Renders the localized login page and any confirmation failure state. */
 export default async function LoginPage({
   params,
   searchParams,

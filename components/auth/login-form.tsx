@@ -17,6 +17,7 @@ interface LoginFormProps {
   confirmationFailed?: boolean;
 }
 
+/** Renders the localized login form and submits credentials to the server. */
 export function LoginForm({ locale, confirmationFailed }: LoginFormProps) {
   const t = useTranslations("LoginPage.form");
   const [formError, setFormError] = useState<string | null>(
@@ -28,6 +29,7 @@ export function LoginForm({ locale, confirmationFailed }: LoginFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({ resolver: zodResolver(createLoginSchema(t)) });
 
+  /** Submits valid credentials and displays authentication errors. */
   async function onSubmit(values: LoginFormValues) {
     setFormError(null);
     const result = await signIn(locale, values);

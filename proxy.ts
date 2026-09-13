@@ -4,8 +4,12 @@ import type { NextRequest } from "next/server";
 import { routing } from "@/i18n/routing";
 import { updateSession } from "@/lib/supabase/middleware";
 
+<<<<<<< HEAD
 const handleI18nRouting = createMiddleware(routing);
 
+=======
+/** Applies Supabase session handling to requests matched by the proxy config. */
+>>>>>>> c56f5555925d55e6e6b2bc0f44b64e99657f8827
 export async function proxy(request: NextRequest) {
   const intlResponse = handleI18nRouting(request);
 

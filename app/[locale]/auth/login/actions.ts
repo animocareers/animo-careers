@@ -10,6 +10,7 @@ export type LoginState =
   | { status: "idle" }
   | { status: "error"; message: string };
 
+/** Validates login credentials and starts an authenticated Supabase session. */
 export async function signIn(locale: string, values: unknown): Promise<LoginState> {
   const t = await getTranslations({ locale, namespace: "LoginPage.form" });
   const schema = createLoginSchema(t);
