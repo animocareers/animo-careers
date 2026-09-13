@@ -106,6 +106,9 @@
     "collapseSidebar": "Collapse sidebar",
     "expandSidebar": "Expand sidebar",
     "openMenu": "Open menu",
+    "accountMenu": "Account menu",
+    "profile": "Profile",
+    "settings": "Settings",
     "signOut": "Sign out"
   },
   "HomePage": {

@@ -106,6 +106,9 @@
     "collapseSidebar": "Seitenleiste einklappen",
     "expandSidebar": "Seitenleiste ausklappen",
     "openMenu": "Menü öffnen",
+    "accountMenu": "Kontomenü",
+    "profile": "Profil",
+    "settings": "Einstellungen",
     "signOut": "Abmelden"
   },
   "HomePage": {

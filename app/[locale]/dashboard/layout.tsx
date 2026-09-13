@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
-import { DashboardMobileNav } from "@/components/dashboard/dashboard-mobile-nav";
+import { DashboardNavbar } from "@/components/dashboard/dashboard-navbar";
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar";
 import { createClient } from "@/lib/supabase/server";
 
-/** Shared shell (sidebar + mobile nav) for every authenticated dashboard route. */
+/** Shared shell (sidebar + navbar) for every authenticated dashboard route. */
 export default async function DashboardLayout({
   children,
   params,
@@ -23,7 +23,7 @@ export default async function DashboardLayout({
     <div className="flex min-h-svh">
       <DashboardSidebar />
       <div className="flex flex-1 flex-col">
-        <DashboardMobileNav />
+        <DashboardNavbar email={data.claims.email ?? ""} />
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>

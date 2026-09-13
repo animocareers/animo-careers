@@ -15,18 +15,16 @@ export interface DashboardNavItem {
   href?: string;
 }
 
-/** Top nav group, mirroring the screenshot's primary section above the divider. */
+/** Top nav group, above the separator. */
 export const primaryNavItems: DashboardNavItem[] = [
   { key: "pipeline", icon: Kanban, href: "/dashboard" },
   { key: "tasks", icon: ListTodo },
   { key: "internshipPlan", icon: ClipboardList },
 ];
 
-/** Section below the divider, matching the screenshot's "Schulpartner" entry. */
-export const partnerNavItems: DashboardNavItem[] = [{ key: "schoolPartners", icon: Handshake }];
-
-/** Bottom-pinned group, matching the screenshot's "Workflows" / "Stammdaten" entries. */
+/** Nav group below the separator. */
 export const secondaryNavItems: DashboardNavItem[] = [
+  { key: "schoolPartners", icon: Handshake },
   { key: "workflows", icon: Workflow },
   { key: "masterData", icon: Database },
 ];
