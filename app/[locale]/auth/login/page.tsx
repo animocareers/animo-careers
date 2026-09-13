@@ -2,30 +2,35 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { AuthShell } from "@/components/auth/auth-shell";
-import { SignupForm } from "@/components/auth/signup-form";
+import { LoginForm } from "@/components/auth/login-form";
 import { buildPageMetadata } from "@/lib/metadata";
 
-/** Builds localized metadata for the registration page. */
+/** Builds localized metadata for the login page. */
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return buildPageMetadata(locale, "SignupPage");
+  return buildPageMetadata(locale, "LoginPage");
 }
 
-/** Renders the localized account registration page. */
-export default async function RegisterPage({
+/** Renders the localized login page and any confirmation failure state. */
+export default async function LoginPage({
   params,
-}: PageProps<"/[locale]/auth/register">) {
+  searchParams,
+}: PageProps<"/[locale]/auth/login">) {
   const { locale } = await params;
+  const { error } = await searchParams;
   setRequestLocale(locale);
-  const t = await getTranslations("SignupPage");
+  const t = await getTranslations("LoginPage");
 
   return (
     <AuthShell heading={t("heading")} subheading={t("subheading")}>
-      <SignupForm locale={locale} />
+      <LoginForm
+        locale={locale}
+        confirmationFailed={error === "confirmation_failed"}
+      />
     </AuthShell>
   );
 }

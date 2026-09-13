@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** Creates the localized validation schema for account registration. */
 export function createSignUpSchema(t: (key: string) => string) {
   return z
     .object({
@@ -16,3 +17,13 @@ export function createSignUpSchema(t: (key: string) => string) {
 }
 
 export type SignUpFormValues = z.infer<ReturnType<typeof createSignUpSchema>>;
+
+/** Creates the localized validation schema for login credentials. */
+export function createLoginSchema(t: (key: string) => string) {
+  return z.object({
+    email: z.email({ error: t("invalidEmail") }).trim(),
+    password: z.string().min(1, { error: t("required") }),
+  });
+}
+
+export type LoginFormValues = z.infer<ReturnType<typeof createLoginSchema>>;
