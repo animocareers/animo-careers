@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { redirect } from "next/navigation";
 
 import { buildPageMetadata } from "@/lib/metadata";
-import { createClient } from "@/lib/supabase/server";
 
 /** Builds localized metadata for the dashboard page. */
 export async function generateMetadata({
@@ -15,23 +13,17 @@ export async function generateMetadata({
   return buildPageMetadata(locale, "DashboardPage");
 }
 
-/** Renders the dashboard for authenticated users and redirects guests. */
+/** Renders the dashboard for authenticated users; auth is enforced by the layout. */
 export default async function DashboardPage({
   params,
 }: PageProps<"/[locale]/dashboard">) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getClaims();
-  if (!data?.claims) {
-    redirect(`/${locale}/auth/login`);
-  }
-
   const t = await getTranslations("DashboardPage");
 
   return (
-    <div className="flex min-h-svh items-center justify-center p-6">
+    <div className="flex h-full items-center justify-center p-6">
       <p className="text-muted-foreground">{t("placeholder")}</p>
     </div>
   );

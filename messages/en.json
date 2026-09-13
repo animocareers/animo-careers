@@ -93,6 +93,21 @@
     "metaDescription": "Your animo dashboard.",
     "placeholder": "Your dashboard is on its way."
   },
+  "DashboardLayout": {
+    "nav": {
+      "pipeline": "Pipeline",
+      "tasks": "Tasks",
+      "internshipPlan": "Internship Plan",
+      "schoolPartners": "School Partners",
+      "workflows": "Workflows",
+      "masterData": "Master Data"
+    },
+    "comingSoon": "Coming soon",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar",
+    "openMenu": "Open menu",
+    "signOut": "Sign out"
+  },
   "HomePage": {
     "metaTitle": "animo – Career orientation, reimagined",
     "metaDescription": "animo connects students, schools, companies, and partners on one platform – from real hands-on experience to digital coordination.",

@@ -93,6 +93,21 @@
     "metaDescription": "Dein animo-Dashboard.",
     "placeholder": "Dein Dashboard ist bald verfügbar."
   },
+  "DashboardLayout": {
+    "nav": {
+      "pipeline": "Pipeline",
+      "tasks": "Aufgaben",
+      "internshipPlan": "Praktikumsplan",
+      "schoolPartners": "Schulpartner",
+      "workflows": "Workflows",
+      "masterData": "Stammdaten"
+    },
+    "comingSoon": "Demnächst verfügbar",
+    "collapseSidebar": "Seitenleiste einklappen",
+    "expandSidebar": "Seitenleiste ausklappen",
+    "openMenu": "Menü öffnen",
+    "signOut": "Abmelden"
+  },
   "HomePage": {
     "metaTitle": "animo – Berufsorientierung neu gedacht",
     "metaDescription": "animo verbindet Schüler:innen, Schulen, Unternehmen und Partner auf einer Plattform – von echten Praxiserfahrungen bis zur digitalen Koordination.",
