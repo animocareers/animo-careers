@@ -103,7 +103,17 @@
       "Bash(git diff *)",
       "Bash(gh --version)",
       "Bash(gh repo *)",
-      "Bash(xargs grep -l \"middleware\")"
+      "Bash(xargs grep -l \"middleware\")",
+      "Bash(curl -s -o /dev/null -w \"3000: %{http_code}\\\\n\" http://localhost:3000/en/dashboard --max-time 5)",
+      "Bash(curl -s -o /dev/null -w \"3001: %{http_code}\\\\n\" http://localhost:3001/en/dashboard --max-time 5)",
+      "Bash(curl -s -D - -o /dev/null http://localhost:3000/en/dashboard --max-time 5)",
+      "Bash(TEMP_SKIP_AUTH=1 npx next dev -p 3055)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3055/en/dashboard --max-time 8)",
+      "Bash(curl -s -D - -o /tmp/dash.html --max-time 20 http://localhost:3055/en/dashboard)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"next dev -p 3055\")",
+      "Bash(curl -s -D - -o /dev/null --max-time 8 http://localhost:3000/en/dashboard)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('messages/en.json'\\)\\); JSON.parse\\(require\\('fs'\\).readFileSync\\('messages/de.json'\\)\\); console.log\\('both valid JSON'\\)\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock",
