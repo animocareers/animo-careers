@@ -58,8 +58,40 @@
       "required": "This field is required.",
       "invalidEmail": "Please enter a valid email address.",
       "passwordTooShort": "Password must be at least 8 characters.",
-      "passwordsDontMatch": "Passwords don't match."
+      "passwordsDontMatch": "Passwords don't match.",
+      "emailAlreadyRegistered": "An account with this email already exists.",
+      "signupFailed": "Something went wrong while creating your account. Please try again.",
+      "checkEmailTitle": "Check your inbox",
+      "checkEmailDescription": "We've sent a confirmation link to {email}. Click it to activate your account."
     }
+  },
+  "LoginPage": {
+    "metaTitle": "Log in – animo",
+    "metaDescription": "Log in to your animo account to manage your internship pipeline.",
+    "heading": "Welcome back",
+    "subheading": "Log in to pick up right where you left off – applications, pipeline, and your team, all in one place.",
+    "form": {
+      "title": "Log in to your account",
+      "description": "Enter your credentials to continue.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "jane@company.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Your password",
+      "submit": "Log in",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign up",
+      "required": "This field is required.",
+      "invalidEmail": "Please enter a valid email address.",
+      "invalidCredentials": "Incorrect email or password.",
+      "emailNotConfirmed": "Please confirm your email before logging in.",
+      "confirmationFailed": "That confirmation link is invalid or has expired. Please log in or sign up again.",
+      "genericError": "Something went wrong. Please try again."
+    }
+  },
+  "DashboardPage": {
+    "metaTitle": "Dashboard – animo",
+    "metaDescription": "Your animo dashboard.",
+    "placeholder": "Your dashboard is on its way."
   },
   "HomePage": {
     "metaTitle": "animo – Career orientation, reimagined",

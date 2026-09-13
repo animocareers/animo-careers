@@ -16,3 +16,12 @@ export function createSignUpSchema(t: (key: string) => string) {
 }
 
 export type SignUpFormValues = z.infer<ReturnType<typeof createSignUpSchema>>;
+
+export function createLoginSchema(t: (key: string) => string) {
+  return z.object({
+    email: z.email({ error: t("invalidEmail") }).trim(),
+    password: z.string().min(1, { error: t("required") }),
+  });
+}
+
+export type LoginFormValues = z.infer<ReturnType<typeof createLoginSchema>>;
