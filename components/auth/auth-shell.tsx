@@ -16,7 +16,7 @@ export function AuthShell({ heading, subheading, children }: AuthShellProps) {
           href="/"
           className="relative z-10 text-2xl font-heading font-black"
         >
-          Animo
+          animo
         </Link>
         <div className="relative z-10 max-w-md space-y-4">
           <h1 className="text-4xl font-heading font-black tracking-tight text-balance">
