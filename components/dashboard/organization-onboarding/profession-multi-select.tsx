@@ -41,6 +41,7 @@ export function ProfessionMultiSelect({
 
   const selected = professions.filter((profession) => value.includes(profession.id));
 
+  /** Adds or removes a profession while enforcing the configured selection limit. */
   function toggle(id: string) {
     if (value.includes(id)) {
       onChange(value.filter((v) => v !== id));

@@ -16,6 +16,7 @@ const nunito = Nunito({
   weight: ["800", "900"],
 });
 
+/** Provides the application-wide fonts, theme, and toast notification host. */
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html

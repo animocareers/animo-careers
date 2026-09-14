@@ -4,14 +4,17 @@ import * as React from "react"
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
 import { cn } from "cn"
 
+/** Provides popover state and positioning context. */
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />
 }
 
+/** Renders the control that opens a popover. */
 function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
 }
 
+/** Renders positioned popover content in a portal. */
 function PopoverContent({
   className,
   align = "center",
@@ -46,6 +49,7 @@ function PopoverContent({
   )
 }
 
+/** Lays out a popover's title and description. */
 function PopoverHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -56,6 +60,7 @@ function PopoverHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/** Renders the accessible title for a popover. */
 function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
   return (
     <PopoverPrimitive.Title
@@ -66,6 +71,7 @@ function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
   )
 }
 
+/** Renders supporting accessible text for a popover. */
 function PopoverDescription({
   className,
   ...props
