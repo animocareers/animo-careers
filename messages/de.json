@@ -112,6 +112,8 @@
     "signOut": "Abmelden"
   },
   "OrganizationOnboarding": {
+    "promptTitle": "Um auf das Animo-System zuzugreifen, richten Sie zuerst Ihre Organisation ein.",
+    "promptButton": "Organisation einrichten",
     "heading": "Richten Sie Ihre Organisation ein",
     "description": "Erzählen Sie uns von Ihrer Organisation, um Ihr Dashboard startklar zu machen.",
     "form": {

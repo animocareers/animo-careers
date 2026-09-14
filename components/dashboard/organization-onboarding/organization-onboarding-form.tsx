@@ -69,20 +69,15 @@ export function OrganizationOnboardingForm({
   }
 
   return (
-    <div className="relative mx-auto max-w-2xl space-y-6 p-6">
+    <>
       {isBusy && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-background/70 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-3 text-sm text-muted-foreground">
             <Loader2Icon className="size-8 animate-spin text-primary" />
             <p>{t("submitting")}</p>
           </div>
         </div>
       )}
-
-      <div className="space-y-1">
-        <h1 className="text-2xl font-heading font-black tracking-tight">{tPage("heading")}</h1>
-        <p className="text-sm text-muted-foreground">{tPage("description")}</p>
-      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         <div className="space-y-1.5">
@@ -199,6 +194,6 @@ export function OrganizationOnboardingForm({
           {t("submit")}
         </Button>
       </form>
-    </div>
+    </>
   );
 }

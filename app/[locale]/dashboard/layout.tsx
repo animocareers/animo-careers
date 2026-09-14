@@ -3,7 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 
 import { DashboardNavbar } from "@/components/dashboard/dashboard-navbar";
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar";
-import { OrganizationOnboardingForm } from "@/components/dashboard/organization-onboarding/organization-onboarding-form";
+import { OrganizationSetupPrompt } from "@/components/dashboard/organization-onboarding/organization-setup-prompt";
 import { createClient } from "@/lib/supabase/server";
 
 /** Shared shell (sidebar + navbar) for every authenticated dashboard route. */
@@ -42,7 +42,7 @@ export default async function DashboardLayout({
       .from("profession_catalog")
       .select("id, name_de")
       .order("name_de");
-    mainContent = <OrganizationOnboardingForm locale={locale} professions={professions ?? []} />;
+    mainContent = <OrganizationSetupPrompt locale={locale} professions={professions ?? []} />;
   }
 
   return (

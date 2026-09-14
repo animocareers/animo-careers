@@ -112,6 +112,8 @@
     "signOut": "Sign out"
   },
   "OrganizationOnboarding": {
+    "promptTitle": "To access the Animo system, first set up your organization.",
+    "promptButton": "Set Up Organization",
     "heading": "Set up your organization",
     "description": "Tell us about your organization to get your dashboard ready.",
     "form": {
