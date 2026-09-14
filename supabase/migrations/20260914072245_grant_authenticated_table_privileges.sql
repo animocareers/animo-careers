@@ -19,6 +19,10 @@
 
 grant select, insert, update, delete on all tables in schema public to authenticated;
 
--- So future migrations don't need to remember this step for new tables.
-alter default privileges in schema public
-  grant select, insert, update, delete on tables to authenticated;
+-- Deliberately no `alter default privileges` here: that would grant
+-- authenticated CRUD on every future table the instant it's created, ahead
+-- of that table ever getting RLS policies. A migration that forgets to
+-- enable RLS on a new table would then leave it wide open rather than
+-- failing closed with "permission denied". Every future migration that
+-- adds a tenant-scoped table must grant privileges explicitly, after RLS
+-- is enabled on it — the same pattern this migration applies above.

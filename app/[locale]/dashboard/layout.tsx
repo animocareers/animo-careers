@@ -25,38 +25,44 @@ export default async function DashboardLayout({
   // onboarding form in place of the normal dashboard content until they
   // create one. See context/features/feature 06.md.
   let organizationId: string | null = null;
+  let professions: { id: string; name_de: string }[] = [];
   try {
-    const { data: membership } = await supabase
+    const { data: membership, error: membershipError } = await supabase
       .from("organization_members")
       .select("organization_id")
       .eq("user_id", data.claims.sub)
       .maybeSingle();
+    if (membershipError) throw membershipError;
     organizationId = membership?.organization_id ?? null;
 
     if (!organizationId) {
-      const { data: joinedOrgId } = await supabase.rpc("join_organization_by_domain");
+      const { data: joinedOrgId, error: joinError } =
+        await supabase.rpc("join_organization_by_domain");
+      if (joinError) throw joinError;
       organizationId = joinedOrgId ?? null;
+    }
+
+    if (!organizationId) {
+      const { data: professionsData, error: professionsError } = await supabase
+        .from("profession_catalog")
+        .select("id, name_de")
+        .order("name_de");
+      if (professionsError) throw professionsError;
+      professions = professionsData ?? [];
     }
   } catch {
     // A transient network/auth hiccup here (e.g. racing a concurrent
-    // sign-out) shouldn't crash the whole dashboard with a raw 500 — treat
-    // it as "can't confirm the session right now" and send the user back
-    // through login rather than risk rendering incorrect state.
+    // sign-out), or a genuine Supabase error surfaced via `error` rather
+    // than a thrown exception, shouldn't crash the whole dashboard with a
+    // raw 500 or silently render incomplete state (e.g. an unusable, empty
+    // profession catalog) — treat it as "can't confirm the session/data
+    // right now" and send the user back through login rather than risk
+    // rendering incorrect state.
     redirect(`/${locale}/auth/login`);
   }
 
   let mainContent = children;
   if (!organizationId) {
-    let professions: { id: string; name_de: string }[] = [];
-    try {
-      const { data: professionsData } = await supabase
-        .from("profession_catalog")
-        .select("id, name_de")
-        .order("name_de");
-      professions = professionsData ?? [];
-    } catch {
-      // Non-fatal: the form just renders with no options to pick yet.
-    }
     mainContent = <OrganizationSetupPrompt locale={locale} professions={professions} />;
   }
 

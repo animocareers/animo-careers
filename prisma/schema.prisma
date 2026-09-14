@@ -56,6 +56,9 @@ model organizations {
   /// Work-email domain of the org's creator, used to auto-join later signups
   /// on the same domain. NULL when the creator signed up with a free email
   /// provider (see private.is_free_email_domain in the onboarding migration).
+  /// Normalized to lowercase on write by a DB trigger (private.normalize_organization_domain)
+  /// so the unique constraint and the lowercase domain lookup in the onboarding
+  /// RPCs stay aligned regardless of how the row was written.
   domain           String?   @unique
   created_at       DateTime? @default(now()) @db.Timestamptz(6)
 
