@@ -1,9 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { createOrganization } from "@/app/[locale]/dashboard/actions";
 import { ProfessionMultiSelect, type ProfessionOption } from "@/components/dashboard/organization-onboarding/profession-multi-select";
@@ -17,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useRouter } from "@/i18n/navigation";
 import { INDUSTRY_TYPES } from "@/lib/constants/industries";
 import { createOrganizationSchema, type OrganizationFormValues } from "@/lib/validation/organization";
 
@@ -32,7 +35,9 @@ export function OrganizationOnboardingForm({
 }: OrganizationOnboardingFormProps) {
   const tPage = useTranslations("OrganizationOnboarding");
   const t = useTranslations("OrganizationOnboarding.form");
+  const router = useRouter();
   const [formError, setFormError] = useState<string | null>(null);
+  const [isRefreshing, startRefresh] = useTransition();
   const {
     register,
     control,
@@ -43,17 +48,37 @@ export function OrganizationOnboardingForm({
     defaultValues: { professionIds: [] },
   });
 
+  const isBusy = isSubmitting || isRefreshing;
+
   /** Submits the organization details and surfaces any server-side error. */
   async function onSubmit(values: OrganizationFormValues) {
     setFormError(null);
     const result = await createOrganization(locale, values);
     if (result.status === "error") {
       setFormError(result.message);
+      return;
     }
+    toast.success(t("createdToast"));
+    // The onboarding form renders inline on the same /dashboard route it
+    // needs to leave, so router.push wouldn't force a re-fetch — refresh()
+    // re-runs the layout's server-side membership check, which now finds
+    // the organization just created and swaps in the real dashboard content.
+    startRefresh(() => {
+      router.refresh();
+    });
   }
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6 p-6">
+    <div className="relative mx-auto max-w-2xl space-y-6 p-6">
+      {isBusy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/70 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-3 text-sm text-muted-foreground">
+            <Loader2Icon className="size-8 animate-spin text-primary" />
+            <p>{t("submitting")}</p>
+          </div>
+        </div>
+      )}
+
       <div className="space-y-1">
         <h1 className="text-2xl font-heading font-black tracking-tight">{tPage("heading")}</h1>
         <p className="text-sm text-muted-foreground">{tPage("description")}</p>
@@ -170,7 +195,7 @@ export function OrganizationOnboardingForm({
 
         {formError && <p className="text-sm text-destructive">{formError}</p>}
 
-        <Button type="submit" disabled={isSubmitting} className="w-full">
+        <Button type="submit" disabled={isBusy} className="w-full">
           {t("submit")}
         </Button>
       </form>

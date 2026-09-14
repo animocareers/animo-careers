@@ -42,8 +42,9 @@ export async function createOrganization(
     // (supabase/migrations/20260914070955_organization_onboarding.sql) — keep both in sync.
     if (error.message === "already_member") {
       // A membership can already exist if this ran twice concurrently (e.g.
-      // a double form submit) — that's not a real failure, just proceed on.
-      redirect(`/${locale}/dashboard`);
+      // a double form submit) — that's not a real failure, the caller just
+      // needs to refresh to see it.
+      return { status: "success" };
     }
     if (error.message === "invalid_profession_count") {
       return { status: "error", message: t("professionsMax") };
@@ -51,5 +52,10 @@ export async function createOrganization(
     return { status: "error", message: t("submitFailed") };
   }
 
-  redirect(`/${locale}/dashboard`);
+  // Deliberately not redirect()'d here: the onboarding form renders inline
+  // on this same /dashboard route (see dashboard/layout.tsx), so navigating
+  // "to" the page the caller is already on wouldn't force Next.js to
+  // re-fetch it. The caller (organization-onboarding-form.tsx) calls
+  // router.refresh() on success instead, which does force that re-fetch.
+  return { status: "success" };
 }

@@ -143,7 +143,9 @@
       "professionsMax": "Select at most 15 professions.",
       "professionIdInvalid": "One of the selected professions is invalid.",
       "submit": "Create organization",
-      "submitFailed": "Something went wrong. Please try again."
+      "submitting": "Creating your organization...",
+      "submitFailed": "Something went wrong. Please try again.",
+      "createdToast": "Organization created successfully."
     },
     "industryTypes": {
       "manufacturing": "Manufacturing",

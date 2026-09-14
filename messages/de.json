@@ -143,7 +143,9 @@
       "professionsMax": "Wählen Sie höchstens 15 Berufe aus.",
       "professionIdInvalid": "Einer der ausgewählten Berufe ist ungültig.",
       "submit": "Organisation erstellen",
-      "submitFailed": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+      "submitting": "Organisation wird erstellt...",
+      "submitFailed": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "createdToast": "Organisation erfolgreich erstellt."
     },
     "industryTypes": {
       "manufacturing": "Fertigung",
