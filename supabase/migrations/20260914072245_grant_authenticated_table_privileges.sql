@@ -17,12 +17,41 @@
 -- (public apply submissions go through the service-role-backed
 -- /api/public-apply route, per api-design.md).
 
-grant select, insert, update, delete on all tables in schema public to authenticated;
+-- Supabase projects may already have platform default grants on public
+-- tables. Clear those inherited privileges first so the explicit grants
+-- below are the complete, auditable access surface for this schema.
+revoke all privileges on table public.organizations from authenticated;
+revoke all privileges on table public.branches from authenticated;
+revoke all privileges on table public.organization_members from authenticated;
+revoke all privileges on table public.profession_catalog from authenticated;
+revoke all privileges on table public.organization_professions from authenticated;
+revoke all privileges on table public.pipeline_stages from authenticated;
+revoke all privileges on table public.checklist_templates from authenticated;
+revoke all privileges on table public.applications from authenticated;
+revoke all privileges on table public.application_checklist_items from authenticated;
+revoke all privileges on table public.application_notes from authenticated;
+revoke all privileges on table public.application_attachments from authenticated;
+revoke all privileges on table public.invitations from authenticated;
+revoke all privileges on table public.audit_logs from authenticated;
+
+grant select, update on table public.organizations to authenticated;
+grant select, insert, update, delete on table public.branches to authenticated;
+grant select, insert, update, delete on table public.organization_members to authenticated;
+grant select on table public.profession_catalog to authenticated;
+grant select, insert, update, delete on table public.organization_professions to authenticated;
+grant select, insert, update, delete on table public.pipeline_stages to authenticated;
+grant select, insert, update, delete on table public.checklist_templates to authenticated;
+grant select, update on table public.applications to authenticated;
+grant select, insert, update, delete on table public.application_checklist_items to authenticated;
+grant select, insert on table public.application_notes to authenticated;
+grant select, insert, update, delete on table public.application_attachments to authenticated;
+grant select, insert, update, delete on table public.invitations to authenticated;
+grant select on table public.audit_logs to authenticated;
 
 -- Deliberately no `alter default privileges` here: that would grant
 -- authenticated CRUD on every future table the instant it's created, ahead
 -- of that table ever getting RLS policies. A migration that forgets to
 -- enable RLS on a new table would then leave it wide open rather than
 -- failing closed with "permission denied". Every future migration that
--- adds a tenant-scoped table must grant privileges explicitly, after RLS
--- is enabled on it — the same pattern this migration applies above.
+-- adds a tenant-scoped table must grant privileges explicitly, per-table,
+-- after RLS is enabled on it — the same pattern this migration applies above.

@@ -53,12 +53,9 @@ model organizations {
   /// public URL at render time via supabase.storage.from(bucket).getPublicUrl().
   /// Same pattern as application_attachments.storage_key.
   logo_storage_key String?
-  /// Work-email domain of the org's creator, used to auto-join later signups
-  /// on the same domain. NULL when the creator signed up with a free email
-  /// provider (see private.is_free_email_domain in the onboarding migration).
-  /// Normalized to lowercase on write by a DB trigger (private.normalize_organization_domain)
-  /// so the unique constraint and the lowercase domain lookup in the onboarding
-  /// RPCs stay aligned regardless of how the row was written.
+  /// Canonical lowercase work-email domain of the org's creator. The database
+  /// normalizes every write before enforcing uniqueness; NULL is retained for
+  /// creators using a free email provider (see the onboarding migration).
   domain           String?   @unique
   created_at       DateTime? @default(now()) @db.Timestamptz(6)
 

@@ -15,8 +15,8 @@ export default async function DashboardLayout({
   setRequestLocale(locale);
 
   const supabase = await createClient();
-  const { data } = await supabase.auth.getClaims();
-  if (!data?.claims) {
+  const { data, error: claimsError } = await supabase.auth.getClaims();
+  if (claimsError || !data?.claims) {
     redirect(`/${locale}/auth/login`);
   }
 
@@ -25,45 +25,64 @@ export default async function DashboardLayout({
   // onboarding form in place of the normal dashboard content until they
   // create one. See context/features/feature 06.md.
   let organizationId: string | null = null;
-  let professions: { id: string; name_de: string }[] = [];
+  let membershipLookupFailed = false;
   try {
     const { data: membership, error: membershipError } = await supabase
       .from("organization_members")
       .select("organization_id")
       .eq("user_id", data.claims.sub)
       .maybeSingle();
-    if (membershipError) throw membershipError;
-    organizationId = membership?.organization_id ?? null;
-
-    if (!organizationId) {
-      const { data: joinedOrgId, error: joinError } =
-        await supabase.rpc("join_organization_by_domain");
-      if (joinError) throw joinError;
-      organizationId = joinedOrgId ?? null;
+    if (membershipError) {
+      membershipLookupFailed = true;
+    } else {
+      organizationId = membership?.organization_id ?? null;
     }
 
-    if (!organizationId) {
-      const { data: professionsData, error: professionsError } = await supabase
-        .from("profession_catalog")
-        .select("id, name_de")
-        .order("name_de");
-      if (professionsError) throw professionsError;
-      professions = professionsData ?? [];
+    if (!membershipLookupFailed && !organizationId) {
+      const { data: joinedOrgId, error: joinError } = await supabase.rpc(
+        "join_organization_by_domain",
+      );
+      if (joinError) {
+        membershipLookupFailed = true;
+      } else {
+        organizationId = joinedOrgId ?? null;
+      }
     }
   } catch {
-    // A transient network/auth hiccup here (e.g. racing a concurrent
-    // sign-out), or a genuine Supabase error surfaced via `error` rather
-    // than a thrown exception, shouldn't crash the whole dashboard with a
-    // raw 500 or silently render incomplete state (e.g. an unusable, empty
-    // profession catalog) — treat it as "can't confirm the session/data
-    // right now" and send the user back through login rather than risk
-    // rendering incorrect state.
+    membershipLookupFailed = true;
+  }
+
+  if (membershipLookupFailed) {
+    // A failed membership check means the dashboard cannot safely determine
+    // the caller's tenant. Send them back through authentication instead of
+    // treating the error as a first-time signup with no organization.
     redirect(`/${locale}/auth/login`);
   }
 
   let mainContent = children;
   if (!organizationId) {
-    mainContent = <OrganizationSetupPrompt locale={locale} professions={professions} />;
+    let professions: { id: string; name_de: string }[] = [];
+    let professionCatalogError = false;
+    try {
+      const { data: professionsData, error: professionsError } = await supabase
+        .from("profession_catalog")
+        .select("id, name_de")
+        .order("name_de");
+      if (professionsError || !professionsData?.length) {
+        professionCatalogError = true;
+      } else {
+        professions = professionsData;
+      }
+    } catch {
+      professionCatalogError = true;
+    }
+    mainContent = (
+      <OrganizationSetupPrompt
+        locale={locale}
+        professions={professions}
+        professionCatalogError={professionCatalogError}
+      />
+    );
   }
 
   return (
