@@ -53,6 +53,7 @@
       "confirmPasswordLabel": "Passwort bestätigen",
       "confirmPasswordPlaceholder": "Passwort erneut eingeben",
       "submit": "Konto erstellen",
+      "submitting": "Konto wird erstellt...",
       "alreadyHaveAccount": "Du hast bereits ein Konto?",
       "login": "Anmelden",
       "required": "Dieses Feld ist erforderlich.",
@@ -78,6 +79,7 @@
       "passwordLabel": "Passwort",
       "passwordPlaceholder": "Dein Passwort",
       "submit": "Anmelden",
+      "submitting": "Anmeldung läuft...",
       "noAccount": "Du hast noch kein Konto?",
       "signup": "Registrieren",
       "required": "Dieses Feld ist erforderlich.",
@@ -109,7 +111,8 @@
     "accountMenu": "Kontomenü",
     "profile": "Profil",
     "settings": "Einstellungen",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "signingOut": "Wird abgemeldet..."
   },
   "OrganizationOnboarding": {
     "promptTitle": "Um auf das Animo-System zuzugreifen, richten Sie zuerst Ihre Organisation ein.",

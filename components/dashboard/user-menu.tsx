@@ -2,8 +2,10 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { LogOut, Settings, UserRound } from "lucide-react";
+import { useState } from "react";
 
 import { signOut } from "@/app/[locale]/dashboard/actions";
+import { LoadingOverlay } from "@/components/shared/loading-overlay";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,9 +25,21 @@ export function UserMenu({ email }: UserMenuProps) {
   const t = useTranslations("DashboardLayout");
   const locale = useLocale();
   const initial = (email || "?").charAt(0).toUpperCase();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  /** Signs the user out; on an unexpected failure (rather than the normal redirect), re-enables the menu. */
+  async function handleSignOut() {
+    setIsSigningOut(true);
+    try {
+      await signOut(locale);
+    } catch {
+      setIsSigningOut(false);
+    }
+  }
 
   return (
     <DropdownMenu>
+      {isSigningOut && <LoadingOverlay label={t("signingOut")} />}
       <DropdownMenuTrigger
         render={
           <button
@@ -53,8 +67,9 @@ export function UserMenu({ email }: UserMenuProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           variant="destructive"
+          disabled={isSigningOut}
           onClick={() => {
-            void signOut(locale);
+            void handleSignOut();
           }}
         >
           <LogOut />

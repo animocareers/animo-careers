@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { signIn } from "@/app/[locale]/auth/login/actions";
+import { LoadingOverlay } from "@/components/shared/loading-overlay";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,6 +41,8 @@ export function LoginForm({ locale, confirmationFailed }: LoginFormProps) {
 
   return (
     <div className="space-y-6">
+      {isSubmitting && <LoadingOverlay label={t("submitting")} />}
+
       <div className="space-y-1">
         <h2 className="text-2xl font-heading font-black tracking-tight">{t("title")}</h2>
         <p className="text-sm text-muted-foreground">{t("description")}</p>

@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -9,6 +8,7 @@ import { toast } from "sonner";
 
 import { createOrganization } from "@/app/[locale]/dashboard/actions";
 import { ProfessionMultiSelect, type ProfessionOption } from "@/components/dashboard/organization-onboarding/profession-multi-select";
+import { LoadingOverlay } from "@/components/shared/loading-overlay";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -70,14 +70,7 @@ export function OrganizationOnboardingForm({
 
   return (
     <>
-      {isBusy && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center bg-background/70 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-3 text-sm text-muted-foreground">
-            <Loader2Icon className="size-8 animate-spin text-primary" />
-            <p>{t("submitting")}</p>
-          </div>
-        </div>
-      )}
+      {isBusy && <LoadingOverlay label={t("submitting")} />}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         <div className="space-y-1.5">
