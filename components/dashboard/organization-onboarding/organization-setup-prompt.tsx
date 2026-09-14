@@ -27,10 +27,10 @@ export function OrganizationSetupPrompt({ locale, professions }: OrganizationSet
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <Card className="max-w-md text-center">
+    <div className="h-full p-6">
+      <Card className="flex h-full w-full flex-col items-center justify-center gap-6 rounded-md text-center">
         <CardHeader>
-          <CardTitle>{tPage("promptTitle")}</CardTitle>
+          <CardTitle className="text-xl">{tPage("promptTitle")}</CardTitle>
         </CardHeader>
         <CardContent className="flex justify-center">
           <Sheet open={open} onOpenChange={setOpen}>
