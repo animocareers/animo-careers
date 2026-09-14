@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRightIcon, Building2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -36,15 +37,25 @@ export function OrganizationSetupPrompt({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="p-6">
-      <Card className="w-full rounded-xl">
+    <div className="p-6 flex items-center justify-center">
+      <Card className="w-full max-w-md rounded-md">
         <CardHeader>
-          <CardTitle className="text-xl">{tPage("promptTitle")}</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <Building2Icon className="size-5 text-primary" />
+            {tPage("promptTitle")}
+          </CardTitle>
           <CardDescription>{tPage("promptDescription")}</CardDescription>
         </CardHeader>
         <CardFooter>
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger render={<Button>{tPage("promptButton")}</Button>} />
+            <SheetTrigger
+              render={
+                <Button>
+                  {tPage("promptButton")}
+                  <ArrowRightIcon data-icon="inline-end" />
+                </Button>
+              }
+            />
             <SheetContent
               side="right"
               className="flex flex-col p-0 data-[side=right]:sm:max-w-lg"
