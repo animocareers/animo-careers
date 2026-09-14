@@ -21,7 +21,29 @@
 -- 1. organizations.domain
 -- =============================================================================
 
-alter table organizations add column domain text unique;
+alter table organizations add column domain text;
+
+create or replace function private.normalize_organization_domain()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  new.domain := nullif(lower(btrim(new.domain)), '');
+  return new;
+end;
+$$;
+
+revoke execute on function private.normalize_organization_domain() from public, anon, authenticated;
+
+create trigger normalize_organization_domain_before_write
+before insert or update of domain on public.organizations
+for each row execute function private.normalize_organization_domain();
+
+alter table organizations
+  add constraint organizations_domain_key unique (domain),
+  add constraint organizations_domain_lowercase
+  check (domain is null or domain = lower(domain));
 
 -- =============================================================================
 -- 2. Free email provider blocklist
@@ -54,6 +76,29 @@ grant execute on function private.is_free_email_domain(text) to authenticated;
 alter table organizations
   add constraint organizations_domain_not_free_email
   check (domain is null or not private.is_free_email_domain(domain));
+
+-- Keep the database boundary aligned with lib/constants/industries.ts. The
+-- column remains nullable for existing/non-onboarding data, while every
+-- non-null value must come from the shared fixed catalog.
+alter table organizations
+  add constraint organizations_industry_type_valid
+  check (industry_type is null or industry_type in (
+    'manufacturing',
+    'retail',
+    'healthcare',
+    'construction',
+    'it_software',
+    'hospitality',
+    'logistics_transport',
+    'finance_insurance',
+    'education',
+    'automotive',
+    'skilled_trades',
+    'public_sector',
+    'food_beverage',
+    'energy',
+    'other'
+  ));
 
 -- =============================================================================
 -- 3. Slug generation
@@ -92,12 +137,21 @@ set search_path = ''
 as $$
 declare
   v_user_id uuid := (select auth.uid());
-  v_email text := (select auth.jwt() ->> 'email');
+  v_email text;
   v_domain text;
   v_org_id uuid;
 begin
   if v_user_id is null then
     return null;
+  end if;
+
+  select email into v_email
+  from auth.users
+  where id = v_user_id
+    and email_confirmed_at is not null;
+
+  if v_email is null then
+    raise exception 'email_not_verified';
   end if;
 
   select organization_id into v_org_id
@@ -157,16 +211,26 @@ set search_path = ''
 as $$
 declare
   v_user_id uuid := (select auth.uid());
-  v_email text := (select auth.jwt() ->> 'email');
+  v_email text;
   v_domain text;
   v_base_slug text;
   v_slug text;
   v_suffix int := 1;
   v_org_id uuid;
   v_profession_count int;
+  v_constraint_name text;
 begin
   if v_user_id is null then
     raise exception 'not_authenticated';
+  end if;
+
+  select email into v_email
+  from auth.users
+  where id = v_user_id
+    and email_confirmed_at is not null;
+
+  if v_email is null then
+    raise exception 'email_not_verified';
   end if;
 
   if exists (select 1 from public.organization_members where user_id = v_user_id) then
@@ -175,6 +239,26 @@ begin
 
   if p_name is null or trim(p_name) = '' then
     raise exception 'invalid_name';
+  end if;
+
+  if p_industry_type is null or p_industry_type not in (
+    'manufacturing',
+    'retail',
+    'healthcare',
+    'construction',
+    'it_software',
+    'hospitality',
+    'logistics_transport',
+    'finance_insurance',
+    'education',
+    'automotive',
+    'skilled_trades',
+    'public_sector',
+    'food_beverage',
+    'energy',
+    'other'
+  ) then
+    raise exception 'invalid_industry_type';
   end if;
 
   select count(distinct pid) into v_profession_count from unnest(p_profession_ids) as pid;
@@ -210,8 +294,32 @@ begin
       exit;
     exception
       when unique_violation then
-        v_suffix := v_suffix + 1;
-        v_slug := v_base_slug || '-' || v_suffix;
+        get stacked diagnostics v_constraint_name = constraint_name;
+
+        if v_constraint_name = 'organizations_slug_key' then
+          v_suffix := v_suffix + 1;
+          v_slug := v_base_slug || '-' || v_suffix;
+        elsif v_constraint_name = 'organizations_domain_key' then
+          -- Another verified user may have created this domain's organization
+          -- concurrently. Join that tenant instead of endlessly changing the
+          -- slug while the conflicting domain remains unchanged.
+          select organization.id, organization.slug into v_org_id, v_slug
+          from public.organizations as organization
+          where organization.domain = v_domain;
+
+          if v_org_id is null then
+            raise exception 'organization_domain_conflict';
+          end if;
+
+          insert into public.organization_members (organization_id, user_id, branch_id, role, status)
+          values (v_org_id, v_user_id, null, 'team_member', 'active')
+          on conflict (user_id) do nothing;
+
+          return query select v_org_id, v_slug;
+          return;
+        else
+          raise;
+        end if;
     end;
   end loop;
 

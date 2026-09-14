@@ -118,6 +118,8 @@
     "promptTitle": "Set up your organization",
     "promptDescription": "To access the Animo system, you'll need to set up your organization first.",
     "promptButton": "Set Up Organization",
+    "professionCatalogLoadError": "The profession catalog could not be loaded. Please try again.",
+    "retry": "Try again",
     "heading": "Set up your organization",
     "description": "Tell us about your organization to get your dashboard ready.",
     "form": {

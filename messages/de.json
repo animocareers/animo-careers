@@ -118,6 +118,8 @@
     "promptTitle": "Richten Sie Ihre Organisation ein",
     "promptDescription": "Um auf das Animo-System zuzugreifen, müssen Sie zuerst Ihre Organisation einrichten.",
     "promptButton": "Organisation einrichten",
+    "professionCatalogLoadError": "Der Berufskatalog konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+    "retry": "Erneut versuchen",
     "heading": "Richten Sie Ihre Organisation ein",
     "description": "Erzählen Sie uns von Ihrer Organisation, um Ihr Dashboard startklar zu machen.",
     "form": {
