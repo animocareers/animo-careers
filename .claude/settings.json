@@ -134,7 +134,12 @@
       "Read(//c/Users/AZIZUL~1/AppData/Local/Temp/claude/c--Users-Azizullah-Samim-Desktop-animo-careers/1b3d2e7d-160c-4879-9ac3-da1f296a5f92/scratchpad/**)",
       "Bash(cp \"C:\\\\Users\\\\AZIZUL~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Azizullah-Samim-Desktop-animo-careers\\\\1b3d2e7d-160c-4879-9ac3-da1f296a5f92\\\\scratchpad\\\\verify-race-fix.mjs\" \"c:\\\\Users\\\\Azizullah Samim\\\\Desktop\\\\animo-careers\\\\.scratch-race.mjs\")",
       "Bash(node .scratch-race.mjs)",
-      "Bash(echo \"TSC_EXIT=$?\")"
+      "Bash(echo \"TSC_EXIT=$?\")",
+      "Bash(git commit -m ' *)",
+      "Bash(xargs grep -l \"onValueChange\")",
+      "Bash(npm_config_legacy_peer_deps=true npx shadcn add sonner -y)",
+      "Bash(xargs grep -ln \"refresh\")",
+      "Bash(xargs -I{} sh -c 'echo === {} ===; cat {}')"
     ],
     "additionalDirectories": [
       "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock",
