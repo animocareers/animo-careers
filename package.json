@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:diff": "prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -33,6 +34,8 @@
     "@types/react-dom": "^19",
     "eslint": "^10.10.0",
     "eslint-config-next": "16.3.4",
+    "prisma": "^8.0.0-rc.14",
+    "supabase": "^2.117.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

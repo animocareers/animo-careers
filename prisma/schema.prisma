@@ -1,0 +1,274 @@
+// Prisma is used here ONLY as a schema-authoring/diffing tool: this file is a
+// typed reference for the schema described in context/database-design.md, and
+// is used to generate plain SQL via `prisma migrate diff` (see package.json
+// "db:diff" script). The generated .sql files under supabase/migrations/ are
+// the actual source of truth, applied via the Supabase CLI, per
+// context/database-design.md's documented migration workflow. Prisma Client
+// is not generated or used at runtime — the app queries through
+// @supabase/ssr so every query stays subject to Row-Level Security.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public", "auth"]
+}
+
+/// Minimal stub for Supabase's auth.users table, which Supabase Auth owns and
+/// manages. Only the columns needed for foreign keys are declared here.
+model users {
+  id String @id @db.Uuid
+
+  organization_members     organization_members[]
+  done_checklist_items     application_checklist_items[] @relation("ChecklistDoneBy")
+  assigned_checklist_items application_checklist_items[] @relation("ChecklistAssignedTo")
+  application_notes        application_notes[]
+  invitations_sent         invitations[]
+  audit_logs               audit_logs[]
+
+  @@map("users")
+  @@schema("auth")
+}
+
+enum org_role {
+  owner
+  admin
+  head_of_apprenticeship
+  team_member
+
+  @@schema("public")
+}
+
+model organizations {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  slug             String    @unique
+  address          Json?
+  industry_type    String?
+  /// Supabase Storage object key, e.g. "org-logos/{id}.png" — resolved to a
+  /// public URL at render time via supabase.storage.from(bucket).getPublicUrl().
+  /// Same pattern as application_attachments.storage_key.
+  logo_storage_key String?
+  created_at       DateTime? @default(now()) @db.Timestamptz(6)
+
+  branches                 branches[]
+  organization_members     organization_members[]
+  organization_professions organization_professions[]
+  pipeline_stages          pipeline_stages[]
+  applications             applications[]
+  invitations              invitations[]
+  audit_logs               audit_logs[]
+
+  @@schema("public")
+}
+
+/// Every organization gets one of these automatically at creation ("Main"),
+/// so nothing downstream needs a special case for single-location companies.
+model branches {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id String?   @db.Uuid
+  name            String
+  address         Json?
+  slug            String?
+  created_at      DateTime? @default(now()) @db.Timestamptz(6)
+
+  organization organizations? @relation(fields: [organization_id], references: [id])
+
+  organization_members organization_members[]
+  applications         applications[]
+  invitations          invitations[]
+
+  @@unique([organization_id, slug])
+  @@schema("public")
+}
+
+/// One user -> exactly one organization. The @unique on user_id (not a
+/// composite key) is what enforces that constraint.
+model organization_members {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id String?   @db.Uuid
+  user_id         String    @unique @db.Uuid
+  branch_id       String?   @db.Uuid
+  role            org_role
+  status          String?   @default("active")
+  created_at      DateTime? @default(now()) @db.Timestamptz(6)
+
+  organization organizations? @relation(fields: [organization_id], references: [id])
+  branch       branches?      @relation(fields: [branch_id], references: [id])
+  user         users          @relation(fields: [user_id], references: [id])
+
+  @@schema("public")
+}
+
+/// Global, shared catalog seeded from the Bundesagentur fur Arbeit
+/// "Berufe A-Z" list.
+model profession_catalog {
+  id            String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  external_code String? @unique
+  name_de       String
+  category      String?
+
+  organization_professions organization_professions[]
+
+  @@schema("public")
+}
+
+/// The 2-15 professions each org actually offers.
+model organization_professions {
+  id                    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id       String?  @db.Uuid
+  profession_catalog_id String?  @db.Uuid
+  is_active             Boolean? @default(true)
+
+  organization       organizations?      @relation(fields: [organization_id], references: [id])
+  profession_catalog profession_catalog? @relation(fields: [profession_catalog_id], references: [id])
+
+  applications applications[]
+
+  @@unique([organization_id, profession_catalog_id])
+  @@schema("public")
+}
+
+model pipeline_stages {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id String?   @db.Uuid
+  name            String
+  position        Int
+  created_at      DateTime? @default(now()) @db.Timestamptz(6)
+
+  organization organizations? @relation(fields: [organization_id], references: [id])
+
+  checklist_templates checklist_templates[]
+  applications        applications[]
+
+  @@schema("public")
+}
+
+model checklist_templates {
+  id                String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  pipeline_stage_id String? @db.Uuid
+  title             String
+  position          Int
+
+  pipeline_stage pipeline_stages? @relation(fields: [pipeline_stage_id], references: [id])
+
+  @@schema("public")
+}
+
+/// "No date given yet" and "missing information" are computed at query time
+/// from nullable columns below - not stored as flags, to avoid drift.
+model applications {
+  id                         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id            String?   @db.Uuid
+  branch_id                  String    @db.Uuid
+  organization_profession_id String?   @db.Uuid
+  first_name                 String?
+  last_name                  String?
+  email                      String?
+  phone                      String?
+  date_of_birth              DateTime? @db.Date
+  scope                      String?
+  is_school_mandatory        Boolean?
+  current_stage_id           String?   @db.Uuid
+  requested_start_date       DateTime? @db.Date
+  requested_end_date         DateTime? @db.Date
+  confirmed_start_date       DateTime? @db.Date
+  confirmed_end_date         DateTime? @db.Date
+  submitted_at               DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at                 DateTime? @default(now()) @db.Timestamptz(6)
+
+  organization            organizations?             @relation(fields: [organization_id], references: [id])
+  branch                  branches                   @relation(fields: [branch_id], references: [id])
+  organization_profession organization_professions?  @relation(fields: [organization_profession_id], references: [id])
+  current_stage           pipeline_stages?           @relation(fields: [current_stage_id], references: [id])
+
+  application_checklist_items application_checklist_items[]
+  application_notes           application_notes[]
+  application_attachments     application_attachments[]
+
+  @@schema("public")
+}
+
+/// Cloned from checklist_templates when an application enters a stage, so
+/// later template edits don't retroactively change in-flight applications.
+model application_checklist_items {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  application_id String?   @db.Uuid
+  title          String
+  position       Int
+  is_done        Boolean?  @default(false)
+  done_by        String?   @db.Uuid
+  done_at        DateTime? @db.Timestamptz(6)
+  assigned_to    String?   @db.Uuid
+
+  application      applications? @relation(fields: [application_id], references: [id])
+  done_by_user     users?        @relation("ChecklistDoneBy", fields: [done_by], references: [id])
+  assigned_to_user users?        @relation("ChecklistAssignedTo", fields: [assigned_to], references: [id])
+
+  @@schema("public")
+}
+
+/// Modeled as a feed, not a single free-text field, to preserve who-said-what.
+model application_notes {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  application_id String?   @db.Uuid
+  author_id      String?   @db.Uuid
+  body           String
+  created_at     DateTime? @default(now()) @db.Timestamptz(6)
+
+  application applications? @relation(fields: [application_id], references: [id])
+  author      users?        @relation(fields: [author_id], references: [id])
+
+  @@schema("public")
+}
+
+model application_attachments {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  application_id String?   @db.Uuid
+  storage_key    String
+  file_name      String?
+  content_type   String?
+  uploaded_at    DateTime? @default(now()) @db.Timestamptz(6)
+
+  application applications? @relation(fields: [application_id], references: [id])
+
+  @@schema("public")
+}
+
+model invitations {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id String?   @db.Uuid
+  branch_id       String?   @db.Uuid
+  email           String
+  role            org_role
+  token           String    @unique
+  invited_by      String?   @db.Uuid
+  expires_at      DateTime? @db.Timestamptz(6)
+  accepted_at     DateTime? @db.Timestamptz(6)
+
+  organization     organizations? @relation(fields: [organization_id], references: [id])
+  branch           branches?      @relation(fields: [branch_id], references: [id])
+  invited_by_user  users?         @relation(fields: [invited_by], references: [id])
+
+  @@schema("public")
+}
+
+model audit_logs {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id String?   @db.Uuid
+  actor_id        String?   @db.Uuid
+  action          String
+  entity_type     String?
+  entity_id       String?   @db.Uuid
+  metadata        Json?
+  created_at      DateTime? @default(now()) @db.Timestamptz(6)
+
+  organization organizations? @relation(fields: [organization_id], references: [id])
+  actor        users?         @relation(fields: [actor_id], references: [id])
+
+  @@schema("public")
+}
