@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { createOrganizationSchema } from "@/lib/validation/organization";
 
+/** Returns translation keys unchanged for deterministic validation messages. */
 const t = (key: string) => key;
 
 const PROFESSION_A = "11111111-1111-4111-8111-111111111111";
@@ -15,6 +16,7 @@ function professionIds(count: number) {
   );
 }
 
+/** Builds a valid organization payload with optional field overrides. */
 function validPayload(overrides: Partial<Record<string, unknown>> = {}) {
   return {
     name: "Acme GmbH",

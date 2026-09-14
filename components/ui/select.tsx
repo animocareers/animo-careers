@@ -7,6 +7,7 @@ import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from "lucide-react"
 
 const Select = SelectPrimitive.Root
 
+/** Groups related options within a select menu. */
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   return (
     <SelectPrimitive.Group
@@ -17,6 +18,7 @@ function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   )
 }
 
+/** Displays the selected value or placeholder. */
 function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
   return (
     <SelectPrimitive.Value
@@ -27,6 +29,7 @@ function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
   )
 }
 
+/** Renders the control that opens the select menu. */
 function SelectTrigger({
   className,
   size = "default",
@@ -55,6 +58,7 @@ function SelectTrigger({
   )
 }
 
+/** Renders the positioned and scrollable select menu. */
 function SelectContent({
   className,
   children,
@@ -94,6 +98,7 @@ function SelectContent({
   )
 }
 
+/** Labels a group of related select options. */
 function SelectLabel({
   className,
   ...props
@@ -107,6 +112,7 @@ function SelectLabel({
   )
 }
 
+/** Renders a selectable option with its selection indicator. */
 function SelectItem({
   className,
   children,
@@ -135,6 +141,7 @@ function SelectItem({
   )
 }
 
+/** Visually separates groups of select options. */
 function SelectSeparator({
   className,
   ...props
@@ -151,6 +158,7 @@ function SelectSeparator({
   )
 }
 
+/** Scrolls overflowing select options toward the beginning. */
 function SelectScrollUpButton({
   className,
   ...props
@@ -170,6 +178,7 @@ function SelectScrollUpButton({
   )
 }
 
+/** Scrolls overflowing select options toward the end. */
 function SelectScrollDownButton({
   className,
   ...props
