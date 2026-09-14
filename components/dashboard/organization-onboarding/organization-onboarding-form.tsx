@@ -126,7 +126,7 @@ export function OrganizationOnboardingForm({
             control={control}
             name="industryType"
             render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
+              <Select value={field.value ?? null} onValueChange={field.onChange}>
                 <SelectTrigger
                   id="industryType"
                   aria-invalid={!!errors.industryType}
