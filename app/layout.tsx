@@ -3,6 +3,7 @@ import { Manrope, Nunito } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -15,6 +16,7 @@ const nunito = Nunito({
   weight: ["800", "900"],
 });
 
+/** Provides the application-wide fonts, theme, and toast notification host. */
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-center" />
         </ThemeProvider>
       </body>
     </html>

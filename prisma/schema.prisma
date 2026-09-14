@@ -53,6 +53,10 @@ model organizations {
   /// public URL at render time via supabase.storage.from(bucket).getPublicUrl().
   /// Same pattern as application_attachments.storage_key.
   logo_storage_key String?
+  /// Canonical lowercase work-email domain of the org's creator. The database
+  /// normalizes every write before enforcing uniqueness; NULL is retained for
+  /// creators using a free email provider (see the onboarding migration).
+  domain           String?   @unique
   created_at       DateTime? @default(now()) @db.Timestamptz(6)
 
   branches                 branches[]
