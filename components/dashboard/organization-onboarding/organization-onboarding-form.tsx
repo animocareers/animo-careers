@@ -137,7 +137,7 @@ export function OrganizationOnboardingForm({
                 <SelectContent>
                   {INDUSTRY_TYPES.map((type) => (
                     <SelectItem key={type} value={type}>
-                      {t(`industryTypes.${type}`)}
+                      {tPage(`industryTypes.${type}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
