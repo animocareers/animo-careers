@@ -111,6 +111,7 @@
     "accountMenu": "Account menu",
     "profile": "Profile",
     "settings": "Settings",
+    "organization": "Organization",
     "signOut": "Sign out",
     "signingOut": "Signing out..."
   },
@@ -172,6 +173,19 @@
       "energy": "Energy",
       "other": "Other"
     }
+  },
+  "OrganizationSettings": {
+    "metaTitle": "Organization settings – animo",
+    "metaDescription": "View and edit your organization's details and share your public application link.",
+    "heading": "Organization settings",
+    "description": "Update your organization's details and share your public application link.",
+    "save": "Save changes",
+    "saving": "Saving...",
+    "savedToast": "Organization details updated.",
+    "applyLinkLabel": "Public application link",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Couldn't copy the link. Please copy it manually."
   },
   "HomePage": {
     "metaTitle": "animo – Career orientation, reimagined",

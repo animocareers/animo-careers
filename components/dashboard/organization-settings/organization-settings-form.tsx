@@ -1,14 +1,17 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckIcon, CopyIcon, Loader2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { createOrganization } from "@/app/[locale]/dashboard/actions";
-import { ProfessionMultiSelect, type ProfessionOption } from "@/components/dashboard/organization-onboarding/profession-multi-select";
-import { LoadingOverlay } from "@/components/shared/loading-overlay";
+import { updateOrganization } from "@/app/[locale]/dashboard/settings/organization/actions";
+import {
+  ProfessionMultiSelect,
+  type ProfessionOption,
+} from "@/components/dashboard/organization-onboarding/profession-multi-select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,25 +22,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter } from "@/i18n/navigation";
 import { INDUSTRY_TYPES } from "@/lib/constants/industries";
 import { createOrganizationSchema, type OrganizationFormValues } from "@/lib/validation/organization";
 
-interface OrganizationOnboardingFormProps {
+interface OrganizationSettingsFormProps {
   locale: string;
+  organization: {
+    id: string;
+    name: string;
+    slug: string;
+    address: { street?: string; postalCode?: string; city?: string; country?: string } | null;
+    industry_type: string | null;
+  };
+  applyLink: string;
   professions: ProfessionOption[];
+  professionIds: string[];
 }
 
-/** Renders the org-creation form shown in place of dashboard content until an organization exists. */
-export function OrganizationOnboardingForm({
+/** Views and edits the caller's organization details, offered professions, and a copyable public apply link. */
+export function OrganizationSettingsForm({
   locale,
+  organization,
+  applyLink,
   professions,
-}: OrganizationOnboardingFormProps) {
+  professionIds,
+}: OrganizationSettingsFormProps) {
+  const tSettings = useTranslations("OrganizationSettings");
   const tPage = useTranslations("OrganizationOnboarding");
   const t = useTranslations("OrganizationOnboarding.form");
-  const router = useRouter();
   const [formError, setFormError] = useState<string | null>(null);
-  const [isNavigating, startNavigation] = useTransition();
+  const [copied, setCopied] = useState(false);
   const {
     register,
     control,
@@ -45,40 +59,82 @@ export function OrganizationOnboardingForm({
     formState: { errors, isSubmitting },
   } = useForm<OrganizationFormValues>({
     resolver: zodResolver(createOrganizationSchema(t)),
-    defaultValues: { professionIds: [] },
+    defaultValues: {
+      name: organization.name,
+      street: organization.address?.street ?? "",
+      postalCode: organization.address?.postalCode ?? "",
+      city: organization.address?.city ?? "",
+      country: organization.address?.country ?? "",
+      industryType: (organization.industry_type ?? undefined) as OrganizationFormValues["industryType"],
+      professionIds,
+    },
   });
 
   // Select's displayed value can only resolve a label from its `items` map —
-  // without it, a value shown before the popup has ever opened falls back to
-  // the raw enum value instead of its translated label.
+  // without it, a value set before the popup has ever opened (e.g. this
+  // pre-filled edit form) falls back to showing the raw enum value.
   const industryItems = Object.fromEntries(
     INDUSTRY_TYPES.map((type) => [type, tPage(`industryTypes.${type}`)]),
   );
 
-  const isBusy = isSubmitting || isNavigating;
+  useEffect(() => {
+    if (!copied) return;
+    const id = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(id);
+  }, [copied]);
 
-  /** Submits the organization details and surfaces any server-side error. */
+  /** Submits the edited organization details and surfaces any server-side error. */
   async function onSubmit(values: OrganizationFormValues) {
     setFormError(null);
-    const result = await createOrganization(locale, values);
+    const result = await updateOrganization(locale, values);
     if (result.status === "error") {
       setFormError(result.message);
       return;
     }
-    toast.success(t("createdToast"));
-    // Navigate to a genuinely different route (rather than router.refresh()
-    // on this same /dashboard URL) so Next.js re-runs dashboard/layout.tsx
-    // fresh for it: the membership check there now finds the organization
-    // just created and renders the settings page normally, instead of the
-    // onboarding sheet being swapped out in place for a blank dashboard.
-    startNavigation(() => {
-      router.push("/dashboard/settings/organization");
-    });
+    toast.success(tSettings("savedToast"));
+  }
+
+  /** Copies the apply link to the clipboard, falling back to a toast if the Clipboard API is unavailable. */
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(applyLink);
+      setCopied(true);
+    } catch {
+      toast.error(tSettings("copyFailed"));
+    }
   }
 
   return (
-    <>
-      {isBusy && <LoadingOverlay label={t("submitting")} />}
+    <div className="space-y-8">
+      <div className="space-y-1">
+        <h1 className="text-2xl font-heading font-black tracking-tight">{tSettings("heading")}</h1>
+        <p className="text-sm text-muted-foreground">{tSettings("description")}</p>
+      </div>
+
+      <div className="space-y-1.5">
+        <Label htmlFor="applyLink">{tSettings("applyLinkLabel")}</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            id="applyLink"
+            readOnly
+            value={applyLink}
+            className="bg-muted text-muted-foreground"
+          />
+          <Button type="button" variant="outline" onClick={() => void handleCopy()}>
+            {copied ? (
+              <>
+                <CheckIcon data-icon="inline-start" />
+                {tSettings("copied")}
+              </>
+            ) : (
+              <>
+                <CopyIcon data-icon="inline-start" />
+                {tSettings("copy")}
+              </>
+            )}
+          </Button>
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         <div className="space-y-1.5">
@@ -189,12 +245,23 @@ export function OrganizationOnboardingForm({
           )}
         </div>
 
-        {formError && <p className="text-sm text-destructive">{formError}</p>}
+        {formError && (
+          <p role="alert" className="text-sm text-destructive">
+            {formError}
+          </p>
+        )}
 
-        <Button type="submit" disabled={isBusy} className="w-full">
-          {t("submit")}
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2Icon data-icon="inline-start" className="animate-spin" />
+              {tSettings("saving")}
+            </>
+          ) : (
+            tSettings("save")
+          )}
         </Button>
       </form>
-    </>
+    </div>
   );
 }

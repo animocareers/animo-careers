@@ -139,11 +139,25 @@
       "Bash(xargs grep -l \"onValueChange\")",
       "Bash(npm_config_legacy_peer_deps=true npx shadcn add sonner -y)",
       "Bash(xargs grep -ln \"refresh\")",
-      "Bash(xargs -I{} sh -c 'echo === {} ===; cat {}')"
+      "Bash(xargs -I{} sh -c 'echo === {} ===; cat {}')",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('messages/en.json','utf8'\\)\\); JSON.parse\\(require\\('fs'\\).readFileSync\\('messages/de.json','utf8'\\)\\); console.log\\('OK'\\)\")",
+      "Bash(mkdir -p \"/c/Users/Azizullah Samim/Desktop/animo-careers/app/[locale]/dashboard/settings/organization\" \"/c/Users/Azizullah Samim/Desktop/animo-careers/components/dashboard/organization-settings\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/en/dashboard/settings/organization)",
+      "Bash(netstat -ano)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/en/dashboard/settings/organization)",
+      "Bash(curl -s -o /dev/null -w \"settings: %{http_code}\\\\n\" http://localhost:3000/en/dashboard/settings/organization)",
+      "Bash(curl -s -D - -o /dev/null http://localhost:3000/en/dashboard/settings/organization)",
+      "Bash(curl -s -o /dev/null -w \"dashboard: %{http_code}\\\\n\" http://localhost:3000/en/dashboard)",
+      "Bash(npx eslint *)",
+      "Bash(gh pr *)",
+      "Bash(where.exe gh *)",
+      "Bash(curl -s \"https://api.github.com/repos/animocareers/animo-careers/pulls?head=animocareers:organization_logic&state=open\")",
+      "Bash(curl -s -o /dev/null -w \"settings recompile: %{http_code}\\\\n\" \"http://localhost:3000/en/dashboard/settings/organization?_=$\\(date +%s\\)\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock",
-      "c:\\Users\\Azizullah Samim\\Desktop\\animo-careers\\app\\[locale]\\auth"
+      "c:\\Users\\Azizullah Samim\\Desktop\\animo-careers\\app\\[locale]\\auth",
+      "C:\\Users\\Azizullah Samim\\Desktop\\animo-careers\\app\\[locale]\\dashboard\\settings"
     ]
   }
 }

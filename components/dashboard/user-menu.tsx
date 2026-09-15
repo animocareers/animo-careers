@@ -1,11 +1,10 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { LogOut, Settings, UserRound } from "lucide-react";
+import { Building2Icon, Loader2Icon, LogOut, Settings, UserRound } from "lucide-react";
 import { useState } from "react";
 
 import { signOut } from "@/app/[locale]/dashboard/actions";
-import { LoadingOverlay } from "@/components/shared/loading-overlay";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,13 +14,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "@/i18n/navigation";
+import { canManageOrganization, type OrgRole } from "@/lib/organization/roles";
 
 interface UserMenuProps {
   email: string;
+  role: OrgRole | null;
 }
 
 /** Avatar button in the navbar that opens the account menu (profile, settings, sign out). */
-export function UserMenu({ email }: UserMenuProps) {
+export function UserMenu({ email, role }: UserMenuProps) {
   const t = useTranslations("DashboardLayout");
   const locale = useLocale();
   const initial = (email || "?").charAt(0).toUpperCase();
@@ -39,15 +41,19 @@ export function UserMenu({ email }: UserMenuProps) {
 
   return (
     <DropdownMenu>
-      {isSigningOut && <LoadingOverlay label={t("signingOut")} />}
       <DropdownMenuTrigger
         render={
           <button
             type="button"
             aria-label={t("accountMenu")}
-            className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+            disabled={isSigningOut}
+            className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground disabled:opacity-50"
           >
-            {initial}
+            {isSigningOut ? (
+              <Loader2Icon className="size-4 animate-spin" aria-label={t("signingOut")} />
+            ) : (
+              initial
+            )}
           </button>
         }
       />
@@ -64,6 +70,12 @@ export function UserMenu({ email }: UserMenuProps) {
           <Settings />
           {t("settings")}
         </DropdownMenuItem>
+        {canManageOrganization(role) && (
+          <DropdownMenuItem render={<Link href="/dashboard/settings/organization" />}>
+            <Building2Icon />
+            {t("organization")}
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           variant="destructive"
