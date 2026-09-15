@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { DashboardNavbar } from "@/components/dashboard/dashboard-navbar";
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar";
 import { OrganizationSetupPrompt } from "@/components/dashboard/organization-onboarding/organization-setup-prompt";
+import type { OrgRole } from "@/lib/organization/roles";
 import { createClient } from "@/lib/supabase/server";
 
 /** Shared shell (sidebar + navbar) for every authenticated dashboard route. */
@@ -25,17 +26,19 @@ export default async function DashboardLayout({
   // onboarding form in place of the normal dashboard content until they
   // create one. See context/features/feature 06.md.
   let organizationId: string | null = null;
+  let role: OrgRole | null = null;
   let membershipLookupFailed = false;
   try {
     const { data: membership, error: membershipError } = await supabase
       .from("organization_members")
-      .select("organization_id")
+      .select("organization_id, role")
       .eq("user_id", data.claims.sub)
       .maybeSingle();
     if (membershipError) {
       membershipLookupFailed = true;
     } else {
       organizationId = membership?.organization_id ?? null;
+      role = membership?.role ?? null;
     }
 
     if (!membershipLookupFailed && !organizationId) {
@@ -46,6 +49,9 @@ export default async function DashboardLayout({
         membershipLookupFailed = true;
       } else {
         organizationId = joinedOrgId ?? null;
+        // join_organization_by_domain always joins as team_member (see
+        // supabase/migrations/20260914070955_organization_onboarding.sql).
+        role = organizationId ? "team_member" : null;
       }
     }
   } catch {
@@ -89,7 +95,7 @@ export default async function DashboardLayout({
     <div className="flex min-h-svh">
       <DashboardSidebar />
       <div className="flex flex-1 flex-col">
-        <DashboardNavbar email={data.claims.email ?? ""} />
+        <DashboardNavbar email={data.claims.email ?? ""} role={role} />
         <main className="flex-1 overflow-y-auto">{mainContent}</main>
       </div>
     </div>

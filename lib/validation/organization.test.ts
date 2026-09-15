@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createOrganizationSchema } from "@/lib/validation/organization";
+import { createOrganizationSchema, updateOrganizationSchema } from "@/lib/validation/organization";
 
 /** Returns translation keys unchanged for deterministic validation messages. */
 const t = (key: string) => key;
@@ -80,6 +80,54 @@ describe("createOrganizationSchema", () => {
   it("rejects an industryType outside the fixed enum", () => {
     const result = createOrganizationSchema(t).safeParse(
       validPayload({ industryType: "not_a_real_industry" }),
+    );
+    expect(result.success).toBe(false);
+  });
+});
+
+/** Builds a valid organization-details payload (no professionIds) with optional overrides. */
+function validDetailsPayload(overrides: Partial<Record<string, unknown>> = {}) {
+  return {
+    name: "Acme GmbH",
+    street: "Musterstraße 1",
+    postalCode: "10115",
+    city: "Berlin",
+    country: "Germany",
+    industryType: "it_software",
+    ...overrides,
+  };
+}
+
+describe("updateOrganizationSchema", () => {
+  it("accepts a fully valid payload", () => {
+    const result = updateOrganizationSchema(t).safeParse(validDetailsPayload());
+    expect(result.success).toBe(true);
+  });
+
+  it("does not require professionIds", () => {
+    const result = updateOrganizationSchema(t).safeParse(validDetailsPayload());
+    expect(result.success).toBe(true);
+    expect(result.success && "professionIds" in result.data).toBe(false);
+  });
+
+  it("rejects a blank name", () => {
+    const result = updateOrganizationSchema(t).safeParse(validDetailsPayload({ name: "  " }));
+    expect(result.success).toBe(false);
+  });
+
+  it.each(["street", "postalCode", "city", "country"])(
+    "rejects a missing %s",
+    (field) => {
+      const result = updateOrganizationSchema(t).safeParse(
+        validDetailsPayload({ [field]: "" }),
+      );
+      expect(result.success).toBe(false);
+    },
+  );
+
+  it("rejects an industryType outside the fixed enum", () => {
+    const result = updateOrganizationSchema(t).safeParse(
+      validDetailsPayload({ industryType: "not_a_real_industry" }),
     );
     expect(result.success).toBe(false);
   });

@@ -111,6 +111,7 @@
     "accountMenu": "Kontomenü",
     "profile": "Profil",
     "settings": "Einstellungen",
+    "organization": "Organisation",
     "signOut": "Abmelden",
     "signingOut": "Wird abgemeldet..."
   },
@@ -172,6 +173,19 @@
       "energy": "Energie",
       "other": "Sonstiges"
     }
+  },
+  "OrganizationSettings": {
+    "metaTitle": "Organisationseinstellungen – animo",
+    "metaDescription": "Organisationsdaten ansehen, bearbeiten und den öffentlichen Bewerbungslink teilen.",
+    "heading": "Organisationseinstellungen",
+    "description": "Aktualisieren Sie die Daten Ihrer Organisation und teilen Sie Ihren öffentlichen Bewerbungslink.",
+    "save": "Änderungen speichern",
+    "saving": "Wird gespeichert...",
+    "savedToast": "Organisationsdaten aktualisiert.",
+    "applyLinkLabel": "Öffentlicher Bewerbungslink",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "copyFailed": "Der Link konnte nicht kopiert werden. Bitte manuell kopieren."
   },
   "HomePage": {
     "metaTitle": "animo – Berufsorientierung neu gedacht",

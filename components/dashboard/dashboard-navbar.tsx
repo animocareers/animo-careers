@@ -18,15 +18,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Link } from "@/i18n/navigation";
+import type { OrgRole } from "@/lib/organization/roles";
 
 import { primaryNavItems, secondaryNavItems } from "./nav-items";
 
 interface DashboardNavbarProps {
   email: string;
+  role: OrgRole | null;
 }
 
 /** Top navbar for the dashboard shell: mobile nav trigger on the left, account controls on the right. */
-export function DashboardNavbar({ email }: DashboardNavbarProps) {
+export function DashboardNavbar({ email, role }: DashboardNavbarProps) {
   const t = useTranslations("DashboardLayout");
   const [open, setOpen] = useState(false);
 
@@ -65,7 +67,7 @@ export function DashboardNavbar({ email }: DashboardNavbarProps) {
       <div className="ml-auto flex items-center gap-2">
         <LocaleSwitcher />
         <ModeToggle />
-        <UserMenu email={email} />
+        <UserMenu email={email} role={role} />
       </div>
     </header>
   );
