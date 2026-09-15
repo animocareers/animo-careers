@@ -54,12 +54,43 @@ export default async function OrganizationSettingsPage({
 
   const applyLink = buildApplyLink(resolveOrigin(await headers()), organization.slug);
 
+  // Non-fatal: the rest of the page (name/address/industry, apply link) is
+  // still useful if the profession catalog or the org's current selections
+  // fail to load, so degrade to an empty list rather than redirecting away.
+  let professions: { id: string; name_de: string }[] = [];
+  try {
+    const { data: professionsData, error: professionsError } = await supabase
+      .from("profession_catalog")
+      .select("id, name_de")
+      .order("name_de");
+    if (!professionsError && professionsData) {
+      professions = professionsData;
+    }
+  } catch {
+    professions = [];
+  }
+
+  let professionIds: string[] = [];
+  try {
+    const { data: orgProfessions, error: orgProfessionsError } = await supabase
+      .from("organization_professions")
+      .select("profession_catalog_id")
+      .eq("organization_id", membership.organizationId);
+    if (!orgProfessionsError && orgProfessions) {
+      professionIds = orgProfessions.map((row) => row.profession_catalog_id);
+    }
+  } catch {
+    professionIds = [];
+  }
+
   return (
     <div className="mx-auto w-full max-w-2xl p-6">
       <OrganizationSettingsForm
         locale={locale}
         organization={organization}
         applyLink={applyLink}
+        professions={professions}
+        professionIds={professionIds}
       />
     </div>
   );

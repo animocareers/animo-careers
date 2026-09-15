@@ -48,6 +48,13 @@ export function OrganizationOnboardingForm({
     defaultValues: { professionIds: [] },
   });
 
+  // Select's displayed value can only resolve a label from its `items` map —
+  // without it, a value shown before the popup has ever opened falls back to
+  // the raw enum value instead of its translated label.
+  const industryItems = Object.fromEntries(
+    INDUSTRY_TYPES.map((type) => [type, tPage(`industryTypes.${type}`)]),
+  );
+
   const isBusy = isSubmitting || isNavigating;
 
   /** Submits the organization details and surfaces any server-side error. */
@@ -140,7 +147,7 @@ export function OrganizationOnboardingForm({
             control={control}
             name="industryType"
             render={({ field }) => (
-              <Select value={field.value ?? null} onValueChange={field.onChange}>
+              <Select items={industryItems} value={field.value ?? null} onValueChange={field.onChange}>
                 <SelectTrigger
                   id="industryType"
                   aria-invalid={!!errors.industryType}

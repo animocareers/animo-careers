@@ -4,23 +4,23 @@ import { getTranslations } from "next-intl/server";
 
 import { canManageOrganization, getOrganizationMembership } from "@/lib/organization/roles";
 import { createClient } from "@/lib/supabase/server";
-import { updateOrganizationSchema } from "@/lib/validation/organization";
+import { createOrganizationSchema } from "@/lib/validation/organization";
 
 export type UpdateOrganizationState = { status: "success" } | { status: "error"; message: string };
 
-/** Validates and persists edits to the caller's organization (name, address, industry type). */
+/** Validates and persists edits to the caller's organization (name, address, industry type, offered professions). */
 export async function updateOrganization(
   locale: string,
   values: unknown,
 ): Promise<UpdateOrganizationState> {
   const t = await getTranslations({ locale, namespace: "OrganizationOnboarding.form" });
-  const parsed = updateOrganizationSchema(t).safeParse(values);
+  const parsed = createOrganizationSchema(t).safeParse(values);
 
   if (!parsed.success) {
     return { status: "error", message: t("submitFailed") };
   }
 
-  const { name, street, postalCode, city, country, industryType } = parsed.data;
+  const { name, street, postalCode, city, country, industryType, professionIds } = parsed.data;
 
   const supabase = await createClient();
   const { data: claimsData, error: claimsError } = await supabase.auth.getClaims();
@@ -51,6 +51,47 @@ export async function updateOrganization(
 
   if (error || !updated) {
     return { status: "error", message: t("submitFailed") };
+  }
+
+  const { data: currentProfessions, error: currentProfessionsError } = await supabase
+    .from("organization_professions")
+    .select("id, profession_catalog_id")
+    .eq("organization_id", membership.organizationId);
+
+  if (currentProfessionsError) {
+    return { status: "error", message: t("submitFailed") };
+  }
+
+  const nextIds = new Set(professionIds);
+  const currentIds = new Set((currentProfessions ?? []).map((row) => row.profession_catalog_id));
+  const rowsToRemove = (currentProfessions ?? []).filter(
+    (row) => !nextIds.has(row.profession_catalog_id),
+  );
+  const idsToAdd = professionIds.filter((id) => !currentIds.has(id));
+
+  if (rowsToRemove.length > 0) {
+    const { error: removeError } = await supabase
+      .from("organization_professions")
+      .delete()
+      .in(
+        "id",
+        rowsToRemove.map((row) => row.id),
+      );
+    if (removeError) {
+      return { status: "error", message: t("submitFailed") };
+    }
+  }
+
+  if (idsToAdd.length > 0) {
+    const { error: addError } = await supabase.from("organization_professions").insert(
+      idsToAdd.map((professionCatalogId) => ({
+        organization_id: membership.organizationId,
+        profession_catalog_id: professionCatalogId,
+      })),
+    );
+    if (addError) {
+      return { status: "error", message: t("submitFailed") };
+    }
   }
 
   return { status: "success" };
