@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
@@ -52,10 +53,12 @@ export async function createOrganization(
     return { status: "error", message: t("submitFailed") };
   }
 
-  // Deliberately not redirect()'d here: the onboarding form renders inline
-  // on this same /dashboard route (see dashboard/layout.tsx), so navigating
-  // "to" the page the caller is already on wouldn't force Next.js to
-  // re-fetch it. The caller (organization-onboarding-form.tsx) calls
-  // router.refresh() on success instead, which does force that re-fetch.
+  // dashboard/layout.tsx decides what to render (the onboarding prompt vs.
+  // real dashboard content) based on organization membership, and that
+  // decision is cached per the App Router's layout caching — without this,
+  // the caller's post-success navigation to /dashboard/settings/organization
+  // can reuse the stale cached layout render (still showing the onboarding
+  // sheet) instead of re-checking membership and finding the new org.
+  revalidatePath("/[locale]/dashboard", "layout");
   return { status: "success" };
 }
