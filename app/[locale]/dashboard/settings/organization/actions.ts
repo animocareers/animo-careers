@@ -32,66 +32,29 @@ export async function updateOrganization(
 
   // Re-checked here even though the settings page already gates access on
   // role: Server Actions are directly callable, independent of which page
-  // rendered the form that triggered them. RLS is the real backstop — this
-  // just returns a clean error instead of a silent no-op update.
+  // rendered the form that triggered them. The RPC re-checks this too (it's
+  // the real backstop, since it does the actual writes) — this just avoids
+  // a round trip for a request that's obviously not going to work.
   if (!membership || !canManageOrganization(membership.role)) {
     return { status: "error", message: t("submitFailed") };
   }
 
-  const { data: updated, error } = await supabase
-    .from("organizations")
-    .update({
-      name,
-      address: { street, postalCode, city, country },
-      industry_type: industryType,
-    })
-    .eq("id", membership.organizationId)
-    .select("id")
-    .maybeSingle();
+  const { error } = await supabase.rpc("update_organization_details", {
+    p_organization_id: membership.organizationId,
+    p_name: name,
+    p_address: { street, postalCode, city, country },
+    p_industry_type: industryType,
+    p_profession_ids: professionIds,
+  });
 
-  if (error || !updated) {
-    return { status: "error", message: t("submitFailed") };
-  }
-
-  const { data: currentProfessions, error: currentProfessionsError } = await supabase
-    .from("organization_professions")
-    .select("id, profession_catalog_id")
-    .eq("organization_id", membership.organizationId);
-
-  if (currentProfessionsError) {
-    return { status: "error", message: t("submitFailed") };
-  }
-
-  const nextIds = new Set(professionIds);
-  const currentIds = new Set((currentProfessions ?? []).map((row) => row.profession_catalog_id));
-  const rowsToRemove = (currentProfessions ?? []).filter(
-    (row) => !nextIds.has(row.profession_catalog_id),
-  );
-  const idsToAdd = professionIds.filter((id) => !currentIds.has(id));
-
-  if (rowsToRemove.length > 0) {
-    const { error: removeError } = await supabase
-      .from("organization_professions")
-      .delete()
-      .in(
-        "id",
-        rowsToRemove.map((row) => row.id),
-      );
-    if (removeError) {
-      return { status: "error", message: t("submitFailed") };
+  if (error) {
+    // These match the `raise exception` messages in
+    // update_organization_details (supabase/migrations/20260915100000_update_organization_details.sql)
+    // — keep both in sync.
+    if (error.message === "invalid_profession_count") {
+      return { status: "error", message: t("professionsMax") };
     }
-  }
-
-  if (idsToAdd.length > 0) {
-    const { error: addError } = await supabase.from("organization_professions").insert(
-      idsToAdd.map((professionCatalogId) => ({
-        organization_id: membership.organizationId,
-        profession_catalog_id: professionCatalogId,
-      })),
-    );
-    if (addError) {
-      return { status: "error", message: t("submitFailed") };
-    }
+    return { status: "error", message: t("submitFailed") };
   }
 
   return { status: "success" };

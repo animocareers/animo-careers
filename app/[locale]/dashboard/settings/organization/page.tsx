@@ -70,18 +70,31 @@ export default async function OrganizationSettingsPage({
     professions = [];
   }
 
-  let professionIds: string[] = [];
+  // Fatal, unlike the catalog fetch above: professionIds represents the
+  // org's *actual current* associations, which the save action fully
+  // replaces with whatever's submitted. Defaulting to [] on failure would
+  // let an unrelated save (e.g. just editing the name) silently wipe the
+  // org's real professions instead of leaving them untouched. redirect()
+  // must stay outside the try/catch — it works by throwing, and a catch
+  // here would swallow that throw instead of letting it propagate.
+  let orgProfessions: { profession_catalog_id: string }[] | null = null;
   try {
-    const { data: orgProfessions, error: orgProfessionsError } = await supabase
+    const { data, error: orgProfessionsError } = await supabase
       .from("organization_professions")
       .select("profession_catalog_id")
       .eq("organization_id", membership.organizationId);
-    if (!orgProfessionsError && orgProfessions) {
-      professionIds = orgProfessions.map((row) => row.profession_catalog_id);
+    if (!orgProfessionsError && data) {
+      orgProfessions = data;
     }
   } catch {
-    professionIds = [];
+    orgProfessions = null;
   }
+
+  if (!orgProfessions) {
+    redirect(`/${locale}/dashboard`);
+  }
+
+  const professionIds = orgProfessions.map((row) => row.profession_catalog_id);
 
   return (
     <div className="mx-auto w-full max-w-2xl p-6">
