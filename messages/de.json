@@ -667,6 +667,73 @@
       "label": "Jetzt kostenlose Beratung buchen"
     }
   },
+  "ApplyPage": {
+    "metaTitle": "Bewerben – animo",
+    "metaDescription": "Bewirb dich direkt bei diesem Unternehmen um ein Praktikum oder eine Ausbildung.",
+    "steps": {
+      "1": "Praktikumsanfrage",
+      "2": "Deine Angaben",
+      "3": "Überprüfen & absenden"
+    },
+    "stepDescriptions": {
+      "1": "Erzähl uns, wonach du suchst.",
+      "2": "Damit wir dich erreichen können.",
+      "3": "Prüfe alles, bevor du absendest."
+    },
+    "stepLabel": "Schritt {current} von {total}",
+    "back": "Zurück",
+    "continue": "Weiter",
+    "submit": "Bewerbung absenden",
+    "submitting": "Wird gesendet...",
+    "successTitle": "Bewerbung eingegangen",
+    "successDescription": "Danke, {firstName}! Deine Bewerbung wurde erfasst.",
+    "form": {
+      "professionLabel": "Berufsfeld / Tätigkeit",
+      "professionPlaceholder": "z. B. Tischler",
+      "professionRequired": "Bitte wähle einen Beruf aus.",
+      "branchLabel": "Standort",
+      "branchPlaceholder": "Standort auswählen",
+      "branchRequired": "Bitte wähle einen Standort aus.",
+      "branchInvalid": "Bitte wähle einen gültigen Standort aus.",
+      "internshipTypeLabel": "Praktikumsart",
+      "internshipTypeObligatory": "Pflicht",
+      "internshipTypeVoluntary": "Freiwillig",
+      "internshipTypeRequired": "Bitte gib an, ob das Praktikum Pflicht oder freiwillig ist.",
+      "scopeLabel": "Umfang",
+      "scopeSingleProfession": "Ein Beruf",
+      "scopeOrientierungspraktikum": "Mehrere",
+      "scopeRequired": "Bitte wähle einen Beruf oder mehrere aus.",
+      "datesLabel": "Zeitraum",
+      "datesFromLabel": "von",
+      "datesToLabel": "bis",
+      "datePlaceholder": "TT.MM.JJJJ",
+      "exactDateUnknownLabel": "Genauer Zeitraum noch unbekannt",
+      "invalidDate": "Bitte gib ein gültiges Datum ein.",
+      "endDateBeforeStart": "Das Enddatum darf nicht vor dem Startdatum liegen.",
+      "firstNameLabel": "Vorname",
+      "firstNamePlaceholder": "Anna",
+      "firstNameRequired": "Bitte gib einen Vornamen ein.",
+      "lastNameLabel": "Nachname",
+      "lastNamePlaceholder": "Mustermann",
+      "lastNameRequired": "Bitte gib einen Nachnamen ein.",
+      "dateOfBirthLabel": "Geburtsdatum",
+      "dateOfBirthRequired": "Bitte gib ein Geburtsdatum ein.",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "du@beispiel.de",
+      "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
+      "phoneLabel": "Telefon",
+      "phonePlaceholder": "optional",
+      "privacyNoticeLabel": "Ich habe die Datenschutzhinweise gelesen",
+      "privacyNoticeRequired": "Bitte bestätige, dass du die Datenschutzhinweise gelesen hast, um fortzufahren."
+    },
+    "review": {
+      "heading": "Überprüfe deine Bewerbung",
+      "description": "Bitte prüfe deine Angaben, bevor du sie absendest.",
+      "noDate": "Noch nicht festgelegt",
+      "yes": "Ja",
+      "no": "Nein"
+    }
+  },
   "AssessmentPage": {
     "metaTitle": "Persönliches Career Assessment – animo",
     "metaDescription": "Beantworte 18 Fragen zu deinen Vorlieben, Fähigkeiten und Werten – und erhalte eine personalisierte Berufsempfehlung.",

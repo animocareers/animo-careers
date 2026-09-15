@@ -667,6 +667,73 @@
       "label": "Book a free consultation now"
     }
   },
+  "ApplyPage": {
+    "metaTitle": "Apply – animo",
+    "metaDescription": "Apply for an internship or apprenticeship directly with this company.",
+    "steps": {
+      "1": "Internship request",
+      "2": "Your details",
+      "3": "Review & submit"
+    },
+    "stepDescriptions": {
+      "1": "Tell us what you're looking for.",
+      "2": "So we can reach you.",
+      "3": "Check everything before you send it."
+    },
+    "stepLabel": "Step {current} of {total}",
+    "back": "Back",
+    "continue": "Continue",
+    "submit": "Submit application",
+    "submitting": "Submitting...",
+    "successTitle": "Application received",
+    "successDescription": "Thanks, {firstName}! Your application has been recorded.",
+    "form": {
+      "professionLabel": "Job field / role",
+      "professionPlaceholder": "e.g. Carpenter",
+      "professionRequired": "Please select a profession.",
+      "branchLabel": "Location",
+      "branchPlaceholder": "Select a location",
+      "branchRequired": "Please select a location.",
+      "branchInvalid": "Please select a valid location.",
+      "internshipTypeLabel": "Internship type",
+      "internshipTypeObligatory": "Obligatory",
+      "internshipTypeVoluntary": "Voluntary",
+      "internshipTypeRequired": "Please choose whether this internship is obligatory or voluntary.",
+      "scopeLabel": "Scope",
+      "scopeSingleProfession": "One job",
+      "scopeOrientierungspraktikum": "Several",
+      "scopeRequired": "Please choose one job or several.",
+      "datesLabel": "Dates",
+      "datesFromLabel": "from",
+      "datesToLabel": "to",
+      "datePlaceholder": "DD.MM.YYYY",
+      "exactDateUnknownLabel": "Exact date still unknown",
+      "invalidDate": "Please enter a valid date.",
+      "endDateBeforeStart": "The end date can't be before the start date.",
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Jane",
+      "firstNameRequired": "Please enter a first name.",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Doe",
+      "lastNameRequired": "Please enter a last name.",
+      "dateOfBirthLabel": "Date of birth",
+      "dateOfBirthRequired": "Please enter a date of birth.",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "you@example.com",
+      "invalidEmail": "Please enter a valid email address.",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "optional",
+      "privacyNoticeLabel": "I've read the privacy notice",
+      "privacyNoticeRequired": "Please confirm you've read the privacy notice to continue."
+    },
+    "review": {
+      "heading": "Review your application",
+      "description": "Please check your details before submitting.",
+      "noDate": "Not yet decided",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
   "AssessmentPage": {
     "metaTitle": "Personal Career Assessment – animo",
     "metaDescription": "Answer 18 questions about your preferences, skills, and values – and get a personalized career recommendation.",

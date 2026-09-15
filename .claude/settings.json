@@ -152,7 +152,16 @@
       "Bash(gh pr *)",
       "Bash(where.exe gh *)",
       "Bash(curl -s \"https://api.github.com/repos/animocareers/animo-careers/pulls?head=animocareers:organization_logic&state=open\")",
-      "Bash(curl -s -o /dev/null -w \"settings recompile: %{http_code}\\\\n\" \"http://localhost:3000/en/dashboard/settings/organization?_=$\\(date +%s\\)\")"
+      "Bash(curl -s -o /dev/null -w \"settings recompile: %{http_code}\\\\n\" \"http://localhost:3000/en/dashboard/settings/organization?_=$\\(date +%s\\)\")",
+      "Bash(npx shadcn@latest add calendar radio-group checkbox separator --yes)",
+      "Bash(xargs -I{} cat {})",
+      "Bash(sleep 15 && tail -100 /tmp/dev-server.log 2>&1)",
+      "Bash(sleep 10 && tail -150 /tmp/dev-server.log 2>&1)",
+      "Bash(curl -s -o /dev/null -w \"de-locale: %{http_code}\\\\n\" http://localhost:3000/de/application/apply/does-not-exist)",
+      "Bash(curl -s -o /dev/null -w \"settings-page \\(expect redirect->login\\): %{http_code}\\\\n\" http://localhost:3000/en/dashboard/settings/organization)",
+      "Bash(curl -s -o /dev/null -w \"still up: %{http_code}\\\\n\" http://localhost:3000/ --max-time 3)",
+      "Bash(taskkill //PID 13340 //T //F)",
+      "Bash(curl -s -o /dev/null -w \"apply-route: %{http_code}\\\\n\" http://localhost:3000/en/application/apply/test-org --max-time 15)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock",
