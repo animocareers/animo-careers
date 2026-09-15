@@ -31,9 +31,15 @@ describe("resolveOrigin", () => {
 });
 
 describe("buildApplyLink", () => {
-  it("joins the origin and slug under /apply", () => {
-    expect(buildApplyLink("https://animo.app", "acme-gmbh")).toBe(
-      "https://animo.app/apply/acme-gmbh",
+  it("joins the origin, locale, and slug under /application/apply", () => {
+    expect(buildApplyLink("https://animo.app", "en", "acme-gmbh")).toBe(
+      "https://animo.app/en/application/apply/acme-gmbh",
+    );
+  });
+
+  it("uses whichever locale is passed", () => {
+    expect(buildApplyLink("https://animo.app", "de", "acme-gmbh")).toBe(
+      "https://animo.app/de/application/apply/acme-gmbh",
     );
   });
 });

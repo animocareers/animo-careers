@@ -12,6 +12,6 @@ export function resolveOrigin(headers: Pick<Headers, "get">): string {
 }
 
 /** Builds an organization's public application-form URL from its slug. */
-export function buildApplyLink(origin: string, slug: string): string {
-  return `${origin}/apply/${slug}`;
+export function buildApplyLink(origin: string, locale: string, slug: string): string {
+  return `${origin}/${locale}/application/apply/${slug}`;
 }

@@ -52,7 +52,7 @@ export default async function OrganizationSettingsPage({
     redirect(`/${locale}/dashboard`);
   }
 
-  const applyLink = buildApplyLink(resolveOrigin(await headers()), organization.slug);
+  const applyLink = buildApplyLink(resolveOrigin(await headers()), locale, organization.slug);
 
   // Non-fatal: the rest of the page (name/address/industry, apply link) is
   // still useful if the profession catalog or the org's current selections
