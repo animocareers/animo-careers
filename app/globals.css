@@ -17,6 +17,16 @@
   }
 }
 
+/** Indeterminate top progress bar shown while a route's server data loads (see loading.tsx files). */
+@keyframes top-loading-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckIcon, CopyIcon, Loader2Icon } from "lucide-react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import {
   ProfessionMultiSelect,
   type ProfessionOption,
 } from "@/components/dashboard/organization-onboarding/profession-multi-select";
+import { LoadingOverlay } from "@/components/shared/loading-overlay";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -106,6 +107,8 @@ export function OrganizationSettingsForm({
 
   return (
     <div className="space-y-8">
+      {isSubmitting && <LoadingOverlay label={tSettings("saving")} />}
+
       <div className="space-y-1">
         <h1 className="text-2xl font-heading font-black tracking-tight">{tSettings("heading")}</h1>
         <p className="text-sm text-muted-foreground">{tSettings("description")}</p>
@@ -252,14 +255,7 @@ export function OrganizationSettingsForm({
         )}
 
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? (
-            <>
-              <Loader2Icon data-icon="inline-start" className="animate-spin" />
-              {tSettings("saving")}
-            </>
-          ) : (
-            tSettings("save")
-          )}
+          {tSettings("save")}
         </Button>
       </form>
     </div>
