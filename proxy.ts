@@ -31,7 +31,10 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
+  // `api` is excluded here too: API routes (e.g. app/api/public-apply) have
+  // no locale segment, so next-intl's middleware would otherwise 307-redirect
+  // them to a locale-prefixed path that doesn't exist (e.g. /en/api/public-apply).
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
