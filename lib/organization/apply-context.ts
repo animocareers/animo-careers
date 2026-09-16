@@ -62,8 +62,8 @@ export async function listBranches(
     .eq("organization_id", organizationId)
     .order("name");
 
-  if (error || !data) return [];
-  return data;
+  if (error) throw error;
+  return data ?? [];
 }
 
 interface OrganizationProfessionRow {
@@ -99,6 +99,8 @@ export async function listOrganizationProfessions(
 }
 
 /** Pure — the branch selector only renders when this is true. */
-export function hasMultipleBranches(branches: Pick<ApplyBranch, "id">[]): boolean {
+export function hasMultipleBranches(
+  branches: Pick<ApplyBranch, "id">[],
+): boolean {
   return branches.length > 1;
 }

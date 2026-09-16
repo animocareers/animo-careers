@@ -161,7 +161,10 @@
       "Bash(curl -s -o /dev/null -w \"settings-page \\(expect redirect->login\\): %{http_code}\\\\n\" http://localhost:3000/en/dashboard/settings/organization)",
       "Bash(curl -s -o /dev/null -w \"still up: %{http_code}\\\\n\" http://localhost:3000/ --max-time 3)",
       "Bash(taskkill //PID 13340 //T //F)",
-      "Bash(curl -s -o /dev/null -w \"apply-route: %{http_code}\\\\n\" http://localhost:3000/en/application/apply/test-org --max-time 15)"
+      "Bash(curl -s -o /dev/null -w \"apply-route: %{http_code}\\\\n\" http://localhost:3000/en/application/apply/test-org --max-time 15)",
+      "Bash(npm uninstall *)",
+      "Bash(git check-ignore *)",
+      "Bash(git commit --amend -m ' *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Azizullah Samim\\AppData\\Local\\ms-playwright\\__dirlock",

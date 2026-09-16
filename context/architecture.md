@@ -42,7 +42,6 @@ Current architecture decision: **Supabase (Postgres, Auth, Storage, Realtime) + 
 | Realtime | Supabase Realtime (Postgres change streams) |
 | Backend "API" | Next.js Server Actions + Route Handlers, deployed as Vercel Functions |
 | Bot protection | Cloudflare Turnstile on the public apply form |
-| Email | Postmark or Brevo (EU data residency) |
 | Migrations | Supabase CLI (SQL migrations are the source of truth) |
 | Hosting | Vercel, function region pinned to `fra1` (Frankfurt) |
 | CI/CD | GitHub Actions |
