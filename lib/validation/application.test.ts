@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   APPLICATION_STEP_FIELDS,
   type ApplicationFormValues,
+  applyRequestSchema,
   buildApplyPayload,
   createApplicationSchema,
 } from "@/lib/validation/application";
@@ -171,5 +172,44 @@ describe("buildApplyPayload", () => {
     const payload = buildApplyPayload(validPayload() as ApplicationFormValues, context);
     expect(payload.orgSlug).toBe("acme-gmbh");
     expect(payload.branchSlug).toBe("berlin");
+  });
+});
+
+describe("applyRequestSchema", () => {
+  function validRequest(overrides: Partial<Record<string, unknown>> = {}) {
+    return {
+      orgSlug: "acme-gmbh",
+      branchSlug: "berlin",
+      isSchoolMandatory: true,
+      ...overrides,
+    };
+  }
+
+  it("accepts a valid request with a branchSlug", () => {
+    expect(applyRequestSchema.safeParse(validRequest()).success).toBe(true);
+  });
+
+  it("accepts a null branchSlug (single-branch org)", () => {
+    expect(applyRequestSchema.safeParse(validRequest({ branchSlug: null })).success).toBe(true);
+  });
+
+  it("rejects an empty orgSlug", () => {
+    expect(applyRequestSchema.safeParse(validRequest({ orgSlug: "" })).success).toBe(false);
+  });
+
+  it("rejects an empty-string branchSlug (null is the only valid absence)", () => {
+    expect(applyRequestSchema.safeParse(validRequest({ branchSlug: "" })).success).toBe(false);
+  });
+
+  it("rejects a non-boolean isSchoolMandatory", () => {
+    expect(applyRequestSchema.safeParse(validRequest({ isSchoolMandatory: "yes" })).success).toBe(
+      false,
+    );
+  });
+
+  it("rejects a missing isSchoolMandatory", () => {
+    expect(
+      applyRequestSchema.safeParse(validRequest({ isSchoolMandatory: undefined })).success,
+    ).toBe(false);
   });
 });

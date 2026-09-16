@@ -687,6 +687,7 @@
     "submitting": "Submitting...",
     "successTitle": "Application received",
     "successDescription": "Thanks, {firstName}! Your application has been recorded.",
+    "submitError": "Something went wrong. Please try again — your details are still here.",
     "form": {
       "professionLabel": "Job field / role",
       "professionPlaceholder": "e.g. Carpenter",

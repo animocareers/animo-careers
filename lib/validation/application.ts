@@ -74,6 +74,22 @@ export interface ApplyPayloadContext {
 }
 
 /**
+ * Validates the parts of POST /api/public-apply's wire payload that aren't
+ * covered by createApplicationSchema: orgSlug/branchSlug identify the link
+ * the applicant used (resolved to real IDs server-side, never trusted as
+ * IDs directly), and isSchoolMandatory is buildApplyPayload's collapsed
+ * form of the form's internshipType field. See lib/application/submit-application.ts
+ * for how this pairs with createApplicationSchema to validate the full body.
+ */
+export const applyRequestSchema = z.object({
+  orgSlug: z.string().trim().min(1),
+  branchSlug: z.string().trim().min(1).nullable(),
+  isSchoolMandatory: z.boolean(),
+});
+
+export type ApplyRequest = z.infer<typeof applyRequestSchema>;
+
+/**
  * Assembles the future /api/public-apply request body (per api-design.md,
  * minus turnstileToken) from the form's current values — pure, so the
  * step-3 submit stub's payload-shaping logic is unit-testable without

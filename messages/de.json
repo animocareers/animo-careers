@@ -687,6 +687,7 @@
     "submitting": "Wird gesendet...",
     "successTitle": "Bewerbung eingegangen",
     "successDescription": "Danke, {firstName}! Deine Bewerbung wurde erfasst.",
+    "submitError": "Da ist etwas schiefgelaufen. Bitte versuche es erneut — deine Angaben sind noch vorhanden.",
     "form": {
       "professionLabel": "Berufsfeld / Tätigkeit",
       "professionPlaceholder": "z. B. Tischler",
