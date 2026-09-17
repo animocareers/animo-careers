@@ -30,7 +30,7 @@ export async function signUp(locale: string, values: unknown): Promise<SignUpSta
     password,
     options: {
       data: { first_name: firstName, last_name: lastName },
-      emailRedirectTo: `${origin}/${locale}/auth/confirm?next=/${locale}/dashboard`,
+      emailRedirectTo: `${origin}/${locale}/auth/confirm?next=/${locale}/auth/login`,
     },
   });
 
