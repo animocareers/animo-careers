@@ -3,8 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { signIn } from "@/app/[locale]/auth/login/actions";
 import { Button } from "@/components/ui/button";
@@ -16,14 +17,24 @@ import { createLoginSchema, type LoginFormValues } from "@/lib/validation/auth";
 interface LoginFormProps {
   locale: string;
   confirmationFailed?: boolean;
+  emailConfirmed?: boolean;
 }
 
 /** Renders the localized login form and submits credentials to the server. */
-export function LoginForm({ locale, confirmationFailed }: LoginFormProps) {
+export function LoginForm({ locale, confirmationFailed, emailConfirmed }: LoginFormProps) {
   const t = useTranslations("LoginPage.form");
   const [formError, setFormError] = useState<string | null>(
     confirmationFailed ? t("confirmationFailed") : null
   );
+
+  useEffect(() => {
+    if (emailConfirmed) {
+      toast.success(t("emailConfirmed"));
+    }
+    // Only ever fires once on mount from the redirect that landed here — not
+    // on every render, and not on subsequent client-side navigations.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const {
     register,
     handleSubmit,

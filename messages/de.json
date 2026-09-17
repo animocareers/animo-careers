@@ -87,6 +87,7 @@
       "invalidCredentials": "E-Mail-Adresse oder Passwort ist falsch.",
       "emailNotConfirmed": "Bitte bestätige zuerst deine E-Mail-Adresse, bevor du dich anmeldest.",
       "confirmationFailed": "Dieser Bestätigungslink ist ungültig oder abgelaufen. Bitte melde dich an oder registriere dich erneut.",
+      "emailConfirmed": "Deine E-Mail-Adresse ist bestätigt – du kannst dich jetzt anmelden.",
       "genericError": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
     }
   },

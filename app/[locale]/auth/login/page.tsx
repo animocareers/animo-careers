@@ -21,7 +21,7 @@ export default async function LoginPage({
   searchParams,
 }: PageProps<"/[locale]/auth/login">) {
   const { locale } = await params;
-  const { error } = await searchParams;
+  const { error, confirmed } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations("LoginPage");
 
@@ -30,6 +30,7 @@ export default async function LoginPage({
       <LoginForm
         locale={locale}
         confirmationFailed={error === "confirmation_failed"}
+        emailConfirmed={confirmed === "1"}
       />
     </AuthShell>
   );
