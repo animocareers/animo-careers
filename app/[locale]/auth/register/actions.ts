@@ -41,6 +41,7 @@ export async function signUp(locale: string, values: unknown): Promise<SignUpSta
     if (error.code === "email_exists") {
       return { status: "success" };
     }
+    console.error("supabase.auth.signUp failed", { code: error.code, status: error.status, message: error.message });
     return { status: "error", message: t("signupFailed") };
   }
 
