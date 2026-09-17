@@ -39,7 +39,7 @@ Implement the actual save path for the public application form built in `feature
 
 ### 6. Confirmation email to the applicant
 - On successful save, send a confirmation email to the applicant's submitted email address containing: their name, the organization (and branch, if applicable), the profession applied for, requested dates (if given), and a clear confirmation that the application was received.
-- Use the email provider already established in `architecture.md` (Postmark or Brevo).
+- Use the email provider established in `architecture.md`: Resend.
 - **Email sending must not be on the critical path for the save itself**: if the email fails to send, the application must still be considered successfully submitted — don't roll back the DB write, and don't fail the response to the client. Log the email failure (e.g. Sentry) for follow-up rather than surfacing it to the applicant.
 - Sending an internal "new application received" notification to the organization's team is a separate, already-tracked Phase 2 item (`build-plan.md`) — out of scope here unless you want to fold it in now; call that out explicitly if so.
 
@@ -70,7 +70,7 @@ Implement the actual save path for the public application form built in `feature
 - Exact final shape of the `applications` table (see Preconditions) — reconcile with `database-design.md` if it has changed.
 - Whether Turnstile/rate-limiting ships in this feature or as a separate hardening pass.
 - Whether the internal team notification email should be folded into this feature or stay a separate Phase 2 item.
-- Which email provider (Postmark vs. Brevo) is actually configured in the project.
+- ~~Which email provider is actually configured in the project.~~ Resolved: Resend (see `architecture.md`).
 
 ## Related docs
 

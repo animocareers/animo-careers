@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { sendEmail } from "@/lib/email/providers/console-log";
+import { sendEmail } from "@/lib/email/providers";
 import { sendApplicationConfirmationEmail } from "@/lib/email/send-confirmation-email";
 
-vi.mock("@/lib/email/providers/console-log", () => ({
+vi.mock("@/lib/email/providers", () => ({
   sendEmail: vi.fn(),
 }));
 

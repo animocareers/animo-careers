@@ -1,16 +1,10 @@
-export interface SendEmailInput {
-  to: string;
-  subject: string;
-  textBody: string;
-}
+import type { SendEmailInput } from "@/lib/email/providers/types";
 
 /**
- * Placeholder provider: logs the email instead of sending it.
- * architecture.md leaves the real provider (Postmark vs. Brevo) undecided,
- * and no provider SDK is installed yet. Swap this file's implementation
- * (keeping the same SendEmailInput -> Promise<void> signature) once a
- * provider is chosen and configured — no changes needed in
- * send-confirmation-email.ts, which only imports this function.
+ * Dev-only fallback: logs the email instead of sending it. Selected by
+ * lib/email/providers/index.ts whenever RESEND_API_KEY isn't set, so a
+ * fresh checkout works without a Resend account. Real sends go through
+ * lib/email/providers/resend.ts.
  */
 export async function sendEmail(input: SendEmailInput): Promise<void> {
   console.log("[email:stub] would send email", {
