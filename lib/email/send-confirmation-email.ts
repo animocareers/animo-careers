@@ -1,4 +1,4 @@
-import { sendEmail } from "@/lib/email/providers/console-log";
+import { sendEmail } from "@/lib/email/providers";
 
 export interface ApplicationConfirmationEmailInput {
   to: string;

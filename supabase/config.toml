@@ -52,7 +52,16 @@ enable_anonymous_sign_ins = false
 [auth.email]
 enable_signup = true
 double_confirm_changes = true
-enable_confirmations = false
+enable_confirmations = true
+
+# Routes every outgoing auth email (signup confirmation today) through
+# lib/auth/send-email-hook.ts -> Resend instead of Supabase's built-in
+# mailer. host.docker.internal reaches the Next.js dev server from the
+# Auth container; see context/architecture.md.
+[auth.hook.send_email]
+enabled = true
+uri = "http://host.docker.internal:3000/api/auth/send-email"
+secrets = "env(SEND_EMAIL_HOOK_SECRET)"
 
 [edge_runtime]
 enabled = true

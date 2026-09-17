@@ -23,8 +23,9 @@ Staging and production are **separate Supabase projects**, not separate schemas 
   ```json
   { "regions": ["fra1"] }
   ```
-- Environment variables set per-environment (staging vs. production) in the Vercel dashboard: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (server-only, never exposed to the client bundle), email provider API key, Turnstile secret.
+- Environment variables set per-environment (staging vs. production) in the Vercel dashboard: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (server-only, never exposed to the client bundle), `RESEND_API_KEY` and `EMAIL_FROM` (see `architecture.md`), `SEND_EMAIL_HOOK_SECRET` (see `architecture.md`, "Auth email verification" — a distinct value per environment, generated when creating that environment's Send Email hook in the Supabase dashboard), Turnstile secret.
 - Preview deployments per PR are fine for UI review, but should point at the **staging** Supabase project (or an ephemeral branch database, if using Supabase's database branching), never production.
+- Local dev additionally needs `SEND_EMAIL_HOOK_SECRET` set in the shell that runs `supabase start` (config.toml's `env(...)` substitution reads the process environment, not `.env.local`) — export it, or run `supabase start` through a tool that loads `.env.local` into the environment first.
 
 ## Database migrations in CI/CD
 

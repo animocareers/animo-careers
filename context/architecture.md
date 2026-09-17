@@ -94,6 +94,22 @@ A plain redirect link (`animo.app/apply/{orgSlug}` or `/apply/{orgSlug}/{branchS
 
 The public form does **not** write directly to the database via an anon-role RLS policy. It posts to `app/api/public-apply/route.ts`, which verifies the Turnstile token, validates the payload, confirms the chosen profession/branch belong to the target org, and writes using the service-role client — keeping all untrusted-input handling in one reviewable place.
 
+## Transactional email
+
+Provider: **Resend**. `lib/email/providers/resend.ts` implements the send; `lib/email/providers/index.ts` picks it whenever `RESEND_API_KEY` is set (staging/production) and falls back to `lib/email/providers/console-log.ts` otherwise, so local dev needs no Resend account. Callers (e.g. `send-confirmation-email.ts`) only depend on the `SendEmailInput -> Promise<void>` shape in `lib/email/providers/types.ts`, never on Resend directly.
+
+Requires a sending domain verified in the Resend dashboard (SPF/DKIM DNS records) and two env vars: `RESEND_API_KEY`, `EMAIL_FROM`. Per `feature 09.md`, a send failure must never fail the triggering request — callers log and continue rather than propagating.
+
+## Auth email verification
+
+Supabase Auth's built-in mailer is replaced with Resend via the **Send Email** auth hook, so signup confirmation (and any other auth email Supabase later sends — recovery, magic link, etc.) goes through the same provider as the rest of the app instead of Supabase's default sender:
+
+- `app/api/auth/send-email/route.ts` — the hook's HTTP target. Verifies the Standard Webhooks signature and maps the result onto a response; delegates everything else.
+- `lib/auth/send-email-hook.ts` — verifies the signature (`SEND_EMAIL_HOOK_SECRET`), validates the payload shape, builds the confirmation URL (Supabase gives us `token_hash`; the link must point at our own `app/[locale]/auth/confirm/route.ts`, not a Supabase-hosted verify endpoint), and derives the locale from that URL.
+- `lib/email/send-auth-email.ts` — the email content (German/English), sent via `lib/email/providers` like every other transactional email. Unlike this endpoint, a send failure here **must** fail the hook (non-2xx), because Supabase surfaces that as a signup error to the user — they genuinely can't proceed without the email.
+
+Registered in `supabase/config.toml`'s `[auth.hook.send_email]` for local dev (`host.docker.internal` so the Auth container can reach the Next.js dev server) and in the hosted project's **Authentication → Hooks** dashboard for staging/production, each with its own `SEND_EMAIL_HOOK_SECRET`. "Confirm email" must also be enabled on the Auth provider (`enable_confirmations` locally; the dashboard toggle in staging/production) or Supabase never calls the hook at all.
+
 ## Connection handling
 
 Vercel Functions are short-lived; any direct Postgres client (if used alongside the Supabase client) must go through Supabase's pooled connection string (Supavisor, transaction mode), not a direct connection — otherwise connection exhaustion is the most common production failure mode for this exact stack combination.
