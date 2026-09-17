@@ -61,6 +61,7 @@ export async function handleSendEmailHook(
 
   const parsed = hookPayloadSchema.safeParse(verified);
   if (!parsed.success) {
+    console.error("send-email-hook: unexpected payload shape", parsed.error.issues);
     return { status: "invalid_payload" };
   }
 
@@ -98,7 +99,8 @@ export async function handleSendEmailHook(
         emailActionType: email_data.email_action_type,
       });
     }
-  } catch {
+  } catch (error) {
+    console.error("send-email-hook: sendAuthEmail failed", error);
     return { status: "send_failed" };
   }
 
