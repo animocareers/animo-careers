@@ -23,7 +23,7 @@ export async function GET(
   const requestedNext = searchParams.get("next");
   const next = isSafeRedirectPath(requestedNext)
     ? requestedNext
-    : `/${locale}/dashboard`;
+    : `/${locale}/auth/login`;
 
   if (token_hash && type) {
     const supabase = await createClient();
