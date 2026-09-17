@@ -687,7 +687,8 @@
     "submit": "Bewerbung absenden",
     "submitting": "Wird gesendet...",
     "successTitle": "Bewerbung eingegangen",
-    "successDescription": "Danke, {firstName}! Deine Bewerbung wurde erfasst.",
+    "successDescription": "Wir haben deine Bewerbung erfolgreich erhalten. Eine Bestätigungs-E-Mail wurde an die von dir angegebene E-Mail-Adresse gesendet.",
+    "successDescriptionEmailFailed": "Wir haben deine Bewerbung erfolgreich erhalten. Die Bestätigungs-E-Mail konnte jedoch nicht an die angegebene Adresse gesendet werden.",
     "submitError": "Da ist etwas schiefgelaufen. Bitte versuche es erneut — deine Angaben sind noch vorhanden.",
     "form": {
       "professionLabel": "Berufsfeld / Tätigkeit",

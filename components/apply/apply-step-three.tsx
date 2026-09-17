@@ -42,6 +42,7 @@ export function ApplyStepThree({
   const tReview = useTranslations("ApplyPage.review");
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [formError, setFormError] = useState<string | null>(null);
+  const [emailSent, setEmailSent] = useState(true);
   const values = form.watch();
 
   const profession = professions.find(
@@ -82,6 +83,8 @@ export function ApplyStepThree({
         return;
       }
 
+      const data: { emailSent?: boolean } = await response.json().catch(() => ({}));
+      setEmailSent(data.emailSent !== false);
       setStatus("success");
     } catch {
       setFormError(t("submitError"));
@@ -94,7 +97,7 @@ export function ApplyStepThree({
       <div className="space-y-2 py-6 text-center">
         <h2 className="text-xl font-semibold">{t("successTitle")}</h2>
         <p className="text-sm text-muted-foreground">
-          {t("successDescription", { firstName: values.firstName })}
+          {t(emailSent ? "successDescription" : "successDescriptionEmailFailed")}
         </p>
       </div>
     );
