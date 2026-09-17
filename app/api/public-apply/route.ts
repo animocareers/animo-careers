@@ -22,7 +22,10 @@ export async function POST(request: NextRequest) {
 
   switch (result.status) {
     case "success":
-      return NextResponse.json({ applicationId: result.applicationId }, { status: 201 });
+      return NextResponse.json(
+        { applicationId: result.applicationId, emailSent: result.emailSent },
+        { status: 201 },
+      );
     case "invalid":
       return NextResponse.json(
         { error: "validation_failed", fieldErrors: result.fieldErrors },

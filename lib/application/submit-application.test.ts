@@ -53,7 +53,7 @@ describe("submitPublicApplication", () => {
     const deps = makeDeps({ listOrgBranches: vi.fn().mockResolvedValue([MAIN_BRANCH]) });
     const result = await submitPublicApplication(realPayload({ branchSlug: null }), deps);
 
-    expect(result).toEqual({ status: "success", applicationId: "app-1" });
+    expect(result).toEqual({ status: "success", applicationId: "app-1", emailSent: true });
     expect(deps.submitApplicationRpc).toHaveBeenCalledWith(
       expect.objectContaining({
         p_organization_id: "org-1",
@@ -132,7 +132,7 @@ describe("submitPublicApplication", () => {
     });
     const result = await submitPublicApplication(realPayload({ branchSlug: null }), deps);
 
-    expect(result).toEqual({ status: "success", applicationId: "app-2" });
+    expect(result).toEqual({ status: "success", applicationId: "app-2", emailSent: true });
   });
 
   it("returns server_error when the RPC fails", async () => {
@@ -144,13 +144,13 @@ describe("submitPublicApplication", () => {
     expect(result).toEqual({ status: "server_error" });
   });
 
-  it("still reports success when the confirmation email fails to send", async () => {
+  it("still reports success when the confirmation email fails to send, flagging emailSent: false", async () => {
     const deps = makeDeps({
       listOrgBranches: vi.fn().mockResolvedValue([MAIN_BRANCH]),
       sendConfirmationEmail: vi.fn().mockRejectedValue(new Error("email provider down")),
     });
     const result = await submitPublicApplication(realPayload({ branchSlug: null }), deps);
 
-    expect(result).toEqual({ status: "success", applicationId: "app-1" });
+    expect(result).toEqual({ status: "success", applicationId: "app-1", emailSent: false });
   });
 });

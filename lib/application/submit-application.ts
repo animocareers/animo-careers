@@ -18,7 +18,7 @@ import { applyRequestSchema, createApplicationSchema } from "@/lib/validation/ap
 const t = (key: string) => key;
 
 export type SubmitPublicApplicationResult =
-  | { status: "success"; applicationId: string }
+  | { status: "success"; applicationId: string; emailSent: boolean }
   | { status: "invalid"; fieldErrors: Record<string, string[] | undefined> }
   | { status: "not_found" }
   | { status: "server_error" };
@@ -196,6 +196,7 @@ export async function submitPublicApplication(
     return { status: "server_error" };
   }
 
+  let emailSent = true;
   try {
     await sendConfirmationEmail({
       to: applicant.email,
@@ -208,7 +209,10 @@ export async function submitPublicApplication(
     });
   } catch (emailError) {
     // Deliberately swallowed: an email failure must never roll back the
-    // save or fail the response to the applicant (feature 09 §6).
+    // save or fail the response to the applicant (feature 09 §6). The
+    // caller still gets to know via emailSent, so the UI can tell the
+    // applicant their confirmation email didn't go out.
+    emailSent = false;
     console.error("[submitPublicApplication] confirmation email failed", {
       applicationId,
       organizationId: organization.id,
@@ -216,5 +220,5 @@ export async function submitPublicApplication(
     });
   }
 
-  return { status: "success", applicationId };
+  return { status: "success", applicationId, emailSent };
 }
