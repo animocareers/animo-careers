@@ -29,7 +29,12 @@ export async function GET(
     const supabase = await createClient();
     const { error } = await supabase.auth.verifyOtp({ type, token_hash });
     if (!error) {
-      redirect(next);
+      const target = new URL(next, "http://placeholder");
+       if (!isSafeRedirectPath(target.pathname)) {
+          redirect(`/${locale}/auth/login`);
+        }
+      target.searchParams.set("confirmed", "1");
+      redirect(`${target.pathname}${target.search}`);
     }
   }
 

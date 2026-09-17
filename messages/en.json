@@ -87,6 +87,7 @@
       "invalidCredentials": "Incorrect email or password.",
       "emailNotConfirmed": "Please confirm your email before logging in.",
       "confirmationFailed": "That confirmation link is invalid or has expired. Please log in or sign up again.",
+      "emailConfirmed": "Your email is confirmed — you can log in now.",
       "genericError": "Something went wrong. Please try again."
     }
   },
