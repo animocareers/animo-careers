@@ -690,6 +690,7 @@
     "successDescription": "We received your application successfully. A confirmation email has been sent to the email address you provided.",
     "successDescriptionEmailFailed": "We received your application successfully. However, we couldn't send a confirmation email to the address you provided.",
     "submitError": "Something went wrong. Please try again — your details are still here.",
+    "duplicateError": "You've already applied for this role at this location with this email address.",
     "form": {
       "professionLabel": "Job field / role",
       "professionPlaceholder": "e.g. Carpenter",
