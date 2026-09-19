@@ -33,6 +33,8 @@ export async function POST(request: NextRequest) {
       );
     case "not_found":
       return NextResponse.json({ error: "not_found" }, { status: 404 });
+    case "duplicate":
+      return NextResponse.json({ error: "duplicate_application" }, { status: 409 });
     case "server_error":
       return NextResponse.json({ error: "server_error" }, { status: 500 });
     default:

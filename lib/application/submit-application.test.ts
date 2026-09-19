@@ -135,6 +135,18 @@ describe("submitPublicApplication", () => {
     expect(result).toEqual({ status: "success", applicationId: "app-2", emailSent: true });
   });
 
+  it("returns duplicate when the applicant already applied for this profession/org/branch", async () => {
+    const deps = makeDeps({
+      submitApplicationRpc: vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: "duplicate_application" } }),
+    });
+    const result = await submitPublicApplication(realPayload(), deps);
+
+    expect(result).toEqual({ status: "duplicate" });
+    expect(deps.sendConfirmationEmail).not.toHaveBeenCalled();
+  });
+
   it("returns server_error when the RPC fails", async () => {
     const deps = makeDeps({
       submitApplicationRpc: vi.fn().mockResolvedValue({ data: null, error: { message: "boom" } }),

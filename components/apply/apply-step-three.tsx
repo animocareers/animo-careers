@@ -78,7 +78,10 @@ export function ApplyStepThree({
       });
 
       if (!response.ok) {
-        setFormError(t("submitError"));
+        const errorBody: { error?: string } = await response.json().catch(() => ({}));
+        setFormError(
+          errorBody.error === "duplicate_application" ? t("duplicateError") : t("submitError"),
+        );
         setStatus("error");
         return;
       }

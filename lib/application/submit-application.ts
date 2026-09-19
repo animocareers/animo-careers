@@ -21,6 +21,7 @@ export type SubmitPublicApplicationResult =
   | { status: "success"; applicationId: string; emailSent: boolean }
   | { status: "invalid"; fieldErrors: Record<string, string[] | undefined> }
   | { status: "not_found" }
+  | { status: "duplicate" }
   | { status: "server_error" };
 
 interface SubmitApplicationRpcParams {
@@ -99,7 +100,9 @@ async function defaultSubmitApplicationRpc(
  * actually used (never trusts a client-supplied ID), and writes atomically
  * via the submit_public_application RPC (see the matching migration) —
  * bypassing RLS deliberately, since there's no anon-insert policy on
- * `applications`.
+ * `applications`. The RPC also rejects a duplicate submission (same email,
+ * organization, branch, and profession) with a 'duplicate_application'
+ * error, surfaced here as `{ status: "duplicate" }`.
  *
  * Email failure never changes the result: a successful save is always
  * reported as success even if the confirmation email couldn't be sent.
@@ -186,6 +189,10 @@ export async function submitPublicApplication(
     p_requested_start_date: applicant.requestedStartDate,
     p_requested_end_date: applicant.requestedEndDate,
   });
+
+  if (error?.message === "duplicate_application") {
+    return { status: "duplicate" };
+  }
 
   if (error || !applicationId) {
     console.error("[submitPublicApplication] rpc failed", {
