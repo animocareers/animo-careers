@@ -37,7 +37,7 @@ Turn the Organization Settings page built in `feature 07.md` into a tabbed page:
 ### 5. Member row click → right-side detail/edit panel
 
 - Clicking a row opens a panel on the **right side** of the screen (slide-over/drawer pattern — same UI pattern already used for the org-creation flow in `feature 07.md`'s context and the invite drawer reference), not a centered dialog.
-- Shows the selected member's details and lets you edit **role** and **department** (see open question below), then save.
+- Shows the selected member's details and lets you edit **role** and **department** (see the resolved design decision below), then save.
 - Identity fields — name, email — are **read-only** here; those belong to the member's own account, not something an org owner edits on their behalf.
 - The `owner` role must not appear as a selectable option in the role dropdown when editing another member — reassigning ownership is a distinct, higher-stakes operation and shouldn't be exposed as a casual dropdown choice here.
 
@@ -46,14 +46,9 @@ Turn the Organization Settings page built in `feature 07.md` into a tabbed page:
 - Saving role/department changes should actually persist (via Prisma, per the project's established convention) — unlike the invite button, editing an existing member is in scope and should be fully functional.
 - Enforce that only `owner`/`admin` can save changes from this panel (matches the existing invite/remove-member permission tier in `roles-and-permissions.md`); irrelevant today since only `owner` reaches this page, but build the check in now rather than retrofitting it later.
 
-## Open Question to Resolve Before/While Building
+## Resolved Design Decision: What "Department" Means
 
-**"Department" is not a field that exists anywhere in the current schema.** `organization_members` currently has `organization_id`, `user_id`, `branch_id`, `role`, and `status` — no `department`. Two readings are possible, and they lead to different work:
-
-1. **"Department" is just another name for "branch"** (some teams use the words interchangeably) — in which case the edit panel's "department" field is actually editing `organization_members.branch_id`, and no schema change is needed.
-2. **"Department" is a genuinely separate concept** from branch/location (e.g. a functional grouping like "HR" or "Operations", independent of which physical branch someone works out of) — in which case `organization_members` needs a new `department` column (simple text field is enough for a first pass), which is a schema change this feature would need to make.
-
-**Confirm which one this is before writing the edit panel or any migration.** Don't silently pick one — the two produce different database changes and different UI (one dropdown of existing branches vs. a new free-text or enum field).
+**"Department" is a separate concept from "branch"** — a functional grouping (e.g. "HR" or "Operations") independent of which physical branch someone works out of. It did not previously exist in the schema, so this feature adds a nullable free-text `department` column to `organization_members` (new migration), edited via a plain text field in the member panel. `branch_id` is unaffected.
 
 ## Explicitly Out of Scope
 
@@ -72,7 +67,7 @@ Turn the Organization Settings page built in `feature 07.md` into a tabbed page:
 - [ ] Role and department are editable and persist correctly on save; name and email are read-only.
 - [ ] `owner` never appears as a selectable role option when editing someone else.
 - [ ] Only `owner`/`admin` can actually save changes from this panel.
-- [ ] The "department" open question above has been resolved (and, if it required a schema change, that change is reflected in `database-design.md`) before this is considered done.
+- [x] The "department" question is resolved (separate nullable text column on `organization_members`) and the schema change is reflected in `database-design.md`.
 
 ## Related Docs
 

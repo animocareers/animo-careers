@@ -47,10 +47,13 @@ export async function listOrganizationMembers(
     query = query.eq("branch_id", viewer.branchId);
   }
 
+  // Throws on failure rather than returning [] — an empty array must only
+  // ever mean "the query succeeded and the roster is genuinely empty", never
+  // "the query failed" (callers show a distinct load-error state instead).
   const { data, error } = await query;
-  if (error || !data) return [];
+  if (error) throw error;
 
-  const rows = data as unknown as OrganizationMemberQueryRow[];
+  const rows = (data ?? []) as unknown as OrganizationMemberQueryRow[];
   return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,

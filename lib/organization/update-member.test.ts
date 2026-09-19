@@ -138,4 +138,30 @@ describe("updateOrganizationMember", () => {
     expect(result).toEqual({ status: "success" });
     expect(deps.updateMember).toHaveBeenCalledWith("member-1", { role: "team_member", department: null });
   });
+
+  it("leaves department untouched when it's omitted from the payload", async () => {
+    const deps = makeDeps();
+    const result = await updateOrganizationMember("member-1", { role: "admin" }, deps);
+
+    expect(result).toEqual({ status: "success" });
+    const patch = vi.mocked(deps.updateMember!).mock.calls[0][1];
+    expect(patch).toEqual({ role: "admin" });
+    expect(patch).not.toHaveProperty("department");
+  });
+
+  it.each(["", "   "])("normalizes a blank department (%j) to null", async (department) => {
+    const deps = makeDeps();
+    const result = await updateOrganizationMember("member-1", { role: "admin", department }, deps);
+
+    expect(result).toEqual({ status: "success" });
+    expect(deps.updateMember).toHaveBeenCalledWith("member-1", { role: "admin", department: null });
+  });
+
+  it("skips the write entirely when there's nothing to change", async () => {
+    const deps = makeDeps();
+    const result = await updateOrganizationMember("member-1", {}, deps);
+
+    expect(result).toEqual({ status: "success" });
+    expect(deps.updateMember).not.toHaveBeenCalled();
+  });
 });

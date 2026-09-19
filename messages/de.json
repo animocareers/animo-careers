@@ -196,6 +196,8 @@
       "description": "Alle Personen mit Zugriff auf Ihre Organisation.",
       "inviteButton": "Teammitglied einladen",
       "empty": "Noch keine Teammitglieder.",
+      "loading": "Teammitglieder werden geladen",
+      "loadError": "Teammitglieder konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
       "noBranch": "Gesamte Organisation",
       "columns": {
         "member": "Mitglied",

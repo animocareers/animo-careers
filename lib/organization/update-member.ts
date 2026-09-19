@@ -15,7 +15,7 @@ export interface TargetMember {
 
 export interface MemberPatch {
   role?: OrgRole;
-  department: string | null;
+  department?: string | null;
 }
 
 export type UpdateOrganizationMemberResult =
@@ -103,9 +103,18 @@ export async function updateOrganizationMember(
     return { status: "not_found" };
   }
 
-  const patch: MemberPatch = { department: parsed.data.department ?? null };
+  // An omitted department leaves the column untouched; a supplied blank
+  // string means "clear it" and is stored as null, not "".
+  const patch: MemberPatch = {};
+  if (parsed.data.department !== undefined) {
+    patch.department = parsed.data.department === "" ? null : parsed.data.department;
+  }
   if (target.role !== "owner" && parsed.data.role) {
     patch.role = parsed.data.role;
+  }
+
+  if (Object.keys(patch).length === 0) {
+    return { status: "success" };
   }
 
   const { error } = await updateMember(memberId, patch);

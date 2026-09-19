@@ -1,11 +1,16 @@
 const SKELETON_ROW_COUNT = 5;
 
+interface TeamMembersTableSkeletonProps {
+  /** Localized accessible label announced while the roster loads. */
+  label: string;
+}
+
 /** Shimmer rows matching TeamMembersTable's real column layout (avatar, name/email, role badge, branch, status badge) — shown while the roster is streaming in. */
-export function TeamMembersTableSkeleton() {
+export function TeamMembersTableSkeleton({ label }: TeamMembersTableSkeletonProps) {
   return (
     <div
       role="status"
-      aria-label="Loading team members"
+      aria-label={label}
       className="overflow-hidden rounded-md ring-1 ring-foreground/5 dark:ring-foreground/10"
     >
       <table className="w-full text-left text-sm">

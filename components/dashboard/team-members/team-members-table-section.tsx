@@ -1,6 +1,13 @@
+import { getTranslations } from "next-intl/server";
+
 import { TeamMembersTable, type TeamMemberDisplayRow } from "@/components/dashboard/team-members/team-members-table";
 import { getMemberIdentities } from "@/lib/organization/member-identities";
-import { listOrganizationMembers, memberDisplayName, memberInitial } from "@/lib/organization/members";
+import {
+  listOrganizationMembers,
+  memberDisplayName,
+  memberInitial,
+  type OrganizationMemberRow,
+} from "@/lib/organization/members";
 import { createClient } from "@/lib/supabase/server";
 
 interface TeamMembersTableSectionProps {
@@ -15,7 +22,9 @@ interface TeamMembersTableSectionProps {
  * (+ branch when the viewer is branch-scoped) via listOrganizationMembers,
  * then enriched with name/email from the Admin API since there's no
  * `profiles` table. Meant to be wrapped in a `<Suspense>` boundary by its
- * caller so the shimmer skeleton shows while this streams in.
+ * caller so the shimmer skeleton shows while this streams in. A failed
+ * roster query renders an inline error instead of throwing, so the other
+ * tab on the page stays usable.
  */
 export async function TeamMembersTableSection({
   locale,
@@ -23,7 +32,23 @@ export async function TeamMembersTableSection({
   viewerBranchId,
 }: TeamMembersTableSectionProps) {
   const supabase = await createClient();
-  const members = await listOrganizationMembers(supabase, { organizationId, branchId: viewerBranchId });
+
+  let members: OrganizationMemberRow[];
+  try {
+    members = await listOrganizationMembers(supabase, { organizationId, branchId: viewerBranchId });
+  } catch (error) {
+    console.error("[TeamMembersTableSection] roster query failed", {
+      organizationId,
+      message: error instanceof Error ? error.message : String(error),
+    });
+    const t = await getTranslations({ locale, namespace: "OrganizationSettings.teamMembers" });
+    return (
+      <p role="alert" className="text-sm text-destructive">
+        {t("loadError")}
+      </p>
+    );
+  }
+
   const identities = await getMemberIdentities(members.map((member) => member.userId));
 
   const rows: TeamMemberDisplayRow[] = members.map((member) => {

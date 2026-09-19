@@ -29,7 +29,7 @@ export async function TeamMembersTab({ locale, organizationId, viewerBranchId }:
         </div>
         <InviteMemberButton label={t("inviteButton")} />
       </div>
-      <Suspense fallback={<TeamMembersTableSkeleton />}>
+      <Suspense fallback={<TeamMembersTableSkeleton label={t("loading")} />}>
         <TeamMembersTableSection
           locale={locale}
           organizationId={organizationId}

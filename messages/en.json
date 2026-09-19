@@ -196,6 +196,8 @@
       "description": "Everyone with access to your organization.",
       "inviteButton": "Invite team member",
       "empty": "No team members yet.",
+      "loading": "Loading team members",
+      "loadError": "Team members couldn't be loaded. Please try again.",
       "noBranch": "Whole organization",
       "columns": {
         "member": "Member",
