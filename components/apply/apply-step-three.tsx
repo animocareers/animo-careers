@@ -78,10 +78,11 @@ export function ApplyStepThree({
       });
 
       if (!response.ok) {
-        const errorBody: { error?: string } = await response.json().catch(() => ({}));
-        setFormError(
-          errorBody.error === "duplicate_application" ? t("duplicateError") : t("submitError"),
-        );
+        // The server deliberately never distinguishes a duplicate submission
+        // from any other failure in its response (anti-enumeration — see
+        // lib/application/submit-application.ts), so there's nothing to
+        // branch on here beyond the generic error.
+        setFormError(t("submitError"));
         setStatus("error");
         return;
       }

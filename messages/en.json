@@ -186,7 +186,52 @@
     "applyLinkLabel": "Public application link",
     "copy": "Copy",
     "copied": "Copied",
-    "copyFailed": "Couldn't copy the link. Please copy it manually."
+    "copyFailed": "Couldn't copy the link. Please copy it manually.",
+    "tabs": {
+      "details": "Organization details",
+      "teamMembers": "Team Members"
+    },
+    "teamMembers": {
+      "heading": "Team Members",
+      "description": "Everyone with access to your organization.",
+      "inviteButton": "Invite team member",
+      "empty": "No team members yet.",
+      "loading": "Loading team members",
+      "loadError": "Team members couldn't be loaded. Please try again.",
+      "noBranch": "Whole organization",
+      "columns": {
+        "member": "Member",
+        "role": "Role",
+        "branch": "Branch",
+        "status": "Status"
+      },
+      "status": {
+        "active": "Active",
+        "pending": "Pending"
+      },
+      "roles": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "head_of_apprenticeship": "Head of Apprenticeship",
+        "team_member": "Team Member"
+      },
+      "panel": {
+        "title": "Member details",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "roleLabel": "Role",
+        "departmentLabel": "Department",
+        "departmentPlaceholder": "e.g. HR, Operations",
+        "ownerRoleNote": "Ownership can't be changed from here.",
+        "save": "Save changes",
+        "saving": "Saving...",
+        "savedToast": "Member updated.",
+        "saveFailed": "Something went wrong. Please try again.",
+        "forbidden": "You don't have permission to do this.",
+        "roleInvalid": "Please select a valid role.",
+        "departmentTooLong": "Department must be 120 characters or fewer."
+      }
+    }
   },
   "HomePage": {
     "metaTitle": "animo – Career orientation, reimagined",

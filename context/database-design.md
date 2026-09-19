@@ -53,6 +53,7 @@ create table organization_members (
   branch_id uuid references branches(id),   -- NULL = sees the whole org
   role org_role not null,
   status text default 'active',              -- invited | active | disabled
+  department text,                           -- free-text functional grouping (e.g. "HR"), independent of branch
   created_at timestamptz default now()
 );
 

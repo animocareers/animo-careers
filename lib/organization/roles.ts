@@ -6,6 +6,16 @@ export const ORG_ROLES = ["owner", "admin", "head_of_apprenticeship", "team_memb
 export type OrgRole = (typeof ORG_ROLES)[number];
 
 /**
+ * Roles assignable to an existing member from the Team Members edit panel.
+ * Excludes `owner`: reassigning ownership is a distinct, higher-stakes
+ * operation (transfer of org ownership) and isn't exposed as a dropdown
+ * choice here — see feature 10.
+ */
+export const ASSIGNABLE_ORG_ROLES = ORG_ROLES.filter((role) => role !== "owner");
+
+export type AssignableOrgRole = (typeof ASSIGNABLE_ORG_ROLES)[number];
+
+/**
  * Roles allowed to view and edit organization-level settings (name, address,
  * industry). Per context/roles-and-permissions.md, admin has every
  * organization-wide capability owner has except billing/deletion — editing
@@ -19,19 +29,21 @@ export function canManageOrganization(role: OrgRole | null | undefined): boolean
 export interface OrganizationMembership {
   organizationId: string;
   role: OrgRole;
+  /** NULL = org-wide viewer (always true for owner/admin); set = scoped to that one branch. */
+  branchId: string | null;
 }
 
-/** Looks up the caller's organization membership and role — shared by the settings page's access gate and its save action. */
+/** Looks up the caller's organization membership, role, and branch scope — shared by the settings page's access gate and its save actions. */
 export async function getOrganizationMembership(
   supabase: Awaited<ReturnType<typeof createClient>>,
   userId: string,
 ): Promise<OrganizationMembership | null> {
   const { data, error } = await supabase
     .from("organization_members")
-    .select("organization_id, role")
+    .select("organization_id, role, branch_id")
     .eq("user_id", userId)
     .maybeSingle();
 
   if (error || !data) return null;
-  return { organizationId: data.organization_id, role: data.role };
+  return { organizationId: data.organization_id, role: data.role, branchId: data.branch_id };
 }

@@ -99,6 +99,8 @@ model organization_members {
   branch_id       String?   @db.Uuid
   role            org_role
   status          String?   @default("active")
+  /// Free-text functional grouping (e.g. "HR"), independent of `branch_id`.
+  department      String?
   created_at      DateTime? @default(now()) @db.Timestamptz(6)
 
   organization organizations? @relation(fields: [organization_id], references: [id])
