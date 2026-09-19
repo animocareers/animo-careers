@@ -21,7 +21,6 @@ export type SubmitPublicApplicationResult =
   | { status: "success"; applicationId: string; emailSent: boolean }
   | { status: "invalid"; fieldErrors: Record<string, string[] | undefined> }
   | { status: "not_found" }
-  | { status: "duplicate" }
   | { status: "server_error" };
 
 interface SubmitApplicationRpcParams {
@@ -102,7 +101,10 @@ async function defaultSubmitApplicationRpc(
  * bypassing RLS deliberately, since there's no anon-insert policy on
  * `applications`. The RPC also rejects a duplicate submission (same email,
  * organization, branch, and profession) with a 'duplicate_application'
- * error, surfaced here as `{ status: "duplicate" }`.
+ * error; that's reported back here as an ordinary `{ status: "success" }`
+ * (see the anti-enumeration comment at that branch below) rather than a
+ * distinct status, so a public caller can never tell a duplicate from a
+ * genuine new submission.
  *
  * Email failure never changes the result: a successful save is always
  * reported as success even if the confirmation email couldn't be sent.
@@ -191,7 +193,17 @@ export async function submitPublicApplication(
   });
 
   if (error?.message === "duplicate_application") {
-    return { status: "duplicate" };
+    // A public, unauthenticated endpoint must never let its response reveal
+    // whether a given email already applied — that would let anyone who
+    // knows/guesses an email probe whether that person is job-hunting at
+    // this employer. Report the same outcome (success, well-formed id) as a
+    // genuine new submission — the same enumeration-safe pattern the signup
+    // path already uses for a duplicate email (see
+    // app/[locale]/auth/register/actions.ts, the `email_exists` branch).
+    // Duplicate detection itself is untouched: the RPC's exists() check and
+    // the unique index still block the second row from ever being written;
+    // only the caller-visible signal is collapsed into "success".
+    return { status: "success", applicationId: crypto.randomUUID(), emailSent: true };
   }
 
   if (error || !applicationId) {

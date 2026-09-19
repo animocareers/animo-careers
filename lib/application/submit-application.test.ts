@@ -135,7 +135,7 @@ describe("submitPublicApplication", () => {
     expect(result).toEqual({ status: "success", applicationId: "app-2", emailSent: true });
   });
 
-  it("returns duplicate when the applicant already applied for this profession/org/branch", async () => {
+  it("reports the same success shape as a genuine submission when the applicant already applied (anti-enumeration: a public caller must not be able to tell a duplicate from a new submission)", async () => {
     const deps = makeDeps({
       submitApplicationRpc: vi
         .fn()
@@ -143,7 +143,14 @@ describe("submitPublicApplication", () => {
     });
     const result = await submitPublicApplication(realPayload(), deps);
 
-    expect(result).toEqual({ status: "duplicate" });
+    expect(result.status).toBe("success");
+    if (result.status === "success") {
+      expect(result.applicationId).toEqual(expect.any(String));
+      expect(result.applicationId).not.toBe("");
+      expect(result.emailSent).toBe(true);
+    }
+    // No duplicate confirmation email — the real applicant already received
+    // one on their original, genuine submission.
     expect(deps.sendConfirmationEmail).not.toHaveBeenCalled();
   });
 
