@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -158,7 +159,14 @@ export function MemberDetailForm({
       )}
 
       <Button type="submit" disabled={isSubmitting} className="mt-auto">
-        {isSubmitting ? t("saving") : t("save")}
+        {isSubmitting ? (
+          <>
+            <Loader2Icon data-icon="inline-start" className="animate-spin" />
+            {t("saving")}
+          </>
+        ) : (
+          t("save")
+        )}
       </Button>
     </form>
   );
