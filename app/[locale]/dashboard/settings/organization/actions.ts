@@ -1,8 +1,10 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 
 import { canManageOrganization, getOrganizationMembership } from "@/lib/organization/roles";
+import { updateOrganizationMember as updateOrganizationMemberCore } from "@/lib/organization/update-member";
 import { createClient } from "@/lib/supabase/server";
 import { createOrganizationSchema } from "@/lib/validation/organization";
 
@@ -58,4 +60,37 @@ export async function updateOrganization(
   }
 
   return { status: "success" };
+}
+
+export type UpdateOrganizationMemberState =
+  | { status: "success" }
+  | { status: "error"; message: string };
+
+/**
+ * Validates and persists a role/department edit from the Team Members detail
+ * panel. Thin wrapper around lib/organization/update-member.ts's testable
+ * core (which defaults to the real Supabase-backed implementation on its
+ * own): this function just maps the result to translated messages and
+ * revalidates the page, the same split submit-application.ts / route.ts uses
+ * for the public-apply path.
+ */
+export async function updateOrganizationMember(
+  locale: string,
+  memberId: string,
+  values: unknown,
+): Promise<UpdateOrganizationMemberState> {
+  const t = await getTranslations({ locale, namespace: "OrganizationSettings.teamMembers.panel" });
+
+  const result = await updateOrganizationMemberCore(memberId, values);
+
+  if (result.status === "success") {
+    revalidatePath(`/${locale}/dashboard/settings/organization`);
+    return { status: "success" };
+  }
+
+  if (result.status === "forbidden") {
+    return { status: "error", message: t("forbidden") };
+  }
+
+  return { status: "error", message: t("saveFailed") };
 }

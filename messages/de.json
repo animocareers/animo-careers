@@ -186,7 +186,50 @@
     "applyLinkLabel": "Öffentlicher Bewerbungslink",
     "copy": "Kopieren",
     "copied": "Kopiert",
-    "copyFailed": "Der Link konnte nicht kopiert werden. Bitte manuell kopieren."
+    "copyFailed": "Der Link konnte nicht kopiert werden. Bitte manuell kopieren.",
+    "tabs": {
+      "details": "Organisationsdaten",
+      "teamMembers": "Teammitglieder"
+    },
+    "teamMembers": {
+      "heading": "Teammitglieder",
+      "description": "Alle Personen mit Zugriff auf Ihre Organisation.",
+      "inviteButton": "Teammitglied einladen",
+      "empty": "Noch keine Teammitglieder.",
+      "noBranch": "Gesamte Organisation",
+      "columns": {
+        "member": "Mitglied",
+        "role": "Rolle",
+        "branch": "Filiale",
+        "status": "Status"
+      },
+      "status": {
+        "active": "Aktiv",
+        "pending": "Ausstehend"
+      },
+      "roles": {
+        "owner": "Inhaber:in",
+        "admin": "Admin",
+        "head_of_apprenticeship": "Ausbildungsleitung",
+        "team_member": "Teammitglied"
+      },
+      "panel": {
+        "title": "Mitgliederdetails",
+        "nameLabel": "Name",
+        "emailLabel": "E-Mail",
+        "roleLabel": "Rolle",
+        "departmentLabel": "Abteilung",
+        "departmentPlaceholder": "z. B. HR, Betrieb",
+        "ownerRoleNote": "Die Eigentümerschaft kann hier nicht geändert werden.",
+        "save": "Änderungen speichern",
+        "saving": "Wird gespeichert...",
+        "savedToast": "Mitglied aktualisiert.",
+        "saveFailed": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+        "forbidden": "Sie haben dafür keine Berechtigung.",
+        "roleInvalid": "Bitte wählen Sie eine gültige Rolle aus.",
+        "departmentTooLong": "Die Abteilung darf höchstens 120 Zeichen lang sein."
+      }
+    }
   },
   "HomePage": {
     "metaTitle": "animo – Berufsorientierung neu gedacht",

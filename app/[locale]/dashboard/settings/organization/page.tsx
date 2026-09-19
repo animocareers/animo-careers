@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
 import { OrganizationSettingsForm } from "@/components/dashboard/organization-settings/organization-settings-form";
+import { OrganizationSettingsTabs } from "@/components/dashboard/organization-settings/organization-settings-tabs";
+import { TeamMembersTab } from "@/components/dashboard/team-members/team-members-tab";
 import { buildPageMetadata } from "@/lib/metadata";
 import { buildApplyLink, resolveOrigin } from "@/lib/organization/apply-link";
 import { canManageOrganization, getOrganizationMembership } from "@/lib/organization/roles";
@@ -19,7 +21,7 @@ export async function generateMetadata({
   return buildPageMetadata(locale, "OrganizationSettings");
 }
 
-/** Server-rendered organization settings page: view/edit org details, copy the public apply link. Owner/admin only. */
+/** Server-rendered organization settings page: tabbed "Organization details" (view/edit org, copy the public apply link) and "Team Members" (roster + role/department editing). Owner/admin only. */
 export default async function OrganizationSettingsPage({
   params,
 }: PageProps<"/[locale]/dashboard/settings/organization">) {
@@ -97,13 +99,24 @@ export default async function OrganizationSettingsPage({
   const professionIds = orgProfessions.map((row) => row.profession_catalog_id);
 
   return (
-    <div className="mx-auto w-full max-w-2xl p-6">
-      <OrganizationSettingsForm
-        locale={locale}
-        organization={organization}
-        applyLink={applyLink}
-        professions={professions}
-        professionIds={professionIds}
+    <div className="mx-auto w-full max-w-4xl p-6">
+      <OrganizationSettingsTabs
+        detailsContent={
+          <OrganizationSettingsForm
+            locale={locale}
+            organization={organization}
+            applyLink={applyLink}
+            professions={professions}
+            professionIds={professionIds}
+          />
+        }
+        teamMembersContent={
+          <TeamMembersTab
+            locale={locale}
+            organizationId={membership.organizationId}
+            viewerBranchId={membership.branchId}
+          />
+        }
       />
     </div>
   );
